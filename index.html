@@ -433,7 +433,7 @@ html.modal-open{overflow:hidden}
   </div>
   <div class="work-grid">
       <a class="wcard" href="https://welcomeback-delta.vercel.app/" target="_blank" rel="noopener">
-        <span class="wimg w--game"><video data-src="https://res.cloudinary.com/dih43qroh/video/upload/c_limit,w_720,q_auto:good,vc_auto,f_auto/v1790825772/Welcome-back_lfhbsc.mov" poster="https://res.cloudinary.com/dih43qroh/video/upload/so_0,c_limit,w_720,q_auto/v1790825772/Welcome-back_lfhbsc.jpg" muted loop playsinline preload="none" aria-hidden="true"></video></span>
+        <span class="wimg w--game"><video src="https://res.cloudinary.com/dih43qroh/video/upload/c_limit,w_720,q_auto:good,vc_auto,f_auto/v1790825772/Welcome-back_lfhbsc.mov" poster="https://res.cloudinary.com/dih43qroh/video/upload/so_0,c_limit,w_720,q_auto/v1790825772/Welcome-back_lfhbsc.jpg" muted loop playsinline autoplay preload="auto" aria-hidden="true"></video></span>
         <span class="wtext"><span class="wtag">Interactive Video Game + Web Development</span><span class="wname">Welcome Back</span>
         <span class="wdesc">A nostalgic 2000s family computer, rebuilt from scratch. Explore the room, log in, and play the game.</span>
         <span class="wlink">Play the game <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span>
@@ -445,7 +445,7 @@ html.modal-open{overflow:hidden}
         <span class="wlink">See the case studies <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span>
       </span></a>
       <a class="wcard" href="photography/#projects">
-        <span class="wimg w--zodiac"><video data-src="https://res.cloudinary.com/dih43qroh/video/upload/c_limit,w_720,q_auto:good,vc_auto,f_auto/v1779499442/IMG_0200_r17bib.mov" poster="https://res.cloudinary.com/dih43qroh/video/upload/so_0,c_limit,w_720,q_auto/v1779499442/IMG_0200_r17bib.jpg" muted loop playsinline preload="none" aria-hidden="true"></video></span>
+        <span class="wimg w--zodiac"><video src="https://res.cloudinary.com/dih43qroh/video/upload/c_limit,w_720,q_auto:good,vc_auto,f_auto/v1779499442/IMG_0200_r17bib.mov" poster="https://res.cloudinary.com/dih43qroh/video/upload/so_0,c_limit,w_720,q_auto/v1779499442/IMG_0200_r17bib.jpg" muted loop playsinline autoplay preload="auto" aria-hidden="true"></video></span>
         <span class="wtext"><span class="wtag">Creative Direction + Photography</span><span class="wname">Zodiac Signs</span>
         <span class="wdesc">12-model editorial directed from concept to production. Overseeing beauty, styling, production and retouching.</span>
         <span class="wlink">View the series <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span>
@@ -652,9 +652,7 @@ html.modal-open{overflow:hidden}
   }
   function play(v){ var pr = v.play(); if(pr && pr.catch) pr.catch(function(){}); }
 
-  [].slice.call(document.querySelectorAll('video[data-src]')).forEach(function(v){
-    whenVisible(v, function(){ v.src = v.getAttribute('data-src'); play(v); });
-  });
+  [].slice.call(document.querySelectorAll('.wimg video')).forEach(play);
 
   var reel = document.getElementById('phoneReel');
   if(reel){
