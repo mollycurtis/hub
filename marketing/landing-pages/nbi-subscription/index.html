@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NBI Subscription Redesign — Molly Curtis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --navy:      #092254;
+      --blue:      #1B3666;
+      --teal:      #0069a5;
+      --teal-dark: #006985;
+      --sky:       #D3F0F8;
+      --sky-mid:   #a8dff0;
+      --white:     #ffffff;
+      --surface:   #f4f8fb;
+      --border:    #dce8f0;
+      --muted:     #7a8fa8;
+      --text:      #1a2a3a;
+      --font:      'Poppins', sans-serif;
+      --title-grad: linear-gradient(90deg, #092254 0%, #1B3666 50%, #2196c9 100%);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--white);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--navy);
+    }
+    .nav-back {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--teal-dark); }
+
+    /* ── HERO — shorter height ── */
+    .hero {
+      margin-top: 57px;
+      position: relative;
+      width: 100%;
+      height: 28vw;
+      max-height: 290px;
+      min-height: 200px;
+      overflow: hidden;
+      background: var(--navy);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      right: -80px; top: -80px;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: var(--teal-dark);
+      opacity: 0.18;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: 100px; bottom: -60px;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background: var(--sky);
+      opacity: 0.1;
+    }
+
+    /* hero inner — matches main sections width */
+    .hero-inner {
+      position: relative;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 56px;
+      height: 100%;
+    }
+
+    .hero-top-left {
+      position: absolute;
+      top: 28px;
+      left: 56px;
+      z-index: 2;
+      animation: fadeUp 0.8s 0.1s both;
+    }
+    .hero-meta-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sky-mid);
+      margin-bottom: 7px;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 11px;
+      border-radius: 20px;
+      background: rgba(211,240,248,0.15);
+      border: 1px solid rgba(211,240,248,0.25);
+      color: var(--sky);
+      margin-right: 5px;
+      margin-bottom: 4px;
+    }
+
+    .hero-top-right {
+      position: absolute;
+      top: 28px;
+      right: 56px;
+      z-index: 2;
+      text-align: right;
+      animation: fadeUp 0.8s 0.1s both;
+    }
+    .hero-year-value {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .hero-bottom {
+      position: absolute;
+      bottom: 36px;
+      left: 56px;
+      z-index: 2;
+      animation: fadeUp 0.9s 0.2s both;
+    }
+    .hero-title {
+      font-size: clamp(26px, 3vw, 42px);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+    @media (max-width: 768px) {
+      .hero-title { white-space: normal; }
+    }
+
+    /* ── MAIN — wider ── */
+    main {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 56px 0;
+    }
+
+    /* ── SECTION BASE ── */
+    .section {
+      padding: 56px 0 0;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .section.visible { opacity: 1; transform: none; }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal-dark);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(24px, 3.2vw, 38px);
+      font-weight: 700;
+      background: var(--title-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+      margin-bottom: 18px;
+      display: inline-block;
+    }
+
+    .section-body {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: #3d5166;
+      font-weight: 400;
+    }
+    .section-body p + p { margin-top: 13px; }
+
+    /* ── OBJECTIVE ── */
+    .objective-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    /* ── BEFORE — side-by-side on desktop ── */
+    /* image LEFT, pain-points RIGHT */
+    .before-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .before-image-col {
+      position: sticky;
+      top: 80px; /* accounts for nav */
+    }
+
+    .before-copy-col {}
+
+    /* intro copy above the two-col layout */
+    .before-intro {
+      margin-bottom: 0;
+    }
+
+    /* ── PROBLEMS GRID — now single col inside the right col ── */
+    .problems-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .problem-card {
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 20px;
+      border-top: 3px solid var(--border);
+      transition: border-color 0.2s;
+    }
+    .problem-card:hover { border-color: var(--teal-dark); }
+    .problem-num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: #0069a5;
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .problem-title {
+      font-weight: 600;
+      font-size: 13.5px;
+      margin-bottom: 6px;
+      color: var(--navy);
+    }
+    .problem-desc {
+      font-size: 12.5px;
+      line-height: 1.65;
+      color: #4a6275;
+    }
+
+    /* ── IMAGE BLOCKS ── */
+    .img-block {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .img-block img {
+      width: 100%;
+      display: block;
+    }
+    .img-caption {
+      padding: 12px 18px;
+      font-size: 12px;
+      font-style: italic;
+      color: var(--muted);
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── PROCESS — side-by-side on desktop ── */
+    /* copy LEFT, image RIGHT */
+    .process-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .process-copy-col {}
+
+    .process-image-col {
+      position: sticky;
+      top: 80px;
+    }
+
+    /* ── STEPS ── */
+    .steps { margin-top: 0; }
+    .step {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 20px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .step:first-child { border-top: 1px solid var(--border); }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--sky-mid);
+      letter-spacing: 0.04em;
+      padding-top: 2px;
+    }
+    .step-content h4 {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: var(--navy);
+    }
+    .step-content p {
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #4a6275;
+    }
+
+    /* ── RESULTS ── */
+    .results-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 36px;
+    }
+    .result-card {
+      text-align: center;
+      padding: 36px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--white);
+    }
+    .result-number {
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 700;
+      color: #0069a5;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .result-label {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    /* ── CONCLUSION ── */
+    .conclusion {
+      margin-top: 56px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 52px 60px;
+      background: var(--navy);
+      border-radius: 14px;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .conclusion::before {
+      content: '';
+      position: absolute;
+      right: -60px; top: -60px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: var(--teal-dark);
+      opacity: 0.18;
+    }
+    .conclusion-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sky-mid);
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .conclusion-title {
+      font-size: clamp(20px, 2.8vw, 32px);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .conclusion-body {
+      font-size: 15px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.7);
+      position: relative;
+      font-weight: 300;
+    }
+
+    /* ── DIVIDERS ── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin-top: 56px;
+    }
+
+    .grad-divider {
+      margin-top: 56px;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        #092254 20%,
+        #2196c9 70%,
+        transparent 100%
+      );
+      opacity: 0.45;
+    }
+
+    /* ── FOOTER CTA ── */
+    .footer-cta {
+      padding: 56px 0 100px;
+      text-align: center;
+    }
+    .footer-cta-eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .footer-cta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 700;
+      color: var(--navy);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      transition: color 0.2s, gap 0.2s;
+    }
+    .footer-cta-link:hover {
+      color: var(--teal);
+      gap: 16px;
+    }
+    .footer-cta-link .arrow {
+      font-size: 0.85em;
+      transition: transform 0.2s;
+    }
+    .footer-cta-link:hover .arrow {
+      transform: translateX(4px);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* ── RESPONSIVE ── */
+
+    /* Tablet: 960px — stack side-by-side layouts */
+    @media (max-width: 960px) {
+      main { padding: 0 36px 0; }
+      .hero-inner { padding: 0 36px; }
+      .hero-top-left { left: 36px; }
+      .hero-top-right { right: 36px; }
+      .hero-bottom { left: 36px; }
+
+      .before-layout {
+        grid-template-columns: 1fr;
+        margin-top: 32px;
+      }
+      .before-image-col { position: static; order: 2; }
+      .before-copy-col { order: 1; }
+
+      .process-layout {
+        grid-template-columns: 1fr;
+        margin-top: 32px;
+      }
+      .process-image-col { position: static; }
+    }
+
+    /* Mid-tablet: problems grid 1-col */
+    @media (max-width: 700px) {
+      .problems-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Mobile: 768px */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-logo { font-size: 12px; }
+      .nav-back { font-size: 11px; letter-spacing: 0.04em; }
+
+      main { padding: 0 20px 0; }
+
+      .hero { min-height: 180px; }
+      .hero-inner { padding: 0 20px; }
+      .hero-top-left { left: 20px; top: 18px; }
+      .hero-top-right { right: 20px; top: 18px; }
+      .hero-bottom { left: 20px; bottom: 22px; }
+      .hero-title {
+        white-space: normal;
+        font-size: clamp(20px, 5.5vw, 30px);
+      }
+
+      .section { padding: 40px 0 0; }
+      .objective-layout { grid-template-columns: 1fr; gap: 16px; }
+      .before-layout, .process-layout { margin-top: 24px; gap: 28px; }
+      .problems-grid { grid-template-columns: 1fr; gap: 12px; }
+      .results-row { grid-template-columns: 1fr; gap: 12px; }
+      .result-card { padding: 28px 14px; }
+
+      .conclusion { padding: 32px 24px; max-width: 100%; margin-top: 40px; }
+      .divider { margin-top: 40px; }
+      .grad-divider { margin-top: 40px; }
+      .grad-divider-wrap { padding: 0 20px !important; }
+      .footer-cta { padding: 40px 0 64px; }
+    }
+
+    /* Small phones: 480px */
+    @media (max-width: 480px) {
+      .hero-tag { font-size: 10px; padding: 2px 9px; }
+      .hero-top-right { display: none; } /* hide year on tiny screens — saves space */
+    }
+    /* ── LIGHTBOX ── */
+    .img-trigger {
+      display: block;
+      cursor: zoom-in;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.2s;
+    }
+    .img-trigger:hover {
+      box-shadow: 0 6px 28px rgba(9,34,84,0.18);
+    }
+    .img-trigger .img-block {
+      border: none;
+      border-radius: 0;
+      margin: 0;
+    }
+
+    .lightbox-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(9,34,84,0.88);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      cursor: zoom-out;
+    }
+    .lightbox-overlay.open {
+      display: flex;
+    }
+    .lightbox-img {
+      max-width: 92vw;
+      max-height: 88vh;
+      border-radius: 10px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+      display: block;
+    }
+    .lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 28px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 32px;
+      line-height: 1;
+      cursor: pointer;
+      transition: color 0.15s;
+      z-index: 1000;
+    }
+    .lightbox-close:hover { color: #fff; }
+  </style>
+<link rel="canonical" href="https://molly-curtis.com/marketing/landing-pages/nbi-subscription/">
+</head>
+<body>
+
+  <nav>
+    <a href="../../" class="nav-logo">Molly Curtis</a>
+    <a href="../../#landing-pages" class="nav-back">← Landing Pages</a>
+  </nav>
+
+  <!-- HERO — narrower via hero-inner -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-top-left">
+        <div class="hero-meta-label">Deliverable</div>
+        <div>
+          <span class="hero-tag">Landing Page</span>
+          <span class="hero-tag">UX Strategy</span>
+          <span class="hero-tag">Copywriting</span>
+        </div>
+      </div>
+
+      <div class="hero-top-right">
+        <div class="hero-meta-label">Year</div>
+        <div class="hero-year-value">2025</div>
+      </div>
+
+      <div class="hero-bottom">
+        <h1 class="hero-title">NBI Subscription Page Redesign</h1>
+      </div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- OBJECTIVE -->
+    <section class="section" id="objective">
+      <div class="objective-layout">
+        <div>
+          <div class="section-eyebrow">Objective</div>
+          <h2 class="section-title">Turn a confusing pricing page into a conversion machine.</h2>
+        </div>
+        <div class="section-body">
+          <p>The page was dense, visually overwhelming, and asked visitors to make too many decisions before they even understood what they were buying.</p>
+          <p>I identified the problem on my own, built the case for a redesign, and executed the new page from strategy through launch.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- THE BEFORE -->
+    <section class="section" id="problem">
+      <div class="section-eyebrow">The Before</div>
+      <h2 class="section-title">Six friction points killing the conversion.</h2>
+      <p class="section-body before-intro">The original page broke down on execution. Here's what I flagged before touching a single pixel.</p>
+
+      <!-- side-by-side: image left, cards right -->
+      <div class="before-layout">
+
+        <div class="before-image-col">
+          <a class="img-trigger" onclick="openLightbox('https://res.cloudinary.com/dih43qroh/image/upload/v1790814414/Before-Subscription_h9tga0.png')" href="javascript:void(0)" aria-label="View full size: before screenshot">
+            <div class="img-block">
+              <img src="https://res.cloudinary.com/dih43qroh/image/upload/v1790814414/Before-Subscription_h9tga0.png" alt="NBI subscription page before redesign" />
+              <div class="img-caption">Before — state selector, buried billing toggle, spreadsheet-style comparison table</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="before-copy-col">
+          <div class="problems-grid">
+            <div class="problem-card">
+              <div class="problem-num">1</div>
+              <div class="problem-title">Pointless state selector</div>
+              <div class="problem-desc">A dropdown filtering by state — but the difference was only a handful of courses. Not a deciding factor for anyone, just noise that added an unnecessary decision.</div>
+            </div>
+            <div class="problem-card">
+              <div class="problem-num">2</div>
+              <div class="problem-title">Hidden billing toggle</div>
+              <div class="problem-desc">The monthly/annual toggle was visually buried, leading to constant customer service calls from people who didn't realize annual billing existed.</div>
+            </div>
+            <div class="problem-card">
+              <div class="problem-num">3</div>
+              <div class="problem-title">Tiny, forgettable pricing</div>
+              <div class="problem-desc">Prices were tucked into a dense comparison table in small gray font. On a $99–$129/month page, pricing needs to be the hero — not an afterthought.</div>
+            </div>
+            <div class="problem-card">
+              <div class="problem-num">4</div>
+              <div class="problem-title">Spreadsheet-style hero</div>
+              <div class="problem-desc">The above-the-fold section looked like a feature matrix. Row after row of checkmarks with no emotional reason for a visitor to care.</div>
+            </div>
+            <div class="problem-card">
+              <div class="problem-num">5</div>
+              <div class="problem-title">Marketing mush mid-page</div>
+              <div class="problem-desc">Generic benefit statements that read like filler. Nothing specific or memorable that moved a visitor closer to subscribing.</div>
+            </div>
+            <div class="problem-card">
+              <div class="problem-num">6</div>
+              <div class="problem-title">Zero social proof</div>
+              <div class="problem-desc">No testimonials, no logos, no names behind any claim. Visitors were expected to convert on product copy alone.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- PROCESS -->
+    <section class="section" id="process">
+      <div class="section-eyebrow">My Process</div>
+      <h2 class="section-title">Identify. Simplify. Build.</h2>
+      <p class="section-body">I spotted the problem, connected it to business impact, proposed the redesign, and built it myself.</p>
+
+      <!-- side-by-side: copy left, image right -->
+      <div class="process-layout">
+
+        <div class="process-copy-col">
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">01</div>
+              <div class="step-content">
+                <h4>Audit & root cause analysis</h4>
+                <p>I mapped every element against what a visitor needs to convert: clear pricing, a confident value statement, and social proof. Anything that didn't serve those three goals was a candidate for removal.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">02</div>
+              <div class="step-content">
+                <h4>Reduce decisions, increase clarity</h4>
+                <p>I removed the state selector entirely and redesigned the billing toggle as a prominent, clearly labeled visual switcher. Pricing moved front-and-center at a size that actually commands attention.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">03</div>
+              <div class="step-content">
+                <h4>Simplify the plan comparison</h4>
+                <p>Replaced the spreadsheet table with a clean card layout focused on key differentiators. I also added an expandable dropdown on the All Inclusive card — a circle + icon reveals the full list of what's included in the OnDemand pass, so visitors can see everything they get without the page getting cluttered.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">04</div>
+              <div class="step-content">
+                <h4>Replace filler copy with real credibility</h4>
+                <p>The generic benefits section came out. In its place: real firm logos in an animated scrolling bar, animated counters on the three key stats (40+ years, 100K+ reviews, 1,000+ new courses/year), and testimonials with actual names attached.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">05</div>
+              <div class="step-content">
+                <h4>Layer in UX details that do real work</h4>
+                <p>Added a sticky CTA that appears as visitors scroll toward the bottom of the page, giving them a direct path back up to subscribe without having to scroll all the way back. Small detail — measurable impact.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="process-image-col">
+          <a class="img-trigger" onclick="openLightbox('https://res.cloudinary.com/dih43qroh/image/upload/v1790814414/After-Subscription_l6qoki.png')" href="javascript:void(0)" aria-label="View full size: after screenshot">
+            <div class="img-block">
+              <img src="https://res.cloudinary.com/dih43qroh/image/upload/v1790814414/After-Subscription_l6qoki.png" alt="NBI subscription page after redesign" />
+              <div class="img-caption">After — prominent billing toggle, large pricing, expandable plan details, animated social proof, sticky CTA</div>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- RESULTS -->
+    <section class="section" id="results">
+      <div class="section-eyebrow">Outcome</div>
+      <h2 class="section-title">The page did its job.</h2>
+      <p class="section-body">After launch, the data confirmed what the design logic predicted — less friction, more conversions. Bounce rate dropped, subscription volume increased, and customer service saw fewer billing confusion calls almost immediately. Stripping out the noise and making the page easier to read turned out to be more effective than anything that had been on it before.</p>
+
+      <div class="results-row">
+        <div class="result-card">
+          <div class="result-number">↓ Bounce</div>
+          <div class="result-label">Bounce rate dropped — visitors stayed and engaged instead of leaving</div>
+        </div>
+        <div class="result-card">
+          <div class="result-number">↑ Subs</div>
+          <div class="result-label">Subscription volume increased — a clearer page made the decision easier</div>
+        </div>
+        <div class="result-card">
+          <div class="result-number">↓ CS Calls</div>
+          <div class="result-label">Billing confusion calls dropped after the toggle became an unmissable switcher</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONCLUSION -->
+    <div class="section" id="conclusion">
+      <div class="conclusion">
+        <div class="conclusion-eyebrow">Takeaway</div>
+        <h2 class="conclusion-title">Good marketing pages remove decisions. Great ones make the right decision feel obvious.</h2>
+        <p class="conclusion-body">This project wasn't assigned to me — I identified the problem, built the case, and executed the solution independently. The most impactful marketing isn't always new campaigns or bigger budgets. Sometimes it's fixing the page that's already in front of your customers.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- GRADIENT DIVIDER -->
+  <div class="grad-divider-wrap" style="max-width:1300px; margin:0 auto; padding:0 56px;">
+    <div class="grad-divider"></div>
+  </div>
+
+  <!-- FOOTER CTA -->
+  <div class="footer-cta section" id="footer-cta">
+    <p class="footer-cta-eyebrow">More work by Molly Curtis</p>
+    <a href="../../#landing-pages" class="footer-cta-link">
+      View More Landing Pages <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">×</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="Full size preview" onclick="event.stopPropagation()" />
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    sections.forEach(s => observer.observe(s));
+
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+
+</body>
+</html>

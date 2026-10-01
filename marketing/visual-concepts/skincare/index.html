@@ -1,0 +1,2410 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STATIC™ — Recovery for the Overstimulated</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;1,9..40,200&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ── TOKENS ──────────────────────────────────────── */
+:root {
+  --bg:          #080b0f;
+  --bg-2:        #0c1016;
+  --bg-3:        #111620;
+  --charcoal:    #1c2230;
+  --graphite:    #2a3240;
+  --silver:      #7a8a9a;
+  --chrome:      #b0bcc8;
+  --white:       #e8eef4;
+  --ice:         #9dc4d8;
+  --ice-dim:     #587888;
+  --ice-glow:    rgba(140,190,210,0.07);
+  --glass:       rgba(140,190,210,0.04);
+  --glass-border:rgba(160,180,195,0.1);
+
+  --font-display:'Bebas Neue', sans-serif;
+  --font-body:   'DM Sans', sans-serif;
+  --font-mono:   'Space Mono', monospace;
+
+  --steel:        #8a9aaa;
+  --chrome-warm:  #c0c8d0;
+
+  /* state accent — changes per selection */
+  --state-hue:   rgba(168,216,240,0.12);
+  --state-line:  rgba(168,216,240,0.3);
+
+  /* spacing scale */
+  --sp-xs:   0.5rem;
+  --sp-sm:   1rem;
+  --sp-md:   2rem;
+  /* spacing: section-tight | section-standard | section-loose */
+  --section-tight:    clamp(1.5rem,2.5vw,2.5rem);
+  --section-standard: clamp(2rem,3.5vw,4rem);
+  --section-loose:    clamp(3rem,5vw,5rem);
+
+  /* component spacing */
+  --sp-xs:  0.5rem;
+  --sp-sm:  clamp(0.75rem,1.2vw,1.25rem);
+  --sp-md:  clamp(1.25rem,2vw,2rem);
+  --sp-lg:  clamp(2rem,3vw,3rem);
+  --sp-xl:  clamp(3rem,4.5vw,4.5rem);
+
+  /* containers */
+  --mw-site:    1600px;
+  --mw-content: 1440px;
+  --mw-text:    780px;
+  --mw-narrow:  640px;
+}
+
+/* ── RESET ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CUSTOM CURSOR ───────────────────────────────── */
+.cursor {
+  position: fixed;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--ice);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width 0.2s, height 0.2s, opacity 0.2s;
+  mix-blend-mode: screen;
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(168,216,240,0.3);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: left 0.12s ease, top 0.12s ease, width 0.3s, height 0.3s, border-color 0.3s;
+}
+
+/* ── NAV ─────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem clamp(1.5rem,3vw,2.5rem);
+  background: rgba(8,11,15,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  letter-spacing: 0.25em;
+  color: var(--white);
+}
+
+.nav-brand sup {
+  font-family: var(--font-mono);
+  font-size: 0.45rem;
+  letter-spacing: 0.1em;
+  vertical-align: super;
+  color: var(--ice);
+  font-weight: 400;
+}
+
+.nav-links {
+  display: flex;
+  gap: clamp(1.5rem,3vw,2.5rem);
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--silver);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover { color: var(--ice); }
+.nav-back {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--silver);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.nav-back:hover { color: var(--ice); }
+
+.nav-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: var(--silver);
+}
+
+.status-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--ice);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 0.4; }
+  50% { opacity: 1; box-shadow: 0 0 6px var(--ice); }
+}
+
+
+/* ── SCANLINES OVERLAY ───────────────────────────── */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,0.04) 3px,
+    rgba(0,0,0,0.04) 4px
+  );
+  pointer-events: none;
+  z-index: 9000;
+}
+
+/* ── HERO ─────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: min(88svh, 760px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: clamp(3rem,4.5vw,5.5rem) clamp(1.5rem,4vw,3rem) clamp(2rem,3vw,3rem);
+  max-width: var(--mw-site);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ambient grid */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(168,216,240,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168,216,240,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 80%);
+}
+
+/* chromatic orbs */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.hero-orb-1 {
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, rgba(50,85,130,0.12) 0%, transparent 70%);
+  top: -5%; right: -5%;
+  animation: orbFloat 12s ease-in-out infinite;
+}
+
+.hero-orb-2 {
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(140,175,200,0.05) 0%, transparent 70%);
+  bottom: 5%; left: -2%;
+  animation: orbFloat 16s ease-in-out infinite reverse;
+}
+
+.hero-orb-3 {
+  width: 180px; height: 180px;
+  background: radial-gradient(circle, rgba(40,60,120,0.1) 0%, transparent 70%);
+  top: 40%; left: 40%;
+  animation: orbFloat 10s ease-in-out infinite 3s;
+}
+
+@keyframes orbFloat {
+  0%,100% { transform: translate(0,0); }
+  33% { transform: translate(30px,-20px); }
+  66% { transform: translate(-20px,30px); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: min(900px, 72vw);
+  width: 100%;
+}
+
+@media (max-width: 960px) { .hero-content { max-width: 100%; } }
+
+/* biometric readout line */
+.hero-readout {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.readout-line {
+  height: 1px;
+  width: 48px;
+  background: linear-gradient(to right, transparent, var(--ice-dim));
+}
+
+.readout-text {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ice-dim);
+}
+
+/* ── ROTATING WORD HERO — the signature moment ── */
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem,6.5vw,7.5rem);
+  line-height: 0.9;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  margin-bottom: 0;
+}
+
+.hero-headline .static-word {
+  display: block;
+}
+
+.hero-headline .rotating-line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3em;
+  flex-wrap: nowrap;
+}
+
+.hero-headline .for-the {
+  color: var(--chrome);
+}
+
+.rotating-word-wrap {
+  display: inline-block;
+  overflow: hidden;
+  height: 1.05em;
+  vertical-align: bottom;
+  position: relative;
+}
+
+.rotating-word {
+  display: block;
+  color: var(--ice);
+  animation: wordFlip 0s ease forwards;
+  transform-origin: top center;
+  will-change: transform, opacity;
+}
+
+.rotating-word.exit {
+  animation: wordExit 0.45s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+
+.rotating-word.enter {
+  animation: wordEnter 0.45s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+
+@keyframes wordExit {
+  0%   { transform: translateY(0)     rotateX(0deg);   opacity: 1; }
+  100% { transform: translateY(-60%)  rotateX(-40deg); opacity: 0; }
+}
+
+@keyframes wordEnter {
+  0%   { transform: translateY(60%)   rotateX(40deg);  opacity: 0; }
+  100% { transform: translateY(0)     rotateX(0deg);   opacity: 1; }
+}
+
+.hero-sub {
+  margin-top: 1.2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.hero-sub-line {
+  flex-shrink: 0;
+  width: 1px;
+  height: 64px;
+  background: linear-gradient(to bottom, var(--ice-dim), transparent);
+  margin-top: 0.3rem;
+}
+
+.hero-sub-text {
+  max-width: clamp(380px,36vw,560px);
+  font-size: clamp(0.8rem,1.1vw,0.92rem);
+  line-height: 1.8;
+  color: var(--silver);
+  font-weight: 200;
+  letter-spacing: 0.02em;
+}
+
+.hero-tags {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ice-dim);
+  border: 1px solid rgba(168,216,240,0.15);
+  padding: 0.4rem 0.9rem;
+  border-radius: 2px;
+  background: var(--glass);
+}
+
+/* Floating glass panel — right side */
+.hero-panel {
+  position: absolute;
+  right: clamp(1.5rem,6vw,5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(180px,18vw,240px);
+  background: rgba(12,16,22,0.6);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1.5rem;
+  border-radius: 4px;
+  z-index: 3;
+}
+
+@media (max-width: 900px) { .hero-panel { display: none; } }
+
+.panel-header {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ice-dim);
+  margin-bottom: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-live {
+  color: var(--ice);
+  animation: pulse 2s infinite;
+}
+
+.panel-metric {
+  margin-bottom: 1rem;
+}
+
+.metric-label {
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--silver);
+  margin-bottom: 0.3rem;
+}
+
+.metric-bar-wrap {
+  height: 2px;
+  background: rgba(168,216,240,0.07);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 0.2rem;
+}
+
+.metric-bar {
+  height: 100%;
+  background: linear-gradient(to right, var(--ice-dim), var(--ice));
+  border-radius: 2px;
+  transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+.metric-val {
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  color: var(--chrome);
+  text-align: right;
+}
+
+
+
+/* ── SECTION: SKIN UNDER PRESSURE ───────────────── */
+.pressure-section {
+  padding: var(--section-standard) clamp(1.5rem,4vw,3rem);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to bottom, var(--bg) 0%, var(--bg-2) 100%);
+}
+
+.pressure-inner {
+  max-width: var(--mw-content);
+  margin: 0 auto;
+}
+
+.pressure-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 40% at 80% 50%, rgba(40,80,140,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.overline {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--ice-dim);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.overline::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--ice-dim);
+}
+
+.pressure-grid {
+  display: block;
+}
+
+.pressure-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem,3vw,3rem);
+  line-height: 1.0;
+  letter-spacing: 0.03em;
+  color: var(--white);
+  margin-bottom: 0.6rem;
+}
+
+.pressure-body {
+  font-size: clamp(0.82rem,1.2vw,0.95rem);
+  line-height: 1.9;
+  color: var(--silver);
+  font-weight: 200;
+  max-width: min(640px, 100%);
+  margin-bottom: 1.5rem;
+}
+
+.pressure-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.stat-block {
+  padding: 0.9rem 1rem;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 3px;
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(2rem,3.5vw,3rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--ice);
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--silver);
+  margin-top: 0.4rem;
+}
+
+/* Signal disruption visual */
+.signal-visual {
+  position: relative;
+  height: clamp(300px,45vw,500px);
+}
+
+.signal-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(168,216,240,0.08);
+}
+
+.signal-circle:nth-child(1) { inset: 0; animation: signalPulse 4s ease-in-out infinite; }
+.signal-circle:nth-child(2) { inset: 8%; animation: signalPulse 4s ease-in-out infinite 0.6s; }
+.signal-circle:nth-child(3) { inset: 18%; animation: signalPulse 4s ease-in-out infinite 1.2s; }
+.signal-circle:nth-child(4) { inset: 30%; animation: signalPulse 4s ease-in-out infinite 1.8s; }
+.signal-circle:nth-child(5) {
+  inset: 44%;
+  background: radial-gradient(circle, rgba(168,216,240,0.15) 0%, transparent 70%);
+  border-color: rgba(168,216,240,0.2);
+  animation: signalPulse 4s ease-in-out infinite 2.4s;
+}
+
+@keyframes signalPulse {
+  0%,100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.02); }
+}
+
+.signal-text {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+}
+
+.signal-hz {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem,6vw,5rem);
+  letter-spacing: 0.06em;
+  color: var(--ice);
+  line-height: 1;
+}
+
+.signal-sub {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.25em;
+  color: var(--ice-dim);
+  margin-top: 0.5rem;
+}
+
+/* ── SECTION: DIAGNOSTICS ────────────────────────── */
+.diag-section {
+  padding: var(--section-standard) clamp(1.5rem,4vw,3rem);
+  background: var(--bg-2);
+  position: relative;
+  overflow: hidden;
+}
+
+.diag-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(168,216,240,0.12), transparent);
+}
+
+.diag-inner {
+  max-width: var(--mw-content);
+  margin: 0 auto;
+}
+
+.diag-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 700px) { .diag-header { grid-template-columns: 1fr; } }
+
+.diag-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem,3.5vw,3.5rem);
+  line-height: 1.0;
+  letter-spacing: 0.03em;
+  color: var(--white);
+}
+
+.diag-intro {
+  font-size: clamp(0.85rem,1.2vw,0.96rem);
+  line-height: 1.9;
+  color: var(--silver);
+  font-weight: 300;
+  max-width: min(680px, 100%);
+}
+
+/* Custom select system */
+/* ── DIAGNOSTIC SELECTORS ────────────────────────── */
+/* Two-column diagnostic body: selectors | results */
+.diag-body {
+  display: grid;
+  grid-template-columns: minmax(240px, 32%) 1fr;
+  gap: clamp(1rem,1.8vw,1.5rem);
+  align-items: stretch;
+}
+
+@media (max-width: 860px) {
+  .diag-body { grid-template-columns: 1fr; }
+}
+
+.diag-selectors {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.selector-module {
+  background: rgba(12,16,22,0.85);
+  border: 1px solid rgba(160,180,195,0.12);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.35s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.selector-module:hover { border-color: rgba(157,196,216,0.22); }
+
+/* Step + question row */
+.sel-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.sel-step {
+  font-family: var(--font-mono);
+  font-size: 0.4rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ice-dim);
+  flex-shrink: 0;
+}
+
+/* Question — strictly one line, no wrap */
+.sel-question {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--chrome);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1;
+}
+
+/* Scrollable pill list — fixed height, shows ~3 items, scroll for rest */
+.sel-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  height: 96px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(157,196,216,0.12) transparent;
+  padding-right: 4px;
+}
+
+.sel-options::-webkit-scrollbar { width: 2px; }
+.sel-options::-webkit-scrollbar-track { background: transparent; }
+.sel-options::-webkit-scrollbar-thumb { background: rgba(157,196,216,0.2); border-radius: 2px; }
+
+.sel-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.42rem 0.7rem;
+  border: 1px solid rgba(160,180,195,0.1);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--silver);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  cursor: none;
+  transition: border-color 0.25s, color 0.25s, background 0.25s;
+  text-align: left;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.sel-pill:hover {
+  border-color: rgba(157,196,216,0.25);
+  color: var(--chrome);
+  background: rgba(140,190,210,0.04);
+}
+
+.sel-pill.active {
+  border-color: rgba(157,196,216,0.4);
+  color: var(--ice);
+  background: rgba(140,190,210,0.06);
+}
+
+.sel-pill-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  border: 1px solid rgba(157,196,216,0.35);
+  flex-shrink: 0;
+  transition: background 0.25s, border-color 0.25s;
+}
+
+.sel-pill.active .sel-pill-dot {
+  background: var(--ice);
+  border-color: var(--ice);
+  box-shadow: 0 0 6px rgba(157,196,216,0.4);
+}
+
+
+/* Dynamic state panel */
+.state-panel {
+  background: rgba(12,16,22,0.6);
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  padding: clamp(1.2rem,1.8vw,1.6rem);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1rem,2.5vw,2rem);
+  align-items: stretch;
+  transition: border-color 0.5s, box-shadow 0.5s;
+  position: relative;
+  top: auto;
+  overflow: hidden;
+  height: 100%;
+}
+
+@media (max-width: 820px) {
+  .state-panel {
+    position: relative;
+    top: auto;
+    grid-template-columns: 1fr;
+  }
+}
+
+.state-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--state-hue);
+  transition: background 0.8s ease;
+  pointer-events: none;
+}
+
+.state-recommendation {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.rec-products {
+  margin-top: auto;
+}
+
+.rec-overline {
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ice-dim);
+  margin-bottom: 0.6rem;
+}
+
+.rec-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem,2vw,1.8rem);
+  letter-spacing: 0.06em;
+  color: var(--white);
+  margin-bottom: 0.6rem;
+  line-height: 1.05;
+}
+
+.rec-body {
+  font-size: clamp(0.88rem,1.2vw,1rem);
+  line-height: 1.85;
+  color: var(--silver);
+  font-weight: 300;
+  margin-bottom: 0.9rem;
+}
+
+.rec-products {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.rec-product {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem 0.9rem;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 3px;
+  transition: border-color 0.3s;
+}
+
+.rec-product:hover { border-color: rgba(168,216,240,0.25); }
+
+.product-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--state-line);
+  flex-shrink: 0;
+  transition: background 0.5s;
+}
+
+.product-name {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--chrome);
+}
+
+.product-category {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--silver);
+  white-space: nowrap;
+}
+
+/* State meters */
+.state-meters {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Title + score on the same row */
+.meter-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(157,196,216,0.08);
+}
+
+.meter-title {
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ice-dim);
+  margin-bottom: 0; /* override — now inside flex row */
+}
+
+/* Inline score: number + label stacked, right-aligned */
+.skin-score-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.skin-score-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem,3vw,2.8rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--ice);
+}
+
+.skin-score-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.skin-score-label {
+  font-family: var(--font-mono);
+  font-size: 0.4rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ice-dim);
+}
+
+.skin-score-sub {
+  font-family: var(--font-mono);
+  font-size: 0.44rem;
+  letter-spacing: 0.12em;
+  color: var(--silver);
+}
+
+
+
+.meter-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.75rem;
+}
+
+.meter-key {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  color: var(--silver);
+  width: 96px;
+  flex-shrink: 0;
+}
+
+.meter-track {
+  flex: 1;
+  height: 2px;
+  background: rgba(168,216,240,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.meter-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--ice-dim), var(--ice));
+  transition: width 0.9s cubic-bezier(0.4,0,0.2,1);
+}
+
+.meter-num {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--chrome);
+  width: 32px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+
+/* ── PRODUCT PHOTOS ──────────────────────────────── */
+/* Photo styles are context-specific — see .featured-visual and .product-visual */
+.product-bg-2, .product-bg-3, .product-bg-4 { background: #000; }
+
+/* ── SECTION: PRODUCT SYSTEM ─────────────────────── */
+.products-section {
+  padding: var(--section-standard) clamp(1.5rem,4vw,3rem);
+  background: var(--bg);
+  position: relative;
+}
+
+.products-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(168,216,240,0.1), transparent);
+}
+
+.products-inner { max-width: 1300px; margin: 0 auto; }
+
+.products-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem,2.8vw,3rem);
+  line-height: 0.95;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.protocol-tabs {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--glass-border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 3rem;
+  width: fit-content;
+}
+
+.protocol-tab {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.4rem;
+  color: var(--silver);
+  background: transparent;
+  border: none;
+  cursor: none;
+  transition: background 0.3s, color 0.3s;
+  border-right: 1px solid var(--glass-border);
+}
+
+.protocol-tab:last-child { border-right: none; }
+.protocol-tab.active { background: var(--glass); color: var(--ice); }
+.protocol-tab:hover:not(.active) { color: var(--chrome); background: rgba(168,216,240,0.02); }
+
+/* ── PRODUCT SYSTEM: portrait-image layout ─────────── */
+
+/*
+  Layout:
+  Left col  — featured card (tall, full serum photo + info below)
+  Right col — 2×2 grid of secondary cards, each IMAGE LEFT | COPY RIGHT
+*/
+.products-grid {
+  display: grid;
+  grid-template-columns: minmax(200px, 0.75fr) 1fr;
+  gap: clamp(0.8rem,1.5vw,1.2rem);
+  align-items: start;
+}
+
+@media (max-width: 860px) { .products-grid { grid-template-columns: 1fr; } }
+
+/* ── FEATURED CARD (left col, full height) ── */
+.product-card-featured {
+  background: rgba(10,14,20,0.9);
+  border: 1px solid rgba(157,196,216,0.14);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: border-color 0.4s, box-shadow 0.4s;
+  cursor: none;
+  display: flex;
+  flex-direction: column !important;
+  height: auto;
+}
+
+.product-card-featured:hover {
+  border-color: rgba(157,196,216,0.28);
+  box-shadow: 0 0 30px rgba(140,190,210,0.05);
+}
+
+/* Photo fills most of the card — no padding, edge-to-edge portrait */
+.featured-visual {
+  flex: none;
+  position: relative;
+  background: #000;
+  height: clamp(220px,24vw,320px);
+  overflow: hidden;
+  padding: 0;
+}
+
+.featured-visual .product-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.product-card-featured:hover .featured-visual .product-photo {
+  transform: scale(1.02);
+}
+
+.featured-tag {
+  position: absolute;
+  top: 1rem; left: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.42rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ice);
+  background: rgba(8,11,15,0.75);
+  padding: 0.3rem 0.65rem;
+  border-radius: 2px;
+  border: 1px solid rgba(157,196,216,0.18);
+  z-index: 3;
+}
+
+.featured-info {
+  padding: 1rem 1.2rem 1.2rem;
+  border-top: 1px solid rgba(157,196,216,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  flex-shrink: 0;
+}
+
+.featured-code {
+  font-family: var(--font-mono);
+  font-size: 0.4rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ice-dim);
+}
+
+.featured-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem,2vw,2rem);
+  letter-spacing: 0.06em;
+  color: var(--white);
+  line-height: 1;
+}
+
+.featured-desc {
+  font-size: 0.75rem;
+  line-height: 1.65;
+  color: var(--silver);
+  font-weight: 200;
+}
+
+.featured-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+/* ── SECONDARY CARDS GRID (right col, 2×2) ── */
+.product-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(0.8rem,1.5vw,1.2rem);
+  align-content: start;
+}
+
+@media (max-width: 500px) {
+  .product-cards-grid { grid-template-columns: 1fr; }
+  .product-card { flex-direction: column; }
+  .product-visual { flex: none; width: 100%; height: clamp(180px,50vw,240px); }
+  .product-info { border-left: none; border-top: 1px solid var(--glass-border); }
+}
+
+/* Each secondary card: IMAGE on left | COPY on right, horizontal split */
+.product-card {
+  background: rgba(12,16,22,0.7);
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: border-color 0.4s;
+  cursor: none;
+  display: flex;
+  flex-direction: row;   /* IMAGE LEFT | COPY RIGHT */
+}
+
+.product-card:hover {
+  border-color: rgba(157,196,216,0.18);
+}
+
+/* Portrait image — fixed width left column, fills full height */
+.product-visual {
+  position: relative;
+  background: #000;
+  flex: 0 0 clamp(80px,8vw,120px);
+  height: auto;
+  min-height: clamp(120px,14vw,180px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-visual .product-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.product-card:hover .product-visual .product-photo {
+  transform: scale(1.03);
+}
+
+.product-tag-overlay {
+  position: absolute;
+  top: 0.6rem; left: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.38rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ice-dim);
+  background: rgba(8,11,15,0.75);
+  padding: 0.2rem 0.45rem;
+  border-radius: 2px;
+  border: 1px solid rgba(140,190,210,0.1);
+  z-index: 2;
+}
+
+/* Copy zone sits below image */
+.product-info {
+  padding: 0.9rem 1rem;
+  border-left: 1px solid var(--glass-border);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  justify-content: center;
+  min-width: 0;
+}
+
+.product-code {
+  font-family: var(--font-mono);
+  font-size: 0.4rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ice-dim);
+}
+
+.product-title {
+  font-family: var(--font-display);
+  font-size: clamp(1rem,1.5vw,1.3rem);
+  letter-spacing: 0.06em;
+  color: var(--white);
+  line-height: 1;
+}
+
+.product-desc {
+  font-size: 0.68rem;
+  line-height: 1.65;
+  color: var(--silver);
+  font-weight: 200;
+}
+
+.product-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: auto;
+  padding-top: 0.3rem;
+}
+
+.ingredient-pill {
+  font-family: var(--font-mono);
+  font-size: 0.38rem;
+  letter-spacing: 0.1em;
+  color: var(--silver);
+  border: 1px solid rgba(140,190,210,0.1);
+  padding: 0.18rem 0.45rem;
+  border-radius: 20px;
+}
+
+/* unused legacy classes */
+.bottle-render, .featured-orb-1, .featured-orb-2,
+.featured-protocol-no, .product-orb,
+.product-bg-2, .product-bg-3, .product-bg-4 { display: none; }
+
+/* ── SECTION: CAMPAIGN VISUALS ───────────────────── */
+.campaign-section {
+  padding: var(--sp-xl) clamp(1.5rem,4vw,3rem);
+  background: var(--bg-2);
+  position: relative;
+  overflow: hidden;
+}
+
+.campaign-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(168,216,240,0.1), transparent);
+}
+
+.campaign-inner { max-width: var(--mw-content); margin: 0 auto; }
+
+.campaign-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem,2.5vw,3rem);
+  line-height: 1.0;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  margin-bottom: clamp(1rem,2vw,1.5rem);
+}
+
+.campaign-mosaic {
+  display: grid;
+  /* Phone portrait col + landscape stacked col */
+  grid-template-columns: minmax(180px, 0.42fr) 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: clamp(0.6rem,1.2vw,1rem);
+  height: auto;
+  aspect-ratio: 21/9;
+  max-height: 520px;
+}
+
+@media (max-width: 820px) {
+  .campaign-mosaic {
+    grid-template-columns: 1fr;
+    grid-template-rows: 56vw auto auto;
+    height: auto;
+    max-height: none;
+    aspect-ratio: unset;
+  }
+}
+
+.campaign-tile {
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  background: #000;
+  border: 1px solid var(--glass-border);
+  transition: border-color 0.4s;
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.campaign-tile:hover { border-color: rgba(168,216,240,0.2); }
+
+/* Phone spans both rows — portrait image contained */
+.campaign-tile.tile-phone {
+  grid-row: 1 / 3;
+  padding: clamp(0.5rem,1.5%,1rem);
+}
+
+@media (max-width: 820px) {
+  .campaign-tile.tile-phone { grid-row: auto; padding: 1rem; }
+}
+
+/* All campaign images */
+.campaign-photo {
+  display: block;
+  transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.campaign-tile:hover .campaign-photo { transform: scale(1.03); }
+
+/* Phone: portrait, full image, no crop */
+.tile-phone .campaign-photo {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Subway + billboard: landscape, fill width, cover height */
+.tile-landscape .campaign-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* Label overlay on each tile */
+.tile-label {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.46rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ice-dim);
+  border: 1px solid rgba(168,216,240,0.14);
+  padding: 0.28rem 0.65rem;
+  border-radius: 2px;
+  background: rgba(6,8,12,0.65);
+  backdrop-filter: blur(6px);
+  z-index: 2;
+}
+
+/* ── SECTION: CLOSING CTA ────────────────────────── */
+.closing-section {
+  position: relative;
+  min-height: clamp(240px,28vw,380px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: var(--section-standard) clamp(1.5rem,4vw,3rem);
+  text-align: center;
+}
+
+.closing-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 40%, rgba(40,70,120,0.12) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(168,216,240,0.05) 0%, transparent 60%),
+    linear-gradient(to bottom, var(--bg-2) 0%, var(--bg) 100%);
+}
+
+.closing-grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(168,216,240,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168,216,240,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 0%, transparent 80%);
+}
+
+.closing-content {
+  position: relative;
+  z-index: 2;
+  max-width: var(--mw-text);
+}
+
+.closing-overline {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--ice-dim);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.closing-overline::before,
+.closing-overline::after {
+  content: '';
+  display: block;
+  width: 32px; height: 1px;
+  background: var(--ice-dim);
+}
+
+.closing-headline {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem,3.5vw,3.8rem);
+  line-height: 0.95;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.closing-body {
+  font-size: clamp(0.82rem,1.2vw,0.95rem);
+  line-height: 1.85;
+  color: var(--silver);
+  font-weight: 200;
+  max-width: min(500px, 90%);
+  margin: 0 auto 1.5rem;
+}
+
+.closing-line {
+  width: 60px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--ice-dim), transparent);
+  margin: 0 auto 2.5rem;
+  position: relative;
+}
+
+.closing-line::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 50%;
+  transform: translateX(-50%);
+  width: 4px; height: 3px;
+  border-radius: 50%;
+  background: var(--ice);
+  box-shadow: 0 0 8px 2px rgba(168,216,240,0.4);
+}
+
+.closing-stamp {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--silver);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+/* ── ANIMATIONS ──────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── MOBILE CURSOR OFF ───────────────────────────── */
+@media (max-width: 820px) {
+  .cursor, .cursor-ring { display: none; }
+  body { cursor: auto; }
+}
+
+/* ── FOOTER ──────────────────────────────────────── */
+/* old footer CSS removed */
+
+
+/* ── GLITCH MARQUEE STRIP ────────────────────────── */
+.glitch-strip {
+  overflow: hidden;
+  padding: clamp(0.6rem,1vw,1rem) 0;
+  position: relative;
+  background: var(--bg);
+  border-top: 1px solid rgba(157,196,216,0.06);
+  border-bottom: 1px solid rgba(157,196,216,0.06);
+}
+
+.glitch-strip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right,
+    var(--bg) 0%,
+    transparent 8%,
+    transparent 92%,
+    var(--bg) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.glitch-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 22s linear infinite;
+  will-change: transform;
+}
+
+.glitch-track-reverse {
+  animation-direction: reverse;
+  animation-duration: 28s;
+  margin-top: 0.8rem;
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.glitch-item {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem,4vw,3rem);
+  padding-right: clamp(1.5rem,4vw,3rem);
+  white-space: nowrap;
+}
+
+.glitch-word {
+  font-family: var(--font-display);
+  font-size: clamp(1rem,1.8vw,1.6rem);
+  letter-spacing: 0.12em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(157,196,216,0.18);
+  text-transform: uppercase;
+  position: relative;
+  transition: color 0.2s, -webkit-text-stroke 0.2s;
+}
+
+.glitch-word.filled {
+  color: var(--chrome);
+  -webkit-text-stroke: 1px transparent;
+}
+
+.glitch-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: rgba(157,196,216,0.25);
+  flex-shrink: 0;
+}
+
+/* Glitch flicker on random words */
+@keyframes glitchFlicker {
+  0%,95%,100%  { opacity: 1; transform: none; clip-path: none; }
+  96% { opacity: 0.8; transform: translateX(2px); clip-path: inset(20% 0 60% 0); }
+  97% { opacity: 1; transform: translateX(-1px); clip-path: inset(60% 0 10% 0); }
+  98% { opacity: 0.9; transform: none; clip-path: none; }
+}
+
+.glitch-word:nth-child(5n) {
+  animation: glitchFlicker 8s ease-in-out infinite;
+}
+.glitch-word:nth-child(7n) {
+  animation: glitchFlicker 12s ease-in-out infinite 3s;
+}
+
+
+
+/* ── ULTRA-WIDE GUARD ────────────────────────────── */
+section {
+  max-width: var(--mw-site);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── BACK TO TOP ─────────────────────────────────── */
+footer {
+  padding: clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);
+  border-top: 1px solid rgba(157,196,216,0.06);
+  background: var(--bg);
+  display: flex;
+  justify-content: center;
+}
+
+.back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 2rem;
+  border: 1px solid rgba(157,196,216,0.18);
+  border-radius: 3px;
+  text-decoration: none;
+  cursor: none;
+  transition: border-color 0.3s, background 0.3s;
+  background: transparent;
+}
+
+.back-to-top:hover {
+  border-color: rgba(157,196,216,0.38);
+  background: rgba(157,196,216,0.04);
+}
+
+.btt-arrow {
+  font-size: 0.7rem;
+  color: var(--ice-dim);
+  line-height: 1;
+}
+
+.btt-sub {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+
+
+/* ── RESPONSIVE: fluid first, minimal breakpoints ────────── */
+
+/* Tablet: cols collapse at natural content breakpoints */
+@media (max-width: 860px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .diag-header { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 820px) {
+  .pressure-grid { grid-template-columns: 1fr; }
+  .campaign-mosaic {
+    grid-template-columns: 1fr;
+    grid-template-rows: 56vw auto auto;
+    aspect-ratio: unset;
+    height: auto;
+    max-height: none;
+  }
+  .campaign-tile.tile-phone { grid-row: auto; padding: 0.75rem; }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .hero-headline { font-size: clamp(2.6rem,11vw,4.5rem); }
+  .hero-sub-text { max-width: 100%; }
+  .diag-body { grid-template-columns: 1fr; }
+  .state-panel { position: relative; top: auto; grid-template-columns: 1fr; }
+  .product-cards-grid { grid-template-columns: 1fr; }
+  .product-card { flex-direction: column; }
+  .product-visual {
+    flex: none;
+    width: 100%;
+    height: clamp(200px,55vw,280px);
+    min-height: unset;
+  }
+  .product-info { border-left: none; border-top: 1px solid var(--glass-border); }
+  .nav-links, .nav-status { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="scanlines"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">STATIC<sup>™</sup></div>
+  <ul class="nav-links">
+    <li><a href="#diagnostics">Diagnostics</a></li>
+    <li><a href="#protocols">Protocols</a></li>
+    <li><a href="#campaign">Campaign</a></li>
+  </ul>
+  <a href="../../#visual-concepts" class="nav-back">← Visual Concepts</a>
+</nav>
+
+<!-- ═══════════════════════════════
+     HERO — rotating word lives here
+══════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+
+  <div class="hero-content">
+    <div class="hero-readout">
+      <div class="readout-line"></div>
+      <span class="readout-text">STATIC™ / Skin Recovery System</span>
+    </div>
+
+    <h1 class="hero-headline">
+      <span class="static-word">RECOVERY</span>
+      <span class="static-word">FOR THE</span>
+      <span class="rotating-line">
+        <span class="for-the"></span>
+        <span class="rotating-word-wrap" id="rotatingWrap">
+          <span class="rotating-word" id="rotatingWord">OVERSTIMULATED</span>
+        </span>
+      </span>
+    </h1>
+
+    <div class="hero-sub">
+      <div class="hero-sub-line"></div>
+      <div>
+        <p class="hero-sub-text">Skincare engineered for the overstimulated generation. Formulated for screen fatigue, stress skin, and the body that never fully disconnects.</p>
+        <div class="hero-tags">
+          <span class="tag">Screen Fatigue</span>
+          <span class="tag">Stress Skin</span>
+          <span class="tag">Blue Light Recovery</span>
+          <span class="tag">Sleep Repair</span>
+          <span class="tag">Digital Detox</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skin readout panel — tall, absolute right -->
+  <div class="hero-panel">
+    <div class="panel-header">
+      <span>SKIN READOUT</span>
+      <span class="panel-live">● LIVE</span>
+    </div>
+    <div class="panel-metric">
+      <div class="metric-label">Cortisol Index</div>
+      <div class="metric-bar-wrap"><div class="metric-bar" style="width:78%"></div></div>
+      <div class="metric-val">78%</div>
+    </div>
+    <div class="panel-metric">
+      <div class="metric-label">Barrier Function</div>
+      <div class="metric-bar-wrap"><div class="metric-bar" style="width:42%"></div></div>
+      <div class="metric-val">42%</div>
+    </div>
+    <div class="panel-metric">
+      <div class="metric-label">Blue Light Stress</div>
+      <div class="metric-bar-wrap"><div class="metric-bar" style="width:91%"></div></div>
+      <div class="metric-val">91%</div>
+    </div>
+    <div class="panel-metric">
+      <div class="metric-label">Recovery Rate</div>
+      <div class="metric-bar-wrap"><div class="metric-bar" style="width:31%"></div></div>
+      <div class="metric-val">31%</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     INTERACTIVE DIAGNOSTICS
+══════════════════════════════════ -->
+<section class="diag-section" id="diagnostics">
+  <div class="diag-inner">
+    <div class="diag-header">
+      <div class="reveal">
+        <div class="overline">Diagnostic Interface</div>
+        <h2 class="diag-heading">RUN YOUR SKIN SCAN</h2>
+      </div>
+      <p class="diag-intro reveal">Select your current state. STATIC™ calibrates your recovery protocol in real time — adjusting formulations, textures, and rituals to your exact condition.</p>
+    </div>
+
+    <div class="diag-body reveal">
+
+      <!-- LEFT: stacked selectors -->
+      <div class="diag-selectors">
+
+        <!-- 01: Current State -->
+        <div class="selector-module">
+          <div class="sel-header"><span class="sel-question">What's your current state?</span><span class="sel-step">01/03</span></div>
+          <div class="sel-options" id="stateOptions">
+            <button class="sel-pill active" data-value="overstimulated" data-group="state">
+              <span class="sel-pill-dot"></span>Overstimulated
+            </button>
+            <button class="sel-pill" data-value="sleep-deprived" data-group="state">
+              <span class="sel-pill-dot"></span>Sleep Deprived
+            </button>
+            <button class="sel-pill" data-value="burnt-out" data-group="state">
+              <span class="sel-pill-dot"></span>Burnt Out
+            </button>
+            <button class="sel-pill" data-value="mentally-foggy" data-group="state">
+              <span class="sel-pill-dot"></span>Mentally Foggy
+            </button>
+            <button class="sel-pill" data-value="hyperconnected" data-group="state">
+              <span class="sel-pill-dot"></span>Hyperconnected
+            </button>
+          </div>
+        </div>
+
+        <!-- 02: Exposure Level -->
+        <div class="selector-module">
+          <div class="sel-header"><span class="sel-question">Daily screen exposure?</span><span class="sel-step">02/03</span></div>
+          <div class="sel-options" id="exposureOptions">
+            <button class="sel-pill active" data-value="2hr" data-group="exposure">
+              <span class="sel-pill-dot"></span>Under 2 hours
+            </button>
+            <button class="sel-pill" data-value="6hr" data-group="exposure">
+              <span class="sel-pill-dot"></span>4–6 hours
+            </button>
+            <button class="sel-pill" data-value="10hr" data-group="exposure">
+              <span class="sel-pill-dot"></span>8–10 hours
+            </button>
+            <button class="sel-pill" data-value="endless" data-group="exposure">
+              <span class="sel-pill-dot"></span>Endless scrolling
+            </button>
+            <button class="sel-pill" data-value="overnight" data-group="exposure">
+              <span class="sel-pill-dot"></span>Screen in bed / overnight
+            </button>
+          </div>
+        </div>
+
+        <!-- 03: Recovery Mode -->
+        <div class="selector-module">
+          <div class="sel-header"><span class="sel-question">Select your recovery mode.</span><span class="sel-step">03/03</span></div>
+          <div class="sel-options" id="modeOptions">
+            <button class="sel-pill active" data-value="reset" data-group="mode">
+              <span class="sel-pill-dot"></span>Reset
+            </button>
+            <button class="sel-pill" data-value="buffer" data-group="mode">
+              <span class="sel-pill-dot"></span>Buffer
+            </button>
+            <button class="sel-pill" data-value="recover" data-group="mode">
+              <span class="sel-pill-dot"></span>Recover
+            </button>
+            <button class="sel-pill" data-value="sleep-mode" data-group="mode">
+              <span class="sel-pill-dot"></span>Sleep Mode
+            </button>
+            <button class="sel-pill" data-value="maintenance" data-group="mode">
+              <span class="sel-pill-dot"></span>Maintenance
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /diag-selectors -->
+
+      <!-- RIGHT: live results panel, sticky on desktop -->
+      <div class="state-panel" id="statePanel">
+      <div class="state-recommendation">
+        <div class="rec-overline" id="recOverline">RECOMMENDED PROTOCOL</div>
+        <div class="rec-heading" id="recHeading">RESET SEQUENCE</div>
+        <p class="rec-body" id="recBody">Your skin is in active distress. We're detecting elevated cortisol markers, compromised barrier function, and blue light oxidative stress. Begin with immediate interruption of the damage cycle.</p>
+        <div class="rec-products" id="recProducts">
+          <div class="rec-product">
+            <div class="product-dot"></div>
+            <span class="product-name">STATIC™ RESET SERUM</span>
+            <span class="product-category">Step 01</span>
+          </div>
+          <div class="rec-product">
+            <div class="product-dot"></div>
+            <span class="product-name">BUFFER BARRIER CREAM</span>
+            <span class="product-category">Step 02</span>
+          </div>
+          <div class="rec-product">
+            <div class="product-dot"></div>
+            <span class="product-name">SLEEP MODE OVERNIGHT</span>
+            <span class="product-category">Step 03</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="state-meters">
+
+        <!-- Header row: title left, score right — same baseline -->
+        <div class="meter-header-row">
+          <span class="meter-title">SKIN SIGNAL ANALYSIS</span>
+          <div class="skin-score-inline">
+            <span class="skin-score-num" id="skinScore">34</span>
+            <div class="skin-score-meta">
+              <span class="skin-score-label">SKIN SCORE</span>
+              <span class="skin-score-sub" id="skinScoreSub">Recovery recommended</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="meter-row">
+          <span class="meter-key">Stress Load</span>
+          <div class="meter-track"><div class="meter-fill" id="m1" style="width:78%"></div></div>
+          <span class="meter-num" id="m1v">78%</span>
+        </div>
+        <div class="meter-row">
+          <span class="meter-key">Barrier Health</span>
+          <div class="meter-track"><div class="meter-fill" id="m2" style="width:42%"></div></div>
+          <span class="meter-num" id="m2v">42%</span>
+        </div>
+        <div class="meter-row">
+          <span class="meter-key">Blue Light</span>
+          <div class="meter-track"><div class="meter-fill" id="m3" style="width:91%"></div></div>
+          <span class="meter-num" id="m3v">91%</span>
+        </div>
+        <div class="meter-row">
+          <span class="meter-key">Hydration</span>
+          <div class="meter-track"><div class="meter-fill" id="m4" style="width:35%"></div></div>
+          <span class="meter-num" id="m4v">35%</span>
+        </div>
+        <div class="meter-row">
+          <span class="meter-key">Recovery Rate</span>
+          <div class="meter-track"><div class="meter-fill" id="m5" style="width:31%"></div></div>
+          <span class="meter-num" id="m5v">31%</span>
+        </div>
+
+      </div>
+    </div><!-- /state-panel -->
+
+    </div><!-- /diag-body -->
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     PRODUCT PROTOCOLS
+══════════════════════════════════ -->
+<section class="products-section" id="protocols">
+  <div class="products-inner">
+    <div class="reveal">
+      <div class="overline">Recovery Protocols</div>
+      <h2 class="products-heading">THE SYSTEM</h2>
+    </div>
+
+    <div class="products-grid reveal">
+
+      <!-- LEFT: Featured card — tall portrait serum -->
+      <div class="product-card-featured">
+        <div class="featured-visual">
+          <div class="featured-tag">PRIMARY PROTOCOL / RESET</div>
+          <img class="product-photo" src="https://res.cloudinary.com/dih43qroh/image/upload/v1790813447/serum_b572os.png" alt="STATIC Signal Reset Serum">
+        </div>
+        <div class="featured-info">
+          <div class="featured-code">STK-001 / PRIMARY PROTOCOL</div>
+          <div class="featured-title">SIGNAL RESET SERUM</div>
+          <p class="featured-desc">Interrupts cortisol-triggered inflammation. Reboots the skin's natural repair frequency. The protocol that starts every recovery sequence.</p>
+          <div class="featured-pills">
+            <span class="ingredient-pill">Niacinamide 10%</span>
+            <span class="ingredient-pill">Adenosine</span>
+            <span class="ingredient-pill">Beta-Glucan</span>
+            <span class="ingredient-pill">Zinc PCA</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: 2×2 grid of portrait cards -->
+      <div class="product-cards-grid">
+
+        <div class="product-card">
+          <div class="product-visual">
+            <img class="product-photo" src="https://res.cloudinary.com/dih43qroh/image/upload/v1790813443/barrier_bkqjr2.png" alt="STATIC Barrier Buffer">
+            <div class="product-tag-overlay">BUFFER</div>
+          </div>
+          <div class="product-info">
+            <div class="product-code">STK-002 / BUFFER</div>
+            <div class="product-title">BARRIER BUFFER</div>
+            <div class="product-desc">Reconstructs the compromised lipid barrier. Protective interface between skin and signal.</div>
+            <div class="product-ingredients">
+              <span class="ingredient-pill">Ceramide NP</span>
+              <span class="ingredient-pill">Squalane</span>
+              <span class="ingredient-pill">Cholesterol</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-visual">
+            <img class="product-photo" src="https://res.cloudinary.com/dih43qroh/image/upload/v1790813445/mist_ryzo2b.png" alt="STATIC Recover Mist">
+            <div class="product-tag-overlay">RECOVER</div>
+          </div>
+          <div class="product-info">
+            <div class="product-code">STK-003 / RECOVER</div>
+            <div class="product-title">RECOVER MIST</div>
+            <div class="product-desc">Neutralises blue light oxidative stress. Recalibrates for the next session.</div>
+            <div class="product-ingredients">
+              <span class="ingredient-pill">Vitamin C</span>
+              <span class="ingredient-pill">Hyaluronic</span>
+              <span class="ingredient-pill">Snow Algae</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-visual">
+            <img class="product-photo" src="https://res.cloudinary.com/dih43qroh/image/upload/v1790813444/mask_zh9mkv.png" alt="STATIC Sleep Mode Mask">
+            <div class="product-tag-overlay">SLEEP MODE</div>
+          </div>
+          <div class="product-info">
+            <div class="product-code">STK-004 / SLEEP</div>
+            <div class="product-title">SLEEP MODE MASK</div>
+            <div class="product-desc">Deep repair during sleep's regeneration window. Offline recovery.</div>
+            <div class="product-ingredients">
+              <span class="ingredient-pill">Bakuchiol</span>
+              <span class="ingredient-pill">Peptide Complex</span>
+              <span class="ingredient-pill">Melatonin</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-visual">
+            <img class="product-photo" src="https://res.cloudinary.com/dih43qroh/image/upload/v1790813443/cleanser_ym2et3.png" alt="STATIC Signal Clear Cleanser">
+            <div class="product-tag-overlay">CLEANSE</div>
+          </div>
+          <div class="product-info">
+            <div class="product-code">STK-005 / CLEANSE</div>
+            <div class="product-title">SIGNAL CLEAR</div>
+            <div class="product-desc">First step in every protocol. Removes buildup without stripping the barrier.</div>
+            <div class="product-ingredients">
+              <span class="ingredient-pill">Micellar Complex</span>
+              <span class="ingredient-pill">PHA Acid</span>
+              <span class="ingredient-pill">Oat Extract</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /product-cards-grid -->
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     GLITCH MARQUEE STRIP
+══════════════════════════════════ -->
+<div class="glitch-strip" aria-hidden="true">
+  <div class="glitch-track">
+    <div class="glitch-item">
+      <span class="glitch-word filled">OVERSTIMULATED</span><span class="glitch-dot"></span>
+      <span class="glitch-word">BURNT OUT</span><span class="glitch-dot"></span>
+      <span class="glitch-word filled">SLEEP DEPRIVED</span><span class="glitch-dot"></span>
+      <span class="glitch-word">ALWAYS ONLINE</span><span class="glitch-dot"></span>
+      <span class="glitch-word filled">DISCONNECTED</span><span class="glitch-dot"></span>
+      <span class="glitch-word">MENTALLY FOGGY</span><span class="glitch-dot"></span>
+      <span class="glitch-word filled">HYPERCONNECTED</span><span class="glitch-dot"></span>
+    </div>
+    <!-- duplicate for seamless loop -->
+    <div class="glitch-item">
+      <span class="glitch-word filled">OVERSTIMULATED</span><span class="glitch-dot"></span>
+      <span class="glitch-word">BURNT OUT</span><span class="glitch-dot"></span>
+      <span class="glitch-word filled">SLEEP DEPRIVED</span><span class="glitch-dot"></span>
+      <span class="glitch-word">ALWAYS ONLINE</span><span class="glitch-dot"></span>
+      <span class="glitch-word filled">DISCONNECTED</span><span class="glitch-dot"></span>
+      <span class="glitch-word">MENTALLY FOGGY</span><span class="glitch-dot"></span>
+      <span class="glitch-word filled">HYPERCONNECTED</span><span class="glitch-dot"></span>
+    </div>
+  </div>
+  <div class="glitch-track glitch-track-reverse">
+    <div class="glitch-item">
+      <span class="glitch-word">STATIC™</span><span class="glitch-dot"></span>
+      <span class="glitch-word filled">RESET</span><span class="glitch-dot"></span>
+      <span class="glitch-word">RECOVER</span><span class="glitch-dot"></span>
+      <span class="glitch-word filled">BUFFER</span><span class="glitch-dot"></span>
+      <span class="glitch-word">SLEEP MODE</span><span class="glitch-dot"></span>
+      <span class="glitch-word filled">SIGNAL CLEAR</span><span class="glitch-dot"></span>
+      <span class="glitch-word">SKIN RECOVERY</span><span class="glitch-dot"></span>
+      <span class="glitch-word filled">STATIC™</span><span class="glitch-dot"></span>
+    </div>
+    <div class="glitch-item">
+      <span class="glitch-word">STATIC™</span><span class="glitch-dot"></span>
+      <span class="glitch-word filled">RESET</span><span class="glitch-dot"></span>
+      <span class="glitch-word">RECOVER</span><span class="glitch-dot"></span>
+      <span class="glitch-word filled">BUFFER</span><span class="glitch-dot"></span>
+      <span class="glitch-word">SLEEP MODE</span><span class="glitch-dot"></span>
+      <span class="glitch-word filled">SIGNAL CLEAR</span><span class="glitch-dot"></span>
+      <span class="glitch-word">SKIN RECOVERY</span><span class="glitch-dot"></span>
+      <span class="glitch-word filled">STATIC™</span><span class="glitch-dot"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SKIN UNDER PRESSURE
+══════════════════════════════════ -->
+<section class="pressure-section">
+  <div class="pressure-inner">
+  <div class="pressure-grid">
+    <div class="reveal">
+      <div class="overline">Skin Under Pressure</div>
+      <h2 class="pressure-heading">YOUR SKIN IS READING THE SIGNAL</h2>
+      <p class="pressure-body">Every notification, every scroll, every hour of blue light registers in your skin. Inflammation. Cortisol spikes. Barrier disruption. Your device is writing its history across your face.</p>
+      <div class="pressure-stats">
+        <div class="stat-block">
+          <div class="stat-num">7.4</div>
+          <div class="stat-label">Avg hrs daily screen time</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num">96</div>
+          <div class="stat-label">Notifications per day</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num">23%</div>
+          <div class="stat-label">Barrier function decline</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num">↑ 3×</div>
+          <div class="stat-label">Cortisol vs. pre-digital</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     CAMPAIGN VISUALS
+══════════════════════════════════ -->
+<section class="campaign-section" id="campaign">
+  <div class="campaign-inner">
+    <div class="reveal">
+      <div class="overline">Campaign Direction</div>
+      <h2 class="campaign-heading">THE STATIC™ UNIVERSE</h2>
+    </div>
+
+    <div class="campaign-mosaic reveal">
+
+      <!-- LEFT: Phone mockup — spans both rows (portrait) -->
+      <div class="campaign-tile tile-phone">
+        <span class="tile-label">App / Recovery OS</span>
+        <img class="campaign-photo" src="https://res.cloudinary.com/dih43qroh/image/upload/v1790813447/mobilephone_hyhd2z.png" alt="STATIC Recovery App">
+      </div>
+
+      <!-- RIGHT TOP: Subway campaign (landscape) -->
+      <div class="campaign-tile tile-landscape">
+        <span class="tile-label">OOH / Subway Campaign</span>
+        <img class="campaign-photo" src="https://res.cloudinary.com/dih43qroh/image/upload/v1790813446/subwaycampaign_vztsmc.png" alt="STATIC Subway Campaign">
+      </div>
+
+      <!-- RIGHT BOTTOM: Billboard (landscape) -->
+      <div class="campaign-tile tile-landscape">
+        <span class="tile-label">Billboard / Digital OOH</span>
+        <img class="campaign-photo" src="https://res.cloudinary.com/dih43qroh/image/upload/v1790813445/billboard_mcnf8q.png" alt="STATIC Billboard Campaign">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     CLOSING
+══════════════════════════════════ -->
+<section class="closing-section">
+  <div class="closing-bg"></div>
+  <div class="closing-grid-bg"></div>
+  <div class="closing-content reveal">
+    <div class="closing-overline">STATIC™ Recovery System</div>
+    <h2 class="closing-headline">YOU DON'T NEED TO GO OFFLINE.</h2>
+    <div class="closing-line"></div>
+    <p class="closing-body">You just need skin that can handle what being online actually costs. STATIC™ was built for the frequency you're already living at.</p>
+
+  </div>
+</section>
+
+<footer>
+  <a href="#top" class="back-to-top" id="backToTop">
+    <div class="btt-arrow" aria-hidden="true">↑</div>
+    <span class="btt-sub">Back to top</span>
+  </a>
+</footer>
+
+<script>
+/* ── CURSOR ─────────────────────────────── */
+const cursor     = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let cx = 0, cy = 0;
+
+document.addEventListener('mousemove', e => {
+  cx = e.clientX; cy = e.clientY;
+  cursor.style.left = cx + 'px';
+  cursor.style.top  = cy + 'px';
+  cursorRing.style.left = cx + 'px';
+  cursorRing.style.top  = cy + 'px';
+});
+
+document.querySelectorAll('a, button, select, .product-card, .campaign-tile').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursorRing.style.width  = '56px';
+    cursorRing.style.height = '56px';
+    cursorRing.style.borderColor = 'rgba(168,216,240,0.5)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursorRing.style.width  = '36px';
+    cursorRing.style.height = '36px';
+    cursorRing.style.borderColor = 'rgba(168,216,240,0.3)';
+  });
+});
+
+/* ── ROTATING WORD ──────────────────────── */
+const words = ['OVERSTIMULATED','BURNT OUT','SLEEP DEPRIVED','ALWAYS-ONLINE','DISCONNECTED','RUNNING ON EMPTY'];
+let wordIdx = 0;
+const wordEl = document.getElementById('rotatingWord');
+
+function rotateWord() {
+  wordIdx = (wordIdx + 1) % words.length;
+  // exit current
+  wordEl.classList.remove('enter');
+  wordEl.classList.add('exit');
+  setTimeout(() => {
+    wordEl.textContent = words[wordIdx];
+    wordEl.classList.remove('exit');
+    wordEl.classList.add('enter');
+  }, 420);
+}
+
+setInterval(rotateWord, 2800);
+
+/* ── SCROLL REVEAL ──────────────────────── */
+const reveals = document.querySelectorAll('.reveal');
+const revObs  = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+    }
+  });
+}, { threshold: 0.12 });
+
+reveals.forEach(r => revObs.observe(r));
+
+/* ── DIAGNOSTIC SELECTORS ───────────────── */
+const stateData = {
+  'overstimulated': {
+    heading: 'RESET SEQUENCE',
+    overline: 'HIGH STIMULATION DETECTED',
+    body: 'Elevated cortisol markers. Compromised barrier. Inflammatory cascade in progress. Begin immediate interruption protocol.',
+    products: [['SIGNAL RESET SERUM','Step 01'],['BARRIER BUFFER','Step 02'],['RECOVER MIST','Step 03']],
+    meters: [88, 38, 92, 30, 25],
+    hue: 'rgba(168,216,240,0.07)'
+  },
+  'sleep-deprived': {
+    heading: 'SLEEP PROTOCOL',
+    overline: 'CIRCADIAN DISRUPTION DETECTED',
+    body: 'Repair cycles interrupted. Growth hormone suppression. Melatonin deficit in surface cells. Initiate deep recovery.',
+    products: [['SLEEP MODE MASK','Step 01'],['SIGNAL RESET SERUM','Step 02'],['BARRIER BUFFER','Step 03']],
+    meters: [65, 50, 70, 40, 35],
+    hue: 'rgba(80,120,200,0.07)'
+  },
+  'burnt-out': {
+    heading: 'FULL RECOVERY',
+    overline: 'SYSTEMIC OVERLOAD DETECTED',
+    body: 'Chronic cortisol exposure. Depleted antioxidant reserves. Accelerated cellular aging. Extended protocol required.',
+    products: [['BARRIER BUFFER','Step 01'],['SIGNAL RESET SERUM','Step 02'],['SLEEP MODE MASK','Step 03']],
+    meters: [95, 25, 80, 20, 15],
+    hue: 'rgba(160,80,120,0.06)'
+  },
+  'mentally-foggy': {
+    heading: 'BUFFER MODE',
+    overline: 'COGNITIVE LOAD HIGH',
+    body: 'Neural-cutaneous stress axis activated. Skin reflects mental overload. Establish protective buffer layer.',
+    products: [['RECOVER MIST','Step 01'],['BARRIER BUFFER','Step 02'],['SIGNAL RESET SERUM','Step 03']],
+    meters: [70, 55, 60, 45, 50],
+    hue: 'rgba(100,160,220,0.06)'
+  },
+  'hyperconnected': {
+    heading: 'SIGNAL INTERRUPTION',
+    overline: 'CONTINUOUS EXPOSURE DETECTED',
+    body: 'Persistent blue light oxidation. No downtime windows detected. Antioxidant system overwhelmed. Immediate intervention.',
+    products: [['RECOVER MIST','Step 01'],['SIGNAL RESET SERUM','Step 02'],['BARRIER BUFFER','Step 03']],
+    meters: [75, 45, 98, 38, 28],
+    hue: 'rgba(168,216,240,0.08)'
+  },
+  'running-on-empty': {
+    heading: 'FULL RESTORE',
+    overline: 'RESOURCE DEPLETION CRITICAL',
+    body: 'Reserves critically low. Skin operating on minimal capacity. Complete restore protocol required — all phases.',
+    products: [['SLEEP MODE MASK','Step 01'],['BARRIER BUFFER','Step 02'],['SIGNAL RESET SERUM','Step 03']],
+    meters: [90, 20, 85, 18, 12],
+    hue: 'rgba(200,120,80,0.06)'
+  }
+};
+
+function updateState(value) {
+  const d = stateData[value];
+  if (!d) return;
+
+  document.getElementById('recOverline').textContent = d.overline;
+  document.getElementById('recHeading').textContent  = d.heading;
+  document.getElementById('recBody').textContent     = d.body;
+
+  const prods = document.getElementById('recProducts');
+  prods.innerHTML = d.products.map(([name, step]) => `
+    <div class="rec-product">
+      <div class="product-dot"></div>
+      <span class="product-name">STATIC™ ${name}</span>
+      <span class="product-category">${step}</span>
+    </div>`).join('');
+
+  const ids    = ['m1','m2','m3','m4','m5'];
+  const valIds = ['m1v','m2v','m3v','m4v','m5v'];
+  d.meters.forEach((val, i) => {
+    document.getElementById(ids[i]).style.width  = val + '%';
+    document.getElementById(valIds[i]).textContent = val + '%';
+  });
+
+  document.documentElement.style.setProperty('--state-hue', d.hue);
+
+  // Update overall skin score (inverse of avg stress)
+  const avg = Math.round(d.meters.reduce((a,b)=>a+b,0) / d.meters.length);
+  const score = Math.max(10, 100 - avg);
+  const scoreEl = document.getElementById('skinScore');
+  if (scoreEl) scoreEl.textContent = score;
+  const subEl = document.getElementById('skinScoreSub');
+  if (subEl) subEl.textContent = score < 40 ? 'Recovery recommended' : score < 65 ? 'Maintenance mode' : 'Optimal range';
+}
+
+/* Track current selections */
+let currentState = 'overstimulated';
+let currentExposure = '2hr';
+let currentMode = 'reset';
+
+function recalcScore() {
+  const exposureBoost = {'2hr': 0, '6hr': 8, '10hr': 18, 'endless': 28, 'overnight': 24};
+  const modeBoost = {'reset': 0, 'buffer': -5, 'recover': -8, 'sleep-mode': -12, 'maintenance': -3};
+  const base = parseInt(document.getElementById('skinScore').textContent) || 34;
+  // Re-derive from state data + modifiers
+  const stateD = stateData[currentState];
+  if (!stateD) return;
+  const avg = Math.round(stateD.meters.reduce((a,b)=>a+b,0) / stateD.meters.length);
+  const expAdd  = exposureBoost[currentExposure] || 0;
+  const modeAdd = modeBoost[currentMode] || 0;
+  const score   = Math.max(5, Math.min(98, 100 - avg + expAdd + modeAdd));
+  const scoreEl = document.getElementById('skinScore');
+  if (scoreEl) scoreEl.textContent = score;
+  const subEl = document.getElementById('skinScoreSub');
+  if (subEl) subEl.textContent = score < 40 ? 'Recovery recommended' : score < 65 ? 'Maintenance mode' : 'Optimal range';
+  // update blue light meter from exposure
+  const m3Map = {'2hr': 28, '6hr': 60, '10hr': 82, 'endless': 98, 'overnight': 95};
+  const blueVal = m3Map[currentExposure];
+  if (blueVal) {
+    document.getElementById('m3').style.width  = blueVal + '%';
+    document.getElementById('m3v').textContent = blueVal + '%';
+  }
+}
+
+/* Pill selectors */
+document.querySelectorAll('.sel-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    const group = pill.dataset.group;
+    const value = pill.dataset.value;
+    document.querySelectorAll(`.sel-pill[data-group="${group}"]`).forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    if (group === 'state')    { currentState    = value; updateState(value); }
+    if (group === 'exposure') { currentExposure = value; recalcScore(); }
+    if (group === 'mode')     { currentMode     = value; recalcScore(); }
+  });
+});
+
+/* ── PROTOCOL TABS ──────────────────────── */
+document.querySelectorAll('.protocol-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.protocol-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+
+</script>
+
+</body>
+</html>

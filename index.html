@@ -4,13 +4,11 @@
 <!--
   Molly Curtis portfolio. Plain HTML, no build step. Works as-is on GitHub Pages.
 
-  PHOTOS: make an /images folder next to this file and add these names.
-  Anything missing shows a styled placeholder instead of a broken image.
-    images/intro.jpg             about, main photo (4:5)
-    images/intro-detail.jpg      about, phone-frame photo (9:15)
-    images/work-welcomeback.jpg  work card (4:3)
-    images/work-landing.jpg      work card (4:3)
-    images/work-zodiac.jpg       work card (4:3)
+  PHOTOS + VIDEOS: all served from Cloudinary (search "res.cloudinary.com" to swap one).
+  Anything that fails to load falls back to the styled gradient placeholder.
+    badge photo (hero ID tag) - about main photo (4:5) - about phone frame (9:15, clips play in order)
+    work cards (4:3): Welcome Back video, Landing Pages screenshot, Zodiac video
+  Videos only start once they scroll into view, to save Cloudinary bandwidth.
 
   STATS: search for "EDIT" and set data-count to your real numbers.
 -->
@@ -19,9 +17,11 @@
 <title>Molly Curtis — Marketing, Photography &amp; Interiors</title>
 <meta name="description" content="Molly Curtis is a marketer, web builder, photographer and interior stylist based in St. Paul, MN. Same eye behind all three.">
 <meta name="theme-color" content="#1D1735">
+<link rel="canonical" href="https://molly-curtis.com/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Molly Curtis — Marketing, Photography &amp; Interiors">
 <meta property="og:description" content="Marketer, web builder, photographer and interior stylist in St. Paul, MN.">
+<meta property="og:url" content="https://molly-curtis.com/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231D1735'/%3E%3Ctext x='32' y='42' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='25' fill='%23F6A8C7' text-anchor='middle'%3EMC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +30,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-P2HJ0XDTL6"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-P2HJ0XDTL6');</script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person","name":"Molly Curtis","jobTitle":"Marketer, Photographer & Interior Stylist","email":"molcur9284@gmail.com","telephone":"+1-612-845-7958","address":{"@type":"PostalAddress","addressLocality":"St. Paul","addressRegion":"MN"},"knowsAbout":["Digital Marketing","Creative Direction","Conversion Design","Portrait Photography","Editorial Photography","Interior Styling"],"sameAs":["https://www.instagram.com/molcurphotos/","https://linkedin.com/in/mollyycurtiss","https://mollycurtis.github.io/molcurphotos/","https://mollycurtis.github.io/interiors/"]}
+{"@context":"https://schema.org","@type":"Person","name":"Molly Curtis","jobTitle":"Marketer, Photographer & Interior Stylist","email":"molcur9284@gmail.com","telephone":"+1-612-845-7958","address":{"@type":"PostalAddress","addressLocality":"St. Paul","addressRegion":"MN"},"knowsAbout":["Digital Marketing","Creative Direction","Conversion Design","Portrait Photography","Editorial Photography","Interior Styling"],"url":"https://molly-curtis.com/","sameAs":["https://www.instagram.com/molcurphotos/","https://linkedin.com/in/mollyycurtiss","https://molly-curtis.com/photography/","https://molly-curtis.com/interiors/"]}
 </script>
 <script>document.documentElement.classList.add('js')</script>
 <style>
@@ -151,7 +151,8 @@ section[id]{scroll-margin-top:84px}
 .intro-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(34px,4.6vw,68px);align-items:center}
 .collage{position:relative;width:100%;max-width:480px;aspect-ratio:1/1.05}
 .ph{position:absolute;overflow:hidden;background:var(--ph)}
-.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph img,.ph video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph-phone video{opacity:0;transition:opacity .45s ease}.ph-phone video.is-on{opacity:1}
 .ph-main{left:0;top:0;width:66%;aspect-ratio:4/5;border-radius:26px;--ph:radial-gradient(70% 60% at 30% 25%,#FFE7D2 0%,#F6C1CF 45%,#C89CD2 100%);box-shadow:0 40px 70px -42px rgba(70,24,80,.6)}
 .ph-phone{right:2%;bottom:0;width:42%;aspect-ratio:9/15;border-radius:30px;border:8px solid #0F0B1E;--ph:linear-gradient(170deg,#FCE9F2 0%,#EDB9D2 55%,#B68BC9 100%);box-shadow:0 44px 64px -32px rgba(30,10,40,.65)}
 .hello{position:absolute;top:4%;right:2%;font-family:var(--script);font-size:clamp(38px,4.4vw,60px);line-height:1;color:var(--t-pink);transform:rotate(-7deg)}
@@ -199,8 +200,8 @@ section[id]{scroll-margin-top:84px}
 .wtext{display:flex;flex-direction:column;align-items:flex-start}
 .wimg{position:relative;display:block;aspect-ratio:4/3;border-radius:24px;overflow:hidden;background:var(--w);box-shadow:0 26px 48px -32px rgba(60,20,70,.5);transition:transform .5s var(--ease)}
 @media (hover:hover){.wcard:hover .wimg{transform:translateY(-6px)}}
-.wimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.wtag{position:absolute;left:24px;top:30px;right:24px;font-family:var(--display);font-weight:600;font-size:clamp(9px,.66vw,10.5px);letter-spacing:.08em;text-transform:uppercase;line-height:1.4;color:#F7C9DE;text-shadow:0 1px 6px rgba(20,8,32,.5)}
+.wimg img,.wimg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.wtag{position:absolute;z-index:1;left:24px;top:30px;right:24px;font-family:var(--display);font-weight:600;font-size:clamp(9px,.66vw,10.5px);letter-spacing:.08em;text-transform:uppercase;line-height:1.4;color:#F7C9DE;text-shadow:0 1px 6px rgba(20,8,32,.5)}
 .w--game{--w:linear-gradient(140deg,#20183F 0%,#4B3A86 52%,#8B6BD1 100%)}
 .w--land{--w:linear-gradient(135deg,#2B2252 0%,#7A4E9E 50%,#E58FB7 100%)}
 .w--zodiac{--w:radial-gradient(95% 90% at 70% 26%,#F6C38F 0%,#C56A86 40%,#2A1F45 84%)}
@@ -300,6 +301,7 @@ section[id]{scroll-margin-top:84px}
             <span class="card">
               <span class="photo">
                 <span class="mono" aria-hidden="true">MC</span>
+                <img src="https://res.cloudinary.com/dih43qroh/image/upload/f_auto,q_auto,w_500/v1780602349/Molly-Curtis_dycnol.png" alt="" onerror="this.remove()">
                 <span class="meta meta--l">Portfolio</span>
                 <span class="meta meta--r">2027</span>
               </span>
@@ -353,28 +355,28 @@ section[id]{scroll-margin-top:84px}
     <h2 class="sr-only" id="svc-h">What I do</h2>
     <ul class="svc-list">
       <li>
-        <a class="svc reveal" style="--i:0" href="https://mollycurtis.github.io/">
+        <a class="svc reveal" style="--i:0" href="marketing/">
           <span class="tile tile--pink" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M5 16l4.5-4.5 3.5 3.5L19 8"/><path d="M14.5 8H19v4.5"/></svg></span>
           <span class="svc-name">Marketing</span>
           <span class="svc-desc">Landing pages, CRO, paid media, social, SEO + campaign strategy<span class="svc-cta">See marketing work <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span></span>
         </a>
       </li>
       <li>
-        <a class="svc reveal" style="--i:1" href="https://mollycurtis.github.io/molcurphotos/">
+        <a class="svc reveal" style="--i:1" href="photography/">
           <span class="tile tile--peach" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 8.5h3.2L8.5 6h7l1.8 2.5h3.2V19h-17z"/><circle cx="12" cy="13.2" r="3.4"/></svg></span>
           <span class="svc-name">Photography</span>
           <span class="svc-desc">Editorial, lifestyle + high-end portraits<span class="svc-cta">View the portfolio <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span></span>
         </a>
       </li>
       <li>
-        <a class="svc reveal" style="--i:2" href="https://mollycurtis.github.io/projects/welcomeback/">
+        <a class="svc reveal" style="--i:2" href="https://welcomeback-delta.vercel.app/">
           <span class="tile tile--lav" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8.5 7.5L4 12l4.5 4.5"/><path d="M15.5 7.5L20 12l-4.5 4.5"/><path d="M13.5 5l-3 14"/></svg></span>
           <span class="svc-name">Digital Experiences</span>
           <span class="svc-desc">Interactive web projects, custom builds + experimental ideas<span class="svc-cta">Explore the projects <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span></span>
         </a>
       </li>
       <li>
-        <a class="svc reveal" style="--i:3" href="https://mollycurtis.github.io/interiors/">
+        <a class="svc reveal" style="--i:3" href="interiors/">
           <span class="tile tile--rose" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8.5 3h7l3.5 8H5z"/><path d="M12 11v7"/><path d="M8 21h8"/><path d="M12 18v3"/></svg></span>
           <span class="svc-name">Interiors</span>
           <span class="svc-desc">Styling, custom art + one-of-a-kind pieces<span class="svc-cta">See the spaces <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span></span>
@@ -394,8 +396,8 @@ section[id]{scroll-margin-top:84px}
 <section class="sec dark" id="about" aria-labelledby="about-h">
   <div class="wrap intro-grid">
     <div class="collage">
-      <figure class="ph ph-main"><img src="images/intro.jpg" alt="Molly Curtis" loading="lazy" onerror="this.remove()"></figure>
-      <figure class="ph ph-phone"><img src="images/intro-detail.jpg" alt="" loading="lazy" onerror="this.remove()"></figure>
+      <figure class="ph ph-main"><img src="https://res.cloudinary.com/dih43qroh/image/upload/f_auto,q_auto,w_800/v1790814743/molly2_ty637m.jpg" alt="Molly Curtis" loading="lazy" onerror="this.remove()"></figure>
+      <figure class="ph ph-phone" id="phoneReel" data-clips="https://res.cloudinary.com/dih43qroh/video/upload/q_auto:good,vc_auto,f_auto/v1789433295/IMG_0691_wrqkja.mov https://res.cloudinary.com/dih43qroh/video/upload/q_auto:good,vc_auto,f_auto/v1789433300/IMG_0635_kcsviw.mov https://res.cloudinary.com/dih43qroh/video/upload/q_auto:good,vc_auto,f_auto/v1779501181/7a603d66d5f745b298622908d56fe038_y0jplf.mp4"><video class="is-on" muted playsinline preload="none" poster="https://res.cloudinary.com/dih43qroh/video/upload/so_0,q_auto,w_400/v1789433295/IMG_0691_wrqkja.jpg" aria-hidden="true"></video><video muted playsinline preload="none" aria-hidden="true"></video></figure>
       <span class="hello" aria-hidden="true">hi, I'm Molly</span>
     </div>
     <div class="intro-copy">
@@ -419,19 +421,19 @@ section[id]{scroll-margin-top:84px}
   </div>
   <div class="work-grid">
       <a class="wcard" href="https://welcomeback-delta.vercel.app/" target="_blank" rel="noopener">
-        <span class="wimg w--game"><span class="wtag">Interactive Video Game + Web Development</span><img src="images/work-welcomeback.jpg" alt="" loading="lazy" onerror="this.remove()"></span>
+        <span class="wimg w--game"><span class="wtag">Interactive Video Game + Web Development</span><video data-src="https://res.cloudinary.com/dih43qroh/video/upload/q_auto:good,vc_auto,f_auto/v1790815806/WelcomeBack_d9moqv.mov" poster="https://res.cloudinary.com/dih43qroh/video/upload/so_0,q_auto,w_900/v1790815806/WelcomeBack_d9moqv.jpg" muted loop playsinline preload="none" aria-hidden="true"></video></span>
         <span class="wtext"><span class="wname">Welcome Back</span>
         <span class="wdesc">A nostalgic 2000s family computer, rebuilt from scratch. Explore the room, log in, and play the game.</span>
         <span class="wlink">Play the game <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span>
       </span></a>
-      <a class="wcard" href="https://mollycurtis.github.io/#landing-pages">
-        <span class="wimg w--land"><span class="wtag">UX Strategy &middot; Conversion Optimization</span><img src="images/work-landing.jpg" alt="" loading="lazy" onerror="this.remove()"></span>
+      <a class="wcard" href="marketing/#landing-pages">
+        <span class="wimg w--land"><span class="wtag">UX Strategy &middot; Conversion Optimization</span><img src="https://res.cloudinary.com/dih43qroh/image/upload/f_auto,q_auto,c_fill,g_north,ar_4:3,w_1000/v1790815862/screencapture-mollycurtis-github-io-2026-09-30-19_50_38_hdlzmb.png" alt="" loading="lazy" onerror="this.remove()"></span>
         <span class="wtext"><span class="wname">Landing Pages</span>
         <span class="wdesc">Landing pages where strategy, creative direction and conversion come together to drive results.</span>
         <span class="wlink">See the case studies <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span>
       </span></a>
-      <a class="wcard" href="https://mollycurtis.github.io/molcurphotos/#projects">
-        <span class="wimg w--zodiac"><span class="wtag">Creative Direction + Photography</span><img src="images/work-zodiac.jpg" alt="" loading="lazy" onerror="this.remove()"></span>
+      <a class="wcard" href="photography/#projects">
+        <span class="wimg w--zodiac"><span class="wtag">Creative Direction + Photography</span><video data-src="https://res.cloudinary.com/dih43qroh/video/upload/q_auto:good,vc_auto,f_auto/v1779499442/IMG_0200_r17bib.mov" poster="https://res.cloudinary.com/dih43qroh/video/upload/so_0,q_auto,w_900/v1779499442/IMG_0200_r17bib.jpg" muted loop playsinline preload="none" aria-hidden="true"></video></span>
         <span class="wtext"><span class="wname">Zodiac</span>
         <span class="wdesc">12-model editorial directed from concept to production. Overseeing beauty, styling, production and retouching.</span>
         <span class="wlink">View the series <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span>
@@ -591,6 +593,43 @@ section[id]{scroll-margin-top:84px}
     }, {threshold: 0.6});
     cio.observe(el);
   });
+
+  /* videos start once they scroll into view (saves Cloudinary bandwidth); reduced motion keeps the still frame */
+  function whenVisible(el, fn){
+    if(!hasIO){ fn(); return; }
+    var vio = new IntersectionObserver(function(e){ if(e[0].isIntersecting){ vio.disconnect(); fn(); } }, {rootMargin: '200px'});
+    vio.observe(el);
+  }
+  function play(v){ var pr = v.play(); if(pr && pr.catch) pr.catch(function(){}); }
+
+  /* work cards: looping clips */
+  if(!reduce){
+    [].slice.call(document.querySelectorAll('video[data-src]')).forEach(function(v){
+      whenVisible(v, function(){ v.src = v.getAttribute('data-src'); play(v); });
+    });
+  }
+
+  /* about: phone frame plays the clips back to back, crossfading between two players */
+  var reel = document.getElementById('phoneReel');
+  if(reel && !reduce){
+    var clips = reel.getAttribute('data-clips').split(' '), pl = reel.querySelectorAll('video');
+    var on = 0, k = 0, guard = 0;
+    var cue = function(v, i){ v.preload = 'auto'; v.src = clips[i % clips.length]; v.load(); };
+    var advance = function(){
+      if(++guard > clips.length) return;             /* every clip failed: stop on the still frame */
+      var cur = pl[on], nxt = pl[1 - on];
+      k++; on = 1 - on;
+      nxt.classList.add('is-on'); cur.classList.remove('is-on');
+      cue(cur, k + 1);                               /* the hidden player buffers the clip after next */
+      if(nxt.error){ advance(); return; }
+      play(nxt);
+    };
+    [0, 1].forEach(function(n){
+      pl[n].addEventListener('ended', function(){ guard = 0; advance(); });
+      pl[n].addEventListener('error', function(){ if(n === on) advance(); });
+    });
+    whenVisible(reel, function(){ cue(pl[0], 0); cue(pl[1], 1); play(pl[0]); });
+  }
 
 })();
 </script>
