@@ -281,7 +281,6 @@ section{position:relative}
 .up{opacity:1}
 html.js .up{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
 html.js .up.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){html.js .up{opacity:1 !important;transform:none !important;transition:none}.ticker .run{animation:none}*{scroll-behavior:auto !important}}
 
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.tag:focus-visible{outline:3px solid var(--magenta);outline-offset:2px}
 
@@ -534,7 +533,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   "use strict";
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
-  var reduce = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   document.documentElement.classList.add("js");
 
   var mast = $(".mast");
@@ -624,7 +622,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         f.classList.toggle("is-b", on);
         if (tag && tags.length === 2) tag.textContent = tags[on ? 1 : 0];
       }
-      function start() { if (!timer && !reduce) timer = setInterval(flip, 2800); }
+      function start() { if (!timer) timer = setInterval(flip, 2800); }
       function stop() { clearInterval(timer); timer = null; }
       f.addEventListener("click", function () { flip(); if (timer) { stop(); start(); } });
       f.addEventListener("keydown", function (e) {
