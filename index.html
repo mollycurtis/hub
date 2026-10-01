@@ -135,7 +135,7 @@ section[id]{scroll-margin-top:84px}
 .ph-phone video{opacity:0;transition:opacity .45s ease}.ph-phone video.is-on{opacity:1}
 .ph-main{left:0;top:0;width:66%;aspect-ratio:4/5;border-radius:26px;--ph:radial-gradient(70% 60% at 30% 25%,#FFE7D2 0%,#F6C1CF 45%,#C89CD2 100%);box-shadow:0 40px 70px -42px rgba(70,24,80,.6)}
 .ph-phone{right:2%;bottom:0;width:42%;aspect-ratio:9/15;border-radius:30px;border:8px solid #0F0B1E;--ph:linear-gradient(170deg,#FCE9F2 0%,#EDB9D2 55%,#B68BC9 100%);box-shadow:0 44px 64px -32px rgba(30,10,40,.65)}
-.hello{position:absolute;top:4%;right:2%;font-family:var(--script);font-size:clamp(40px,4.6vw,64px);line-height:1;color:#6B3FA0;transform:rotate(-7deg);-webkit-text-stroke:.7px #6B3FA0;text-shadow:0 1px 2px rgba(255,255,255,.55),0 4px 18px rgba(255,244,250,.75)}
+.hello{position:absolute;top:4%;right:2%;font-family:var(--script);font-size:clamp(42px,4.8vw,66px);line-height:1;color:#4E2A84;transform:rotate(-7deg);-webkit-text-stroke:1.4px #4E2A84;text-shadow:0 0 2px rgba(255,255,255,.9),0 2px 0 rgba(255,255,255,.7),0 0 16px rgba(255,255,255,.95),0 0 32px rgba(255,236,246,.9)}
 .eyebrow{font-family:var(--display);font-weight:600;font-size:clamp(12px,.95vw,14px);letter-spacing:.14em;text-transform:uppercase;color:var(--t-pink);margin-bottom:16px}
 .intro-h{font-family:var(--display);font-weight:700;font-size:clamp(34px,4.6vw,62px);line-height:1.02;letter-spacing:-.05em;color:var(--ink);text-wrap:balance}
 .intro-h .ch{position:relative}
@@ -197,7 +197,7 @@ section[id]{scroll-margin-top:84px}
 .wlink svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s var(--ease)}
 @media (hover:hover){.wcard:hover .wlink{color:var(--ink);border-bottom-color:var(--ink)}.wcard:hover .wlink svg{transform:translateX(4px)}}
 
-.tag{display:inline-flex;align-items:center;gap:8px;margin-top:24px;padding:8px 16px;border-radius:999px;background:var(--ink);color:var(--cream);font-size:13px;font-weight:600}
+.tag{display:inline-flex;align-items:center;gap:8px;margin-top:24px;padding:8px 16px;border-radius:999px;background:#BD4B87;color:#fff;font-size:13px;font-weight:600}
 
 .cta{padding:clamp(70px,8.5vw,116px) 0 26px}
 .cta-h{font-family:var(--display);font-weight:700;font-size:clamp(34px,4.6vw,62px);line-height:1.02;letter-spacing:-.05em;color:var(--cream)}
@@ -306,15 +306,6 @@ html.modal-open{overflow:hidden}
 @media (max-width:480px){
   .nav-in{padding-left:18px}
   .hero-foot{font-size:13px}
-}
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .dot::after{animation:none;opacity:0}
-  .drop{animation:none}
-  .caret{animation:none}
-  .flip{transition-duration:.01s}
-  .js .reveal{opacity:1;transform:none;filter:none}
-  .band-track{animation-duration:150s}
 }
 </style>
 </head>
@@ -548,7 +539,6 @@ html.modal-open{overflow:hidden}
 
 <script>
 (function(){
-  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   var hasIO = 'IntersectionObserver' in window;
   function clamp(v, a, b){ return v < a ? a : v > b ? b : v; }
 
@@ -558,14 +548,14 @@ html.modal-open{overflow:hidden}
   onScroll();
 
   var lan = document.getElementById('lanyard'), badge = document.getElementById('badge');
-  var ang = reduce ? 0 : 10, vel = 0, dragging = false, moved = 0, sx = 0, sa = 0, lt = 0, justDragged = false;
+  var ang = 10, vel = 0, dragging = false, moved = 0, sx = 0, sa = 0, lt = 0, justDragged = false;
   var running = false, heroOn = true, prev = 0;
   function frame(t){
     if(!heroOn || document.hidden){ running = false; return; }
     var dt = prev ? Math.min((t - prev) / 1000, 1 / 30) : 1 / 60;
     prev = t;
     if(!dragging){
-      var rest = reduce ? 0 : Math.sin(t / 950) * 1.2;
+      var rest = Math.sin(t / 950) * 1.2;
       vel += (-24 * (ang - rest) - 2.2 * vel) * dt;
       ang += vel * dt;
     }
@@ -599,12 +589,12 @@ html.modal-open{overflow:hidden}
     if(justDragged){ justDragged = false; return; }
     var on = badge.classList.toggle('is-flipped');
     badge.setAttribute('aria-pressed', on ? 'true' : 'false');
-    if(!reduce) vel += on ? 40 : -40;
+    vel += on ? 40 : -40;
   });
 
   var tag = document.getElementById('tagline');
   var phrases = ['Making things look intentional', 'Building websites that convert', 'Shooting editorial portraits', 'Styling spaces with personality'];
-  if(tag && !reduce){
+  if(tag){
     var pi = 0, ci = 0, deleting = false;
     tag.textContent = '';
     var tick = function(){
@@ -622,7 +612,7 @@ html.modal-open{overflow:hidden}
   }
 
   var typed = document.querySelector('.intro-h .typed');
-  if(typed && !reduce && hasIO){
+  if(typed && hasIO){
     var ih = typed.parentNode, text = typed.textContent, chars = [];
     typed.textContent = '';
     for(var k = 0; k < text.length; k++){
@@ -646,7 +636,7 @@ html.modal-open{overflow:hidden}
   }
 
   var rv = [].slice.call(document.querySelectorAll('.reveal'));
-  if(!reduce && hasIO){
+  if(hasIO){
     var rio = new IntersectionObserver(function(es){
       es.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); rio.unobserve(x.target); } });
     }, {threshold: 0.3});
@@ -662,14 +652,12 @@ html.modal-open{overflow:hidden}
   }
   function play(v){ var pr = v.play(); if(pr && pr.catch) pr.catch(function(){}); }
 
-  if(!reduce){
-    [].slice.call(document.querySelectorAll('video[data-src]')).forEach(function(v){
-      whenVisible(v, function(){ v.src = v.getAttribute('data-src'); play(v); });
-    });
-  }
+  [].slice.call(document.querySelectorAll('video[data-src]')).forEach(function(v){
+    whenVisible(v, function(){ v.src = v.getAttribute('data-src'); play(v); });
+  });
 
   var reel = document.getElementById('phoneReel');
-  if(reel && !reduce){
+  if(reel){
     var clips = reel.getAttribute('data-clips').split(' '), pl = reel.querySelectorAll('video');
     var on = 0, k = 0, guard = 0;
     var cue = function(v, i){ v.preload = 'auto'; v.src = clips[i % clips.length]; v.load(); };
@@ -695,7 +683,7 @@ html.modal-open{overflow:hidden}
     var step = function(){ return Math.max(1, slides[1].offsetLeft - slides[0].offsetLeft); };
     var arrows = [].slice.call(document.querySelectorAll('.work-arrow'));
     var current = function(){ return Math.round(slider.scrollLeft / step()); };
-    var go = function(n){ slider.scrollTo({left: Math.max(0, Math.min(slides.length - 1, n)) * step(), behavior: reduce ? 'auto' : 'smooth'}); };
+    var go = function(n){ slider.scrollTo({left: Math.max(0, Math.min(slides.length - 1, n)) * step(), behavior: 'smooth'}); };
     var mark = function(){
       var i = current();
       dots.forEach(function(d, n){ d.classList.toggle('on', n === i); });
