@@ -183,6 +183,7 @@ html, body {
 .menu-item:hover .menu-word { color: var(--accent); letter-spacing: .02em; }
 .menu-item:hover .menu-num  { color: var(--accent); }
 
+.nowrap { white-space: nowrap; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .landing-tagline {
   text-align: center; margin-top: -24px; margin-bottom: 3vh;
@@ -729,9 +730,6 @@ html, body {
   border-top: 1px solid var(--border);
 }
 .zod-meta-item { display: flex; flex-direction: column; gap: 5px; }
-.zod-callout { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; margin-left: auto; text-align: right; }
-.zod-callout-big { font-family: var(--serif); font-size: clamp(30px,3.4vw,46px); font-weight: 300; line-height: 1; color: var(--accent); }
-.zod-callout-small { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
 .zod-meta-label { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
 .zod-meta-val { font-family: var(--serif); font-size: clamp(16px,1.8vh,22px); font-weight: 300; color: var(--muted); }
 
@@ -764,13 +762,9 @@ html, body {
   height: 1px;
   background: linear-gradient(to right, var(--border) 0%, transparent 60%);
 }
-.zod-bts-eyebrow {
-  font-size: 9px; letter-spacing: .28em; text-transform: uppercase;
-  color: var(--accent); opacity: .7;
-}
-.zod-bts-header { display: grid; grid-template-columns: 1fr; gap: 4px; align-items: start; margin-top: 8px; }
+.zod-bts-header { display: grid; grid-template-columns: auto 1fr; gap: 48px; align-items: end; margin-top: 8px; }
 .zod-bts-header .zod-overview-label { margin-bottom: 0; }
-.zod-bts-sub { font-style: normal; padding-bottom: 4px; margin-top: 8px; max-width: 62ch; }
+.zod-bts-sub { font-style: normal; padding-bottom: 4px; }
 
 @media (min-width: 769px) {
   .zod-bts-layout {
@@ -864,7 +858,7 @@ html, body {
 .zod-collage-wrap:hover img { transform: scale(1.025); }
 .zod-process-text .proj-desc { max-width: none; margin: 0; }
 
-.zod-overview { margin-top: 72px; padding-top: 40px; border-top: 1px solid var(--border); }
+.zod-overview { margin-top: 72px; }
 .zod-overview-label {
   font-family: var(--serif);
   font-size: clamp(36px,5vh,60px);
@@ -872,7 +866,7 @@ html, body {
   color: var(--accent); margin-bottom: 28px; display: block;
 }
 .zod-overview-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: start; }
-.zod-credits { margin-top: 72px; padding-top: 56px; border-top: 1px solid var(--border); }
+.zod-credits { margin-top: 100px; }
 .zod-credits-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 44px 56px; align-items: start; margin-top: 12px; }
 .zod-credits-col { display: flex; flex-direction: column; gap: 40px; }
 .zod-credits-head { margin-bottom: 12px; font-family: var(--serif); font-size: 26px; font-weight: 300; line-height: 1; color: var(--accent); }
@@ -1253,12 +1247,11 @@ input[type="date"].f-input { color-scheme: dark; min-height: 47px; }
   .zod-hero-row { display: contents; }
   .zod-hero-cell img { height: auto; }
   .zod-bts { margin-top: 56px; }
-  .zod-credits { margin-top: 56px; padding-top: 40px; }
+  .zod-credits { margin-top: 64px; }
   .zod-credits-grid { grid-template-columns: 1fr; gap: 36px; }
   .zod-credits-col { gap: 36px; }
   .zod-sign { top: 8px; left: 8px; padding: 4px 7px; font-size: 8px; letter-spacing: .14em; }
   .zod-meta-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 16px; }
-  .zod-callout { grid-column: 1 / -1; align-items: flex-start; margin-left: 0; text-align: left; }
   .zod-bts-header { grid-template-columns: 1fr !important; gap: 4px; align-items: start; }
   .zod-bts-sub { white-space: normal; margin-top: 4px; }
   .zod-overview-label { margin-bottom: 6px; }
@@ -1318,6 +1311,7 @@ input[type="date"].f-input { color-scheme: dark; min-height: 47px; }
 
 </style>
 <link rel="canonical" href="https://molly-curtis.com/photography/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111111'/%3E%3Cpath fill='%23c9a96e' d='M24.4 44Q24.3 44 24.3 43.8Q24.3 43.6 24.4 43.6Q25.5 43.6 26.1 43.4Q26.6 43.2 26.9 42.6Q27.2 42 27.3 40.9L30.2 21.6L31.1 20.4L19.4 43.7Q19.3 43.9 19.1 43.9Q18.9 43.9 18.8 43.7L14.5 23.1Q14.2 21.9 13.7 21.3Q13.1 20.8 12.5 20.6Q11.9 20.4 11.3 20.4Q11.2 20.4 11.2 20.2Q11.2 19.9 11.3 19.9Q11.8 19.9 12.4 20Q13 20 13.6 20Q14.5 20 15.3 20Q16 19.9 16.4 19.9Q16.8 19.9 17 20.3Q17.2 20.7 17.5 21.9L21.2 39.5L19.2 42.6L30 20.9Q30.5 19.9 31.4 19.9Q31.7 19.9 32.4 20Q33 20 33.6 20Q34.4 20 35 20Q35.5 19.9 36.1 19.9Q36.2 19.9 36.2 20.2Q36.2 20.4 36.1 20.4Q34.8 20.4 34.1 20.9Q33.5 21.4 33.2 23L30.6 40.9Q30.3 42.6 30.7 43.1Q31.1 43.6 32.6 43.6Q32.8 43.6 32.8 43.8Q32.8 44 32.6 44Q31.8 44 30.8 44Q29.7 43.9 28.5 43.9Q27.3 43.9 26.3 44Q25.2 44 24.4 44ZM7.1 44Q7 44 7 43.8Q7 43.6 7.1 43.6Q8.4 43.6 9.3 42.5Q10.3 41.4 10.7 39.4L14.1 20.8L14.9 20.9L11.6 39.3Q11.3 41.4 11.8 42.5Q12.2 43.6 13.6 43.6Q13.7 43.6 13.7 43.8Q13.7 44 13.6 44Q12.9 44 12.1 44Q11.3 43.9 10.3 43.9Q9.4 43.9 8.6 44Q7.8 44 7.1 44ZM46.5 44.5Q43.1 44.5 41 43.3Q38.9 42.2 37.8 40.4Q36.7 38.5 36.5 36.3Q36.2 34.1 36.6 31.9Q37.2 29 38.5 26.7Q39.9 24.4 41.9 22.8Q43.9 21.2 46.3 20.4Q48.6 19.5 51 19.5Q52.6 19.5 54.2 19.9Q55.8 20.2 56.7 20.7Q56.9 20.9 57 21Q57 21.2 57 21.6L56.4 26.5Q56.4 26.6 56.2 26.6Q56.1 26.6 56 26.5Q55.5 23.6 53.7 22Q52 20.5 49.4 20.5Q47.2 20.5 45.3 21.7Q43.4 23 42.1 25.2Q40.9 27.5 40.4 30.7Q40 33.3 40.2 35.7Q40.5 38.1 41.3 39.9Q42.2 41.7 43.5 42.7Q44.9 43.8 46.7 43.8Q48.7 43.8 50.8 42.4Q52.8 40.9 54.9 38Q55 37.8 55.2 37.9Q55.3 38 55.3 38.1L54.2 42.4Q54.1 42.9 54 43.1Q53.9 43.2 53.5 43.3Q51.6 44 49.8 44.2Q48 44.5 46.5 44.5Z'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="molcurphotos">
 <meta property="og:title" content="Portrait &amp; Wedding Photographer in St. Paul, MN | Molly Curtis">
@@ -1475,7 +1469,7 @@ input[type="date"].f-input { color-scheme: dark; min-height: 47px; }
           <div class="about-stat"><div class="sn">MN · WI</div><div class="sl">Based in the Midwest</div></div>
         </div>
         <h2 class="about-h">Molly Curtis is a nationally published photographer based in the Midwest.</h2>
-        <p class="about-p">With over eight years of experience across portraits, editorial, weddings, and events, Molly brings a refined, detail-driven approach to her work. She holds a BBA in Marketing and has worked as a digital marketing specialist for the past three years, shaping how she approaches visual storytelling and brand-focused imagery.</p>
+        <p class="about-p">With over eight years of experience across portraits, editorial, weddings, and events, Molly brings a refined, detail-driven approach to her work. She holds a BBA in Marketing and has been working in digital marketing for the past three years, shaping how she approaches visual storytelling and brand-focused imagery.</p>
         <p class="about-p">Off camera: she enjoys interior styling, painting, and DJing. She has a cat named Milo, loves cooking and hosting dinner parties, as well as traveling, with her first solo trip to Japan in 2027.</p>
         <div class="marketing-social-row">
           <div class="soc-row">
@@ -1558,15 +1552,14 @@ input[type="date"].f-input { color-scheme: dark; min-height: 47px; }
       </div>
       <div class="proj-header">
         <div class="proj-title">The Zodiac Signs</div>
-        <p class="proj-desc">A twelve-part portrait series inspired by the symbolism, aesthetics, and emotional identities of the zodiac signs. This project combined creative direction, styling, makeup artistry, lighting design, and post-production to create a distinct visual world for each sign.</p>
+        <p class="proj-desc">A <span class="nowrap">twelve-part</span> portrait series inspired by the symbolism, aesthetics, and emotional identities of the zodiac signs. This project combined creative direction, styling, makeup artistry, lighting design, and post-production to create a distinct visual world for each sign.</p>
       </div>
 
       <div class="zod-meta-row">
         <div class="zod-meta-item"><span class="zod-meta-label">Role</span><span class="zod-meta-val">Creative Direction + Photography</span></div>
         <div class="zod-meta-item"><span class="zod-meta-label">Production</span><span class="zod-meta-val">Independently Produced</span></div>
-        <div class="zod-meta-item"><span class="zod-meta-label">Post-Production</span><span class="zod-meta-val">Retouching + Color</span></div>
+        <div class="zod-meta-item"><span class="zod-meta-label">Post-Production</span><span class="zod-meta-val">Retouching, Compositing + Color Grading</span></div>
         <div class="zod-meta-item"><span class="zod-meta-label">Collaboration</span><span class="zod-meta-val">Hair, Makeup &amp; Studio</span></div>
-        <div class="zod-callout"><span class="zod-callout-big">12 looks</span><span class="zod-callout-small">in 2 shoot days</span></div>
       </div>
 
       <div class="zod-hero-grid">
@@ -1602,7 +1595,7 @@ input[type="date"].f-input { color-scheme: dark; min-height: 47px; }
             <div class="zod-stat"><span class="zod-stat-num">Complete</span><span class="zod-stat-label">Post Production</span></div>
           </div>
           <div class="zod-overview-paras">
-            <p class="zod-overview-p">What began as a creative concept evolved into a twelve-part portrait series centered around the symbolism and emotional identity of each zodiac sign. Every shoot was approached with its own visual language through styling, makeup, lighting, color, and atmosphere while still maintaining a cohesive identity across the full series.</p>
+            <p class="zod-overview-p">What began as a creative concept evolved into a <span class="nowrap">twelve-part</span> portrait series centered around the symbolism and emotional identity of each zodiac sign. Every shoot was approached with its own visual language through styling, makeup, lighting, color, and atmosphere while still maintaining a cohesive identity across the full series.</p>
             <p class="zod-overview-p">This project became one of the most formative creative experiences for me early in my career. Directing and building something at this scale pushed me to think beyond simply taking portraits and more deeply about concept development, storytelling, and creating an immersive visual world around each subject.</p>
           </div>
         </div>
@@ -1613,8 +1606,8 @@ input[type="date"].f-input { color-scheme: dark; min-height: 47px; }
           <div class="zod-process-text">
             <span class="zod-process-eyebrow">Pre-production</span>
             <div class="zod-overview-label">Creative Process</div>
-            <p class="zod-process-body">Before production, I spent months building visual references for each zodiac sign — pulling from mythology, color theory, symbolism, lighting, makeup artistry, wardrobe, and set design. Each sign was approached as its own creative world while still reading as a cohesive collection.</p>
-            <p class="zod-process-pull">"This project was independently directed and produced before I turned 21 — and it remains one of the most creatively ambitious things I've ever built."</p>
+            <p class="zod-process-body">Before production, I spent months building visual references for each zodiac sign, pulling from mythology, color theory, symbolism, lighting, makeup artistry, wardrobe, and set design. Each sign was approached as its own creative world while still reading as a cohesive collection.</p>
+            <p class="zod-process-pull">"This project was independently directed and produced before I turned 21, and it remains one of the most creatively ambitious things I've ever built."</p>
           </div>
           <div class="zod-collage-wrap">
             <img src="https://res.cloudinary.com/dih43qroh/image/upload/f_auto,q_auto,w_1600/v1779502490/zodiaccollage_bnmq4g.png" loading="lazy" decoding="async" alt="Zodiac inspiration collage">
@@ -1624,10 +1617,9 @@ input[type="date"].f-input { color-scheme: dark; min-height: 47px; }
 
       <div class="zod-bts">
         <div class="zod-bts-intro">
-          <span class="zod-bts-eyebrow">Production Notes</span>
           <div class="zod-bts-header">
             <div class="zod-overview-label">Behind the Scenes</div>
-            <p class="proj-desc zod-bts-sub">A closer look into the styling, lighting, makeup artistry, and creative direction behind the twelve-part zodiac series.</p>
+            <p class="proj-desc zod-bts-sub">A closer look into the styling, lighting, makeup artistry, and creative direction behind the <span class="nowrap">twelve-part</span> zodiac series.</p>
           </div>
         </div>
         <div class="zod-bts-layout">
@@ -1677,7 +1669,6 @@ input[type="date"].f-input { color-scheme: dark; min-height: 47px; }
               <div><dt>Creative Director</dt><dd>Molly Curtis</dd></div>
               <div><dt>Producer</dt><dd>Molly Curtis</dd></div>
               <div><dt>Photographer</dt><dd>Molly Curtis</dd></div>
-              <div><dt>Lighting Designer</dt><dd>Molly Curtis</dd></div>
               <div><dt>Set Designer</dt><dd>Molly Curtis</dd></div>
               <div><dt>Wardrobe + Prop Stylist</dt><dd>Molly Curtis</dd></div>
               <div><dt>Videographer</dt><dd>Arnold Rossa</dd></div>
@@ -1822,7 +1813,7 @@ input[type="date"].f-input { color-scheme: dark; min-height: 47px; }
         </div>
         <div class="faq-item">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">How far in advance should I book? <span class="faq-icon" aria-hidden="true">+</span></button>
-          <div class="faq-a">For portraits and senior sessions, booking 2–4 weeks ahead gives us the best choice of dates. For weddings and events, I recommend reaching out 3–6 months in advance, especially for summer and fall dates, which fill up quickly. Need something sooner? Reach out anyway. If my schedule allows, I can often fit in a last-minute session within a few days for an added rush fee.</div>
+          <div class="faq-a">For portraits and senior sessions, booking 4–6 weeks ahead gives us the best choice of dates. For weddings and events, I recommend reaching out 3–6 months in advance, especially for summer and fall dates, which fill up quickly. Need something sooner? Reach out anyway. If my schedule allows, I can often fit in a last-minute session within a few days for an added rush fee.</div>
         </div>
         <div class="faq-item">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">What are your rates? <span class="faq-icon" aria-hidden="true">+</span></button>
@@ -1953,14 +1944,14 @@ input[type="date"].f-input { color-scheme: dark; min-height: 47px; }
           <div class="tcard-heading">What clients say</div>
           <div class="tcard">
             <div class="tcard-name">Rebeka</div>
-            <p class="tcard-text">"Molly has a unique ability to capture the essence of the moment, resulting in high-quality images that truly speak volumes. I highly recommend her for any photography needs — you won't be disappointed!"</p>
+            <p class="tcard-text">"Molly has a unique ability to capture the essence of the moment, resulting in high-quality images that truly speak volumes. I highly recommend her for any photography needs. You won't be disappointed!"</p>
           </div>
           <div class="tcard">
             <div class="tcard-name">Melisa</div>
             <p class="tcard-text">"I've worked with Molly since 2019 and her work has ALWAYS amazed me. The way she edits, poses you, and makes you look your best is astonishing. Such a gem in this industry."</p>
           </div>
           <div class="tcard">
-            <div class="tcard-name">Samantha — Glam by Sam</div>
+            <div class="tcard-name">Samantha - Glam by Sam</div>
             <p class="tcard-text">"Quick with edits, fast to give you a sneak peek, and incredibly professional. I recommend Molly 100% for any photography needs!"</p>
           </div>
         </div>
@@ -2031,6 +2022,11 @@ function syncHash() {
   history.replaceState(null, '', top ? '#' + top : location.pathname + location.search);
 }
 
+const SECTION_NAMES = { portfolio: 'Portfolio', about: 'About', projects: 'Projects', journal: 'Journal', faqs: 'FAQs', contact: 'Contact' };
+function trackView(type, name) {
+  if (typeof gtag === 'function') gtag('event', 'select_content', { content_type: type, content_id: name });
+}
+
 function openPage(id) {
   const el = document.getElementById('page-' + id);
   if (!el || openStack.indexOf(id) > -1) return;
@@ -2038,6 +2034,7 @@ function openPage(id) {
   document.body.style.overflow = 'hidden';
   openStack.push(id);
   syncHash();
+  if (SECTION_NAMES[id]) trackView('section', SECTION_NAMES[id]);
   if (id === 'portfolio') setTimeout(function () { resetPortfolioAnim(); attachPortfolioScroll(); }, 50);
   if (id === 'faqs') startFaqMarquee();
 }
@@ -2282,6 +2279,7 @@ function openCategory(cat) {
   if (!build) return;
 
   const label = cat.charAt(0).toUpperCase() + cat.slice(1);
+  trackView('gallery', label);
   const nextCat = CAT_ORDER[(CAT_ORDER.indexOf(cat) + 1) % CAT_ORDER.length];
   const nextLabel = nextCat.charAt(0).toUpperCase() + nextCat.slice(1);
   const grid = document.getElementById('cat-photo-grid');
@@ -2329,6 +2327,7 @@ function toggleFaq(btn) {
   if (!isOpen) {
     item.classList.add('open');
     btn.setAttribute('aria-expanded', 'true');
+    trackView('faq', btn.firstChild.textContent.trim());
   }
 }
 
@@ -2405,6 +2404,7 @@ document.addEventListener('click', function (e) {
       form.reset();
       chosen();
       success.style.display = 'inline';
+      if (typeof gtag === 'function') gtag('event', 'generate_lead', { form_name: 'Photography inquiry', session_type: types.join(', ') });
     } catch (err) {
       error.textContent = 'Something went wrong. Please try again.';
       error.style.display = 'inline';
@@ -2421,6 +2421,13 @@ function openFromHash() {
   if (HASH_PAGES.indexOf(id) > -1) openPage(id);
 }
 window.addEventListener('hashchange', openFromHash);
+
+document.querySelectorAll('#page-journal .post-card').forEach(function (card) {
+  card.addEventListener('click', function () {
+    const title = card.querySelector('.post-title');
+    trackView('journal_post', title ? title.textContent.trim() : card.getAttribute('href'));
+  });
+});
 openFromHash();
 </script>
 </body>
