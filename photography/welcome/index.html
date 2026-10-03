@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>molcurphotos — Client Welcome Guide</title>
-  <!-- Google Analytics -->
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-P2HJ0XDTL6"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -18,11 +18,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
 
   <style>
-    /* ════════════════════════════════════════════
-       DESIGN TOKENS — all sizing derives from here
-       ════════════════════════════════════════════ */
+
     :root {
-      /* Color */
+
       --col-black:    #0a0a0a;
       --col-surface:  #111111;
       --col-card:     #161616;
@@ -33,11 +31,9 @@
       --col-accent:   #b5a07a;
       --col-accent-a: rgba(181,160,122,0.12);
 
-      /* Fonts */
       --font-serif: 'Cormorant Garamond', Georgia, serif;
       --font-sans:  'DM Sans', system-ui, sans-serif;
 
-      /* Fluid type scale */
       --t-label:   clamp(0.625rem, 0.85vw,  0.72rem);
       --t-body:    clamp(0.875rem, 1.1vw,   1rem);
       --t-body-lg: clamp(0.95rem,  1.35vw,  1.1rem);
@@ -49,7 +45,6 @@
       --t-quote:   clamp(1.4rem,   3vw,     2.3rem);
       --t-note:    clamp(1.15rem,  2vw,     1.6rem);
 
-      /* Fluid spacing */
       --sp-2:  clamp(0.5rem,  0.8vw,  0.75rem);
       --sp-3:  clamp(0.75rem, 1vw,    1rem);
       --sp-4:  clamp(1rem,    1.5vw,  1.5rem);
@@ -59,7 +54,6 @@
       --sp-16: clamp(4rem,    6.5vw,  6.5rem);
       --sp-20: clamp(5rem,    8.5vw,  9rem);
 
-      /* Max-width containers */
       --mw-cinema:  1600px;
       --mw-content: 1240px;
       --mw-read:    680px;
@@ -69,13 +63,9 @@
       --ease:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
       --trans:  0.35s var(--ease);
 
-      /* Image placeholder color — warm dark */
       --img-bg: #181510;
     }
 
-    /* ════════════════════════════════════════════
-       RESET
-       ════════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; scrollbar-gutter: stable; }
     body {
@@ -89,9 +79,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ════════════════════════════════════════════
-       LAYOUT SYSTEM
-       ════════════════════════════════════════════ */
     .band          { width: 100%; }
     .band--surface { background: var(--col-surface); }
     .band--black   { background: var(--col-black); }
@@ -119,9 +106,6 @@
       background: var(--col-border);
     }
 
-    /* ════════════════════════════════════════════
-       AMBIENT: GRAIN + ORBS
-       ════════════════════════════════════════════ */
     .grain {
       position: fixed; inset: -50%; width: 200%; height: 200%;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -154,11 +138,6 @@
     }
     @keyframes orbIn { to { opacity: 1; } }
 
-
-
-    /* ════════════════════════════════════════════
-       NAV
-       ════════════════════════════════════════════ */
     .nav {
       position: fixed; inset-block-start: 0; inset-inline: 0;
       z-index: 200; padding-block: var(--sp-4); padding-inline: var(--gutter);
@@ -179,9 +158,6 @@
       text-transform: uppercase; color: var(--col-muted);
     }
 
-    /* ════════════════════════════════════════════
-       TYPOGRAPHY ATOMS
-       ════════════════════════════════════════════ */
     .eyebrow {
       display: flex; align-items: center; gap: var(--sp-3);
       font-size: var(--t-label); letter-spacing: 0.22em;
@@ -206,9 +182,6 @@
       color: var(--col-dim); line-height: 1.8; max-width: var(--mw-read);
     }
 
-    /* ════════════════════════════════════════════
-       REVEAL ANIMATIONS
-       ════════════════════════════════════════════ */
     .reveal {
       opacity: 0; transform: translateY(20px);
       transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
@@ -226,13 +199,6 @@
     .stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.36s; }
     .stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:0.45s; }
 
-    /* ════════════════════════════════════════════
-       IMAGE PLACEHOLDER SYSTEM
-       Shared styles for all 5 image zones.
-       Each has an ID and HTML comment for easy swap.
-       ════════════════════════════════════════════ */
-
-    /* Shared inner layer for parallax + bg */
     .ph-inner {
       position: absolute; inset: -12%;
       background-color: var(--img-bg);
@@ -241,14 +207,12 @@
       will-change: transform;
     }
 
-    /* Shared grain overlay on photos */
     .ph-grain {
       position: absolute; inset: 0; pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       opacity: 0.06; mix-blend-mode: overlay; z-index: 2;
     }
 
-    /* Placeholder label shown until real image is dropped in */
     .ph-label {
       position: absolute; inset: 0; z-index: 3;
       display: flex; flex-direction: column;
@@ -264,15 +228,12 @@
       font-size: 0.85rem; color: rgba(255,255,255,0.2);
     }
 
-    /* ── IMAGE 1: Hero feature (below hero text) ── */
-    /* Recommended: emotional portrait, soft movement, editorial lighting */
-    /* Dimensions: 1440 × 860px or wider (16:9 landscape) */
     .ph-hero {
       width: 100%;
       height: clamp(280px, 48vw, 640px);
       position: relative; overflow: hidden;
     }
-    /* Top + bottom gradient fades into page */
+
     .ph-hero::before,
     .ph-hero::after {
       content: ''; position: absolute; left: 0; right: 0; z-index: 4; pointer-events: none;
@@ -280,7 +241,6 @@
     .ph-hero::before { top: 0; height: 40%; background: linear-gradient(to bottom, var(--col-black) 0%, transparent 100%); }
     .ph-hero::after  { bottom: 0; height: 40%; background: linear-gradient(to top, var(--col-black) 0%, transparent 100%); }
 
-    /* Overlay quote on hero image */
     .ph-hero-caption {
       position: absolute; inset: 0; z-index: 5;
       display: flex; align-items: center; justify-content: center;
@@ -295,9 +255,6 @@
       line-height: 1.35;
     }
 
-    /* ── IMAGE 2: Full-width cinematic divider ── */
-    /* Recommended: wide environmental, storytelling, atmospheric composition */
-    /* Dimensions: 1920 × 720px or wider (ultra-wide landscape) */
     .ph-divider {
       width: 100%;
       height: clamp(240px, 42vw, 560px);
@@ -310,9 +267,6 @@
     .ph-divider::before { top: 0; height: 38%; background: linear-gradient(to bottom, var(--col-black) 0%, transparent 100%); }
     .ph-divider::after  { bottom: 0; height: 38%; background: linear-gradient(to top, var(--col-black) 0%, transparent 100%); }
 
-    /* ── IMAGE 3: Editorial portrait beside session section ── */
-    /* Recommended: close emotional portrait, soft expression, detail composition */
-    /* Dimensions: 800 × 1060px (portrait, 3:4 ratio) */
     .ph-editorial {
       width: 100%; aspect-ratio: 3/4;
       position: relative; overflow: hidden;
@@ -320,11 +274,6 @@
     .ph-editorial .ph-inner { transition: transform 0.7s var(--ease); }
     .ph-editorial:hover .ph-inner { transform: scale(1.025) translateY(-1%); }
 
-    /* ── IMAGES 4a + 4b: Staggered grid pair ── */
-    /* 4a Recommended: candid interaction, movement, laughing moment (landscape) */
-    /* 4a Dimensions: 1200 × 800px (3:2 landscape) */
-    /* 4b Recommended: cinematic detail, motion blur, walking moment (portrait) */
-    /* 4b Dimensions: 800 × 1100px (portrait, 3:4) */
     .ph-grid-a {
       width: 100%; aspect-ratio: 3/2;
       position: relative; overflow: hidden;
@@ -338,9 +287,6 @@
     .ph-grid-a:hover .ph-inner,
     .ph-grid-b:hover .ph-inner { transform: scale(1.025); }
 
-    /* ── IMAGE 5: Closing portrait ── */
-    /* Recommended: intimate close-up, warm emotional frame, dreamy portrait */
-    /* Dimensions: 1200 × 700px (wide landscape) or 800 × 1060px (portrait) */
     .ph-closing {
       width: 100%;
       height: clamp(220px, 36vw, 480px);
@@ -353,9 +299,6 @@
     .ph-closing::before { top: 0; height: 50%; background: linear-gradient(to bottom, var(--col-black) 0%, transparent 100%); }
     .ph-closing::after  { bottom: 0; height: 50%; background: linear-gradient(to top, var(--col-black) 0%, transparent 100%); }
 
-    /* ════════════════════════════════════════════
-       HERO
-       ════════════════════════════════════════════ */
     .hero {
       position: relative;
       min-height: 100svh;
@@ -414,9 +357,6 @@
     .hero-scroll-text { font-size: 0.58rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--col-muted); }
     .hero-scroll-line { width: 1px; height: 44px; background: linear-gradient(to bottom, var(--col-accent), transparent); animation: linePulse 2.4s ease-in-out infinite; }
 
-    /* ════════════════════════════════════════════
-       SECTION 01 — TIMELINE
-       ════════════════════════════════════════════ */
     .timeline-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
@@ -433,10 +373,6 @@
     .step-title { font-family: var(--font-serif); font-weight: 500; font-size: var(--t-card); color: var(--col-white); margin-bottom: var(--sp-2); }
     .step-body  { font-size: var(--t-body); color: var(--col-dim); line-height: 1.75; }
 
-    /* ════════════════════════════════════════════
-       SECTION 02 — COMMUNICATION
-       Asymmetric: image left, cards right
-       ════════════════════════════════════════════ */
     .comm-asymmetric {
       display: grid;
       grid-template-columns: 1fr 1.6fr;
@@ -460,10 +396,6 @@
     .comm-title { font-family: var(--font-serif); font-weight: 500; font-size: var(--t-card); color: var(--col-white); margin-bottom: var(--sp-2); }
     .comm-body  { font-size: var(--t-body); color: var(--col-dim); line-height: 1.75; }
 
-    /* ════════════════════════════════════════════
-       SECTION 03 — SESSION EXPERIENCE
-       Full-width quote + list, no repeated grid
-       ════════════════════════════════════════════ */
     .session-layout {
       display: grid; grid-template-columns: 1fr 1fr;
       gap: var(--sp-16); margin-top: var(--sp-12); align-items: start;
@@ -481,9 +413,6 @@
     }
     .session-list li::before { content: '—'; color: var(--col-accent); flex-shrink: 0; }
 
-    /* ════════════════════════════════════════════
-       WHAT TO WEAR — editorial card strip
-       ════════════════════════════════════════════ */
     .wear-intro {
       max-width: var(--mw-read);
       margin-bottom: var(--sp-12);
@@ -508,10 +437,6 @@
     .wear-title { font-family: var(--font-serif); font-weight: 500; font-size: var(--t-card); color: var(--col-white); margin-bottom: var(--sp-2); }
     .wear-body  { font-size: var(--t-body); color: var(--col-dim); line-height: 1.7; }
 
-    /* ════════════════════════════════════════════
-       PERSONAL NOTE FROM MOLLY
-       Center-aligned, italic, editorial
-       ════════════════════════════════════════════ */
     .note-band { background: var(--col-surface); }
     .note-inner {
       max-width: 680px; margin-inline: auto;
@@ -533,10 +458,6 @@
       font-size: var(--t-sub); color: var(--col-accent);
     }
 
-    /* ════════════════════════════════════════════
-       EMOTION / TESTIMONIAL
-       Image on right, text + testimonials on left
-       ════════════════════════════════════════════ */
     .emotion-layout {
       display: grid; grid-template-columns: 1fr 1fr;
       gap: var(--sp-16); align-items: start;
@@ -560,10 +481,6 @@
     .testimonial-name { font-family: var(--font-serif); font-weight: 500; font-size: var(--t-card); color: var(--col-accent); margin-bottom: var(--sp-2); }
     .testimonial-text { font-size: var(--t-body); color: var(--col-dim); line-height: 1.75; font-style: italic; }
 
-    /* ════════════════════════════════════════════
-       STAGGERED IMAGE GRID (Images 4a + 4b)
-       Magazine-inspired asymmetric layout
-       ════════════════════════════════════════════ */
     .stagger-grid {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
@@ -578,7 +495,7 @@
     }
     .stagger-grid-b {
       grid-column: 2; grid-row: 1 / 3;
-      margin-top: var(--sp-12); /* intentional offset — stagger effect */
+      margin-top: var(--sp-12);
     }
     .stagger-grid-caption {
       grid-column: 1; grid-row: 2;
@@ -589,9 +506,6 @@
       font-size: var(--t-sub); color: var(--col-dim); line-height: 1.6;
     }
 
-    /* ════════════════════════════════════════════
-       SECTION 04 — DELIVERY
-       ════════════════════════════════════════════ */
     .delivery-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 1px; margin-top: var(--sp-12);
@@ -607,9 +521,6 @@
     .delivery-num     { font-family: var(--font-serif); font-style: italic; font-weight: 300; font-size: clamp(1.3rem, 2.8vw, 2.2rem); color: var(--col-accent); line-height: 1; margin-bottom: var(--sp-4); }
     .delivery-body    { font-size: var(--t-body); color: var(--col-dim); line-height: 1.75; }
 
-    /* ════════════════════════════════════════════
-       SECTION 05 — FAQ
-       ════════════════════════════════════════════ */
     .faq-list { margin-top: var(--sp-12); }
     .faq-item { border-top: 1px solid var(--col-border); }
     .faq-item:last-child { border-bottom: 1px solid var(--col-border); }
@@ -634,9 +545,6 @@
     .faq-item.open .faq-answer { max-height: 320px; }
     .faq-answer-inner { padding-bottom: var(--sp-6); font-size: var(--t-body); color: var(--col-dim); line-height: 1.8; max-width: var(--mw-read); }
 
-    /* ════════════════════════════════════════════
-       CLOSING
-       ════════════════════════════════════════════ */
     .closing {
       position: relative; overflow: hidden;
       padding-block: var(--sp-20);
@@ -674,9 +582,6 @@
     }
     .btn-primary:hover { background: var(--col-white); }
 
-    /* ════════════════════════════════════════════
-       FOOTER
-       ════════════════════════════════════════════ */
     .footer { padding-block: var(--sp-8); padding-inline: var(--gutter); border-top: 1px solid var(--col-border); }
     .footer-inner {
       width: 100%; max-width: var(--mw-cinema); margin-inline: auto;
@@ -686,18 +591,12 @@
     .footer-wordmark { font-family: var(--font-serif); font-style: italic; font-size: clamp(0.9rem, 1.2vw, 1rem); color: var(--col-muted); }
     .footer-copy { font-size: var(--t-label); letter-spacing: 0.08em; color: var(--col-muted); }
 
-    /* ════════════════════════════════════════════
-       KEYFRAMES
-       ════════════════════════════════════════════ */
     @keyframes fadeUp    { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
     @keyframes linePulse { 0%,100%{ opacity:0.3; } 50%{ opacity:0.9; } }
 
-    /* ════════════════════════════════════════════
-       RESPONSIVE — only genuine layout shifts
-       ════════════════════════════════════════════ */
     @media (max-width: 860px) {
       .comm-asymmetric { grid-template-columns: 1fr; }
-      .comm-asymmetric .ph-editorial { display: none; } /* hide image on tablet — show content */
+      .comm-asymmetric .ph-editorial { display: none; }
       .comm-grid { grid-template-columns: 1fr; }
       .session-layout { grid-template-columns: 1fr; gap: var(--sp-8); }
       .emotion-layout { grid-template-columns: 1fr; gap: var(--sp-8); }
@@ -726,14 +625,10 @@
 </head>
 <body>
 
-  <!-- Grain + orbs -->
   <div class="grain" aria-hidden="true"></div>
   <div class="orb orb-1" aria-hidden="true"></div>
   <div class="orb orb-2" aria-hidden="true"></div>
 
-  <!-- ══════════════════════════════════════════
-       NAV
-       ══════════════════════════════════════════ -->
   <nav class="nav" aria-label="Site navigation">
     <div class="nav-inner">
       <a href="../" class="nav-wordmark">molcurphotos</a>
@@ -741,9 +636,6 @@
     </div>
   </nav>
 
-  <!-- ══════════════════════════════════════════
-       HERO
-       ══════════════════════════════════════════ -->
   <section class="hero" id="hero" aria-label="Welcome">
     <div class="hero-inner">
       <p class="hero-eyebrow">Before we create</p>
@@ -757,13 +649,6 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-       IMAGE 1 — HERO FEATURE
-       Swap: replace background-color on .ph-inner
-       with background-image: url('your-photo.jpg')
-       Ideal: emotional portrait · soft movement · editorial lighting
-       Dimensions: 1440 × 860px or wider
-       ══════════════════════════════════════════ -->
   <div class="ph-hero" id="img1-hero-feature" aria-hidden="true">
     <div class="ph-inner" id="img1-inner"></div>
     <div class="ph-grain"></div>
@@ -778,9 +663,6 @@
 
   <div class="divider"></div>
 
-  <!-- ══════════════════════════════════════════
-       01 WHAT HAPPENS NEXT
-       ══════════════════════════════════════════ -->
   <section id="next" class="section" aria-labelledby="next-h">
     <div class="container">
       <div class="eyebrow reveal">01</div>
@@ -824,20 +706,13 @@
 
   <div class="divider"></div>
 
-  <!-- ══════════════════════════════════════════
-       02 COMMUNICATION
-       Asymmetric: image left, 4 cards right
-       ══════════════════════════════════════════ -->
   <section id="communication" class="section" aria-labelledby="comm-h">
     <div class="container">
       <div class="eyebrow reveal">02</div>
       <h2 class="section-title reveal" id="comm-h">How We<br><em>Communicate</em></h2>
 
       <div class="comm-asymmetric">
-        <!-- IMAGE 3 — EDITORIAL PORTRAIT (beside communication section) -->
-        <!-- Swap: add background-image: url('your-photo.jpg') to .ph-inner inside -->
-        <!-- Ideal: close emotional portrait · soft expression · detail composition -->
-        <!-- Dimensions: 800×1060px portrait (3:4) -->
+
         <div class="ph-editorial reveal" id="img3-editorial-portrait" aria-hidden="true">
           <div class="ph-inner"></div>
           <div class="ph-grain"></div>
@@ -875,9 +750,6 @@
 
   <div class="divider"></div>
 
-  <!-- ══════════════════════════════════════════
-       03 SESSION EXPERIENCE
-       ══════════════════════════════════════════ -->
   <div class="band band--surface">
     <section id="session" class="section" aria-labelledby="session-h">
       <div class="container">
@@ -901,12 +773,6 @@
     </section>
   </div>
 
-  <!-- ══════════════════════════════════════════
-       IMAGE 2 — FULL-WIDTH CINEMATIC DIVIDER
-       Swap: add background-image: url('your-photo.jpg') to #img2-inner
-       Ideal: wide environmental · storytelling · atmospheric composition
-       Dimensions: 1920×720px or wider (ultra-wide landscape)
-       ══════════════════════════════════════════ -->
   <div class="ph-divider" id="img2-cinematic-divider" aria-hidden="true">
     <div class="ph-inner" id="img2-inner"></div>
     <div class="ph-grain"></div>
@@ -918,9 +784,6 @@
 
   <div class="divider"></div>
 
-  <!-- ══════════════════════════════════════════
-       WHAT TO WEAR
-       ══════════════════════════════════════════ -->
   <section id="wear" class="section" aria-labelledby="wear-h">
     <div class="container">
       <div class="eyebrow reveal">04</div>
@@ -967,9 +830,6 @@
 
   <div class="divider"></div>
 
-  <!-- ══════════════════════════════════════════
-       PERSONAL NOTE FROM MOLLY
-       ══════════════════════════════════════════ -->
   <div class="note-band">
     <div class="note-inner">
       <p class="note-pre reveal">A note from Molly</p>
@@ -980,9 +840,6 @@
 
   <div class="divider"></div>
 
-  <!-- ══════════════════════════════════════════
-       EMOTION + TESTIMONIALS
-       ══════════════════════════════════════════ -->
   <section class="section" aria-labelledby="emotion-h">
     <div class="container">
       <div class="eyebrow reveal">The Experience</div>
@@ -1007,12 +864,8 @@
           </div>
         </div>
 
-        <!-- STAGGERED IMAGE GRID — Images 4a + 4b -->
         <div class="stagger-grid reveal">
-          <!-- IMAGE 4a — STAGGERED GRID (landscape) -->
-          <!-- Swap: add background-image: url('your-photo.jpg') to .ph-inner -->
-          <!-- Ideal: candid interaction · movement · laughing moment -->
-          <!-- Dimensions: 1200×800px (3:2 landscape) -->
+
           <div class="stagger-grid-a">
             <div class="ph-grid-a" id="img4a-stagger-landscape" aria-hidden="true">
               <div class="ph-inner"></div>
@@ -1024,10 +877,6 @@
             </div>
           </div>
 
-          <!-- IMAGE 4b — STAGGERED GRID (portrait, offset) -->
-          <!-- Swap: add background-image: url('your-photo.jpg') to .ph-inner -->
-          <!-- Ideal: cinematic detail · motion blur · walking moment -->
-          <!-- Dimensions: 800×1100px (3:4 portrait) -->
           <div class="stagger-grid-b">
             <div class="ph-grid-b" id="img4b-stagger-portrait" aria-hidden="true">
               <div class="ph-inner"></div>
@@ -1049,9 +898,6 @@
 
   <div class="divider"></div>
 
-  <!-- ══════════════════════════════════════════
-       05 GALLERY DELIVERY
-       ══════════════════════════════════════════ -->
   <div class="band band--surface">
     <section id="delivery" class="section" aria-labelledby="delivery-h">
       <div class="container">
@@ -1097,9 +943,6 @@
 
   <div class="divider"></div>
 
-  <!-- ══════════════════════════════════════════
-       06 FAQ
-       ══════════════════════════════════════════ -->
   <section id="faq" class="section" aria-labelledby="faq-h">
     <div class="container">
       <div class="eyebrow reveal">06</div>
@@ -1164,12 +1007,6 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-       IMAGE 5 — CLOSING PORTRAIT
-       Swap: add background-image: url('your-photo.jpg') to #img5-inner
-       Ideal: intimate close-up · warm emotional frame · dreamy portrait
-       Dimensions: 1200×700px landscape or 800×1060px portrait
-       ══════════════════════════════════════════ -->
   <div class="ph-closing" id="img5-closing-portrait" aria-hidden="true">
     <div class="ph-inner" id="img5-inner"></div>
     <div class="ph-grain"></div>
@@ -1181,9 +1018,6 @@
 
   <div class="divider"></div>
 
-  <!-- ══════════════════════════════════════════
-       CLOSING
-       ══════════════════════════════════════════ -->
   <section class="closing" aria-label="Closing message">
     <div class="closing-glow" aria-hidden="true"></div>
     <div class="closing-inner">
@@ -1198,25 +1032,18 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-       FOOTER
-       ══════════════════════════════════════════ -->
   <footer class="footer">
     <div class="footer-inner">
       <span class="footer-wordmark">molcurphotos</span>
-      <span class="footer-copy">© 2026 Molly Curtis · All Rights Reserved</span>
+      <span class="footer-copy">© 2027 Molly Curtis · All Rights Reserved</span>
     </div>
   </footer>
 
-  <!-- ══════════════════════════════════════════
-       JAVASCRIPT
-       ══════════════════════════════════════════ -->
   <script>
     'use strict';
 
     const isTouch = window.matchMedia('(hover: none)').matches;
 
-    /* ── Scroll reveal ─────────────────────── */
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
@@ -1225,45 +1052,40 @@
 
     document.querySelectorAll('.reveal, .stagger').forEach(el => obs.observe(el));
 
-    /* ── Hero parallax (reduced intensity) ─── */
     const heroHeadline = document.querySelector('.hero-headline');
     const heroSub      = document.querySelector('.hero-sub');
     const heroEyebrow  = document.querySelector('.hero-eyebrow');
     const orb1         = document.querySelector('.orb-1');
     const orb2         = document.querySelector('.orb-2');
 
-    // Scroll-based: gentle fade + lift
     window.addEventListener('scroll', () => {
       const sy   = window.scrollY;
-      const fade = Math.max(0, 1 - sy / 520); /* slightly longer fade window */
+      const fade = Math.max(0, 1 - sy / 520);
 
       if (heroHeadline) {
-        heroHeadline.style.transform = `translateY(${sy * 0.10}px)`; /* reduced from 0.15 */
+        heroHeadline.style.transform = `translateY(${sy * 0.10}px)`;
         heroHeadline.style.opacity   = String(fade);
       }
       if (heroSub) {
-        heroSub.style.transform = `translateY(${sy * 0.06}px)`;     /* reduced from 0.08 */
+        heroSub.style.transform = `translateY(${sy * 0.06}px)`;
         heroSub.style.opacity   = String(fade);
       }
       if (heroEyebrow) heroEyebrow.style.opacity = String(fade * 0.85);
 
-      /* Orb drift — very subtle */
       if (orb1) orb1.style.transform = `translateY(${sy * 0.05}px)`;
       if (orb2) orb2.style.transform = `translateY(${sy * -0.03}px)`;
 
-      /* Parallax all image sections that are in view */
       document.querySelectorAll('.ph-inner[id]').forEach(inner => {
         const parent = inner.parentElement;
         const rect   = parent.getBoundingClientRect();
         if (rect.bottom < 0 || rect.top > window.innerHeight) return;
         const center = rect.top + rect.height / 2;
-        const offset = (window.innerHeight / 2 - center) * 0.12; /* gentle */
+        const offset = (window.innerHeight / 2 - center) * 0.12;
         inner.style.transform = `translateY(${offset}px)`;
       });
 
     }, { passive: true });
 
-    /* ── Mouse parallax on hero (reduced, desktop only) ── */
     if (!isTouch) {
       document.addEventListener('mousemove', e => {
         if (window.scrollY > window.innerHeight * 0.5) return;
@@ -1276,7 +1098,6 @@
       });
     }
 
-    /* ── Card tilt (reduced intensity, desktop only) ─── */
     if (!isTouch) {
       document.querySelectorAll('.comm-card, .delivery-cell').forEach(card => {
         card.addEventListener('mouseenter', () => { card.style.transition = 'border-color 0.35s, background 0.35s, transform 0.12s'; });
@@ -1293,7 +1114,6 @@
       });
     }
 
-    /* ── FAQ accordion ─────────────────────── */
     document.querySelectorAll('.faq-q').forEach(btn => {
       btn.addEventListener('click', () => {
         const item = btn.closest('.faq-item'), isOpen = item.classList.contains('open');
