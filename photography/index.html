@@ -751,8 +751,9 @@ html, body {
 }
 .zod-hero-cell img.loaded { opacity: 1; }
 
+.zod-bts { margin-top: 72px; }
 .zod-bts-intro {
-  padding: 72px 0 40px;
+  padding: 56px 0 40px;
   display: flex; flex-direction: column; gap: 12px;
   align-items: flex-start; position: relative;
 }
@@ -872,14 +873,15 @@ html, body {
 }
 .zod-overview-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: start; }
 .zod-credits { margin-top: 72px; padding-top: 56px; border-top: 1px solid var(--border); }
-.zod-credits[hidden] { display: none; }
-.zod-credits-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: start; }
-.zod-credits-head { display: block; margin-bottom: 14px; font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); }
-.zod-credits-list > div { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--border); }
-.zod-credits-list dt { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
-.zod-credits-list dd { font-family: var(--serif); font-size: 17px; font-weight: 300; color: var(--text); text-align: right; }
-.zod-credits-list dd a { margin-left: 4px; color: var(--accent); text-decoration: none; }
-.zod-credits-models { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
+.zod-credits-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 44px 56px; align-items: start; margin-top: 12px; }
+.zod-credits-col { display: flex; flex-direction: column; gap: 40px; }
+.zod-credits-head { margin-bottom: 12px; font-family: var(--serif); font-size: 26px; font-weight: 300; line-height: 1; color: var(--accent); }
+.zod-credits-list > div { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: baseline; column-gap: 14px; padding: 6px 0; }
+.zod-credits-list > div.two { align-items: center; }
+.zod-credits-list dt { text-align: right; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.zod-credits-list dd { margin: 0; font-family: var(--serif); font-size: 17px; font-weight: 300; color: var(--text); }
+@media (max-width: 1279px) { .zod-credits-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 359px) { .zod-credits-list dt { font-size: 9px; letter-spacing: .12em; } .zod-credits-list dd { font-size: 14px; } .zod-credits-list > div { column-gap: 10px; } }
 .zod-overview-stats {
   display: grid; grid-template-columns: 1fr 1fr;
   border-top: 1px solid var(--border);
@@ -1160,6 +1162,7 @@ input[type="date"].f-input { color-scheme: dark; min-height: 47px; }
   .pub-note { text-align: center; max-width: calc(100% - 32px); margin: 0 auto; }
 
   .faq-grid { grid-template-columns: 1fr; gap: 0; }
+  .faq-col + .faq-col .faq-item:first-child { border-top: 0; }
   .faq-item:first-child { border-top: none; }
 
   .contact-grid { grid-template-columns: 1fr; gap: 36px; }
@@ -1249,9 +1252,10 @@ input[type="date"].f-input { color-scheme: dark; min-height: 47px; }
   }
   .zod-hero-row { display: contents; }
   .zod-hero-cell img { height: auto; }
+  .zod-bts { margin-top: 56px; }
   .zod-credits { margin-top: 56px; padding-top: 40px; }
   .zod-credits-grid { grid-template-columns: 1fr; gap: 36px; }
-  .zod-credits-models { grid-template-columns: 1fr; }
+  .zod-credits-col { gap: 36px; }
   .zod-sign { top: 8px; left: 8px; padding: 4px 7px; font-size: 8px; letter-spacing: .14em; }
   .zod-meta-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 16px; }
   .zod-callout { grid-column: 1 / -1; align-items: flex-start; margin-left: 0; text-align: left; }
@@ -1586,9 +1590,41 @@ input[type="date"].f-input { color-scheme: dark; min-height: 47px; }
         </div>
       </div>
 
+      <div class="zod-overview">
+        <span class="zod-overview-label">Project Overview</span>
+        <div class="zod-overview-layout">
+          <div class="zod-overview-stats">
+            <div class="zod-stat"><span class="zod-stat-num">12</span><span class="zod-stat-label">Zodiac Signs</span></div>
+            <div class="zod-stat"><span class="zod-stat-num">2</span><span class="zod-stat-label">Shoot Days</span></div>
+            <div class="zod-stat"><span class="zod-stat-num">Independent</span><span class="zod-stat-label">Creative Direction</span></div>
+            <div class="zod-stat"><span class="zod-stat-num">Full</span><span class="zod-stat-label">Concept Development</span></div>
+            <div class="zod-stat"><span class="zod-stat-num">On-Set</span><span class="zod-stat-label">Makeup + Styling</span></div>
+            <div class="zod-stat"><span class="zod-stat-num">Complete</span><span class="zod-stat-label">Post Production</span></div>
+          </div>
+          <div class="zod-overview-paras">
+            <p class="zod-overview-p">What began as a creative concept evolved into a twelve-part portrait series centered around the symbolism and emotional identity of each zodiac sign. Every shoot was approached with its own visual language through styling, makeup, lighting, color, and atmosphere while still maintaining a cohesive identity across the full series.</p>
+            <p class="zod-overview-p">This project became one of the most formative creative experiences for me early in my career. Directing and building something at this scale pushed me to think beyond simply taking portraits and more deeply about concept development, storytelling, and creating an immersive visual world around each subject.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="zod-process">
+        <div class="zod-process-layout">
+          <div class="zod-process-text">
+            <span class="zod-process-eyebrow">Pre-production</span>
+            <div class="zod-overview-label">Creative Process</div>
+            <p class="zod-process-body">Before production, I spent months building visual references for each zodiac sign — pulling from mythology, color theory, symbolism, lighting, makeup artistry, wardrobe, and set design. Each sign was approached as its own creative world while still reading as a cohesive collection.</p>
+            <p class="zod-process-pull">"This project was independently directed and produced before I turned 21 — and it remains one of the most creatively ambitious things I've ever built."</p>
+          </div>
+          <div class="zod-collage-wrap">
+            <img src="https://res.cloudinary.com/dih43qroh/image/upload/f_auto,q_auto,w_1600/v1779502490/zodiaccollage_bnmq4g.png" loading="lazy" decoding="async" alt="Zodiac inspiration collage">
+          </div>
+        </div>
+      </div>
+
       <div class="zod-bts">
         <div class="zod-bts-intro">
-          <span class="zod-bts-eyebrow">Process / On Set / Production Notes</span>
+          <span class="zod-bts-eyebrow">Production Notes</span>
           <div class="zod-bts-header">
             <div class="zod-overview-label">Behind the Scenes</div>
             <p class="proj-desc zod-bts-sub">A closer look into the styling, lighting, makeup artistry, and creative direction behind the twelve-part zodiac series.</p>
@@ -1612,66 +1648,63 @@ input[type="date"].f-input { color-scheme: dark; min-height: 47px; }
         </div>
       </div>
 
-      <div class="zod-process">
-        <div class="zod-process-layout">
-          <div class="zod-process-text">
-            <span class="zod-process-eyebrow">Pre-production</span>
-            <div class="zod-overview-label">Creative Process</div>
-            <p class="zod-process-body">Before production, I spent months building visual references for each zodiac sign — pulling from mythology, color theory, symbolism, lighting, makeup artistry, wardrobe, and set design. Each sign was approached as its own creative world while still reading as a cohesive collection.</p>
-            <p class="zod-process-pull">"This project was independently directed and produced before I turned 21 — and it remains one of the most creatively ambitious things I've ever built."</p>
-          </div>
-          <div class="zod-collage-wrap">
-            <img src="https://res.cloudinary.com/dih43qroh/image/upload/f_auto,q_auto,w_1600/v1779502490/zodiaccollage_bnmq4g.png" loading="lazy" decoding="async" alt="Zodiac inspiration collage">
-          </div>
-        </div>
-      </div>
-
-      <div class="zod-overview">
-        <span class="zod-overview-label">Project Overview</span>
-        <div class="zod-overview-layout">
-          <div class="zod-overview-stats">
-            <div class="zod-stat"><span class="zod-stat-num">12</span><span class="zod-stat-label">Zodiac Signs</span></div>
-            <div class="zod-stat"><span class="zod-stat-num">2</span><span class="zod-stat-label">Shoot Days</span></div>
-            <div class="zod-stat"><span class="zod-stat-num">Independent</span><span class="zod-stat-label">Creative Direction</span></div>
-            <div class="zod-stat"><span class="zod-stat-num">Full</span><span class="zod-stat-label">Concept Development</span></div>
-            <div class="zod-stat"><span class="zod-stat-num">On-Set</span><span class="zod-stat-label">Makeup + Styling</span></div>
-            <div class="zod-stat"><span class="zod-stat-num">Complete</span><span class="zod-stat-label">Post Production</span></div>
-          </div>
-          <div class="zod-overview-paras">
-            <p class="zod-overview-p">What began as a creative concept evolved into a twelve-part portrait series centered around the symbolism and emotional identity of each zodiac sign. Every shoot was approached with its own visual language through styling, makeup, lighting, color, and atmosphere while still maintaining a cohesive identity across the full series.</p>
-            <p class="zod-overview-p">This project became one of the most formative creative experiences for me early in my career. Directing and building something at this scale pushed me to think beyond simply taking portraits and more deeply about concept development, storytelling, and creating an immersive visual world around each subject.</p>
-          </div>
-        </div>
-      </div>
-      <div class="zod-credits" hidden>
+      <div class="zod-credits">
         <span class="zod-overview-label">Credits</span>
         <div class="zod-credits-grid">
-          <div>
-            <span class="zod-credits-head">Team</span>
-            <dl class="zod-credits-list">
-            <div><dt>Creative Direction + Photography</dt><dd>Molly Curtis <a href="https://www.instagram.com/molcurphotos/" target="_blank" rel="noopener">@molcurphotos</a></dd></div>
-            <div><dt>Makeup</dt><dd>Name @handle</dd></div>
-            <div><dt>Hair</dt><dd>Name @handle</dd></div>
-            <div><dt>Wardrobe + Styling</dt><dd>Name @handle</dd></div>
-            <div><dt>Studio</dt><dd>Name @handle</dd></div>
-            </dl>
+          <div class="zod-credits-col">
+            <div class="zod-credits-group">
+              <p class="zod-credits-head">models.</p>
+              <dl class="zod-credits-list">
+              <div><dt>Taurus</dt><dd>Tatumn</dd></div>
+              <div><dt>Aquarius</dt><dd>Iztla</dd></div>
+              <div><dt>Leo</dt><dd>Meley Akpa</dd></div>
+              <div><dt>Capricorn</dt><dd>Gabby Portillo</dd></div>
+              <div><dt>Sagittarius</dt><dd>Diana Adamson</dd></div>
+              <div><dt>Virgo</dt><dd>Emily Reis</dd></div>
+              <div><dt>Scorpio</dt><dd>Molly Curtis</dd></div>
+              <div><dt>Pisces</dt><dd>Ceceilia Delacruz</dd></div>
+              <div><dt>Libra</dt><dd>Dystine</dd></div>
+              <div><dt>Gemini</dt><dd>Ava Williams</dd></div>
+              <div><dt>Cancer</dt><dd>Sesamae Isabel</dd></div>
+              <div><dt>Aries</dt><dd>Kayla Bergsten</dd></div>
+              </dl>
+            </div>
           </div>
-          <div>
-            <span class="zod-credits-head">Models</span>
-            <dl class="zod-credits-list zod-credits-models">
-            <div><dt>Taurus</dt><dd>Name @handle</dd></div>
-            <div><dt>Aquarius</dt><dd>Name @handle</dd></div>
-            <div><dt>Leo</dt><dd>Name @handle</dd></div>
-            <div><dt>Capricorn</dt><dd>Name @handle</dd></div>
-            <div><dt>Sagittarius</dt><dd>Name @handle</dd></div>
-            <div><dt>Virgo</dt><dd>Name @handle</dd></div>
-            <div><dt>Scorpio</dt><dd>Name @handle</dd></div>
-            <div><dt>Pisces</dt><dd>Name @handle</dd></div>
-            <div><dt>Libra</dt><dd>Name @handle</dd></div>
-            <div><dt>Gemini</dt><dd>Name @handle</dd></div>
-            <div><dt>Cancer</dt><dd>Name @handle</dd></div>
-            <div><dt>Aries</dt><dd>Name @handle</dd></div>
-            </dl>
+          <div class="zod-credits-col">
+            <div class="zod-credits-group">
+              <p class="zod-credits-head">crew.</p>
+              <dl class="zod-credits-list">
+              <div><dt>Creative Director</dt><dd>Molly Curtis</dd></div>
+              <div><dt>Producer</dt><dd>Molly Curtis</dd></div>
+              <div><dt>Photographer</dt><dd>Molly Curtis</dd></div>
+              <div><dt>Lighting Designer</dt><dd>Molly Curtis</dd></div>
+              <div><dt>Set Designer</dt><dd>Molly Curtis</dd></div>
+              <div><dt>Wardrobe + Prop Stylist</dt><dd>Molly Curtis</dd></div>
+              <div><dt>Videographer</dt><dd>Arnold Rossa</dd></div>
+              <div><dt>Lighting + Set Assistant</dt><dd>Arnold Rossa</dd></div>
+              <div><dt>Makeup Artist</dt><dd>Samantha Hoke</dd></div>
+              <div><dt>Makeup Artist</dt><dd>Melisa</dd></div>
+              <div><dt>Hair Stylist</dt><dd>Sarah Deshler</dd></div>
+              <div><dt>BTS Photographer</dt><dd>Molly Curtis</dd></div>
+              <div><dt>BTS Photographer</dt><dd>Sarah Deshler</dd></div>
+              </dl>
+            </div>
+          </div>
+          <div class="zod-credits-col">
+            <div class="zod-credits-group">
+              <p class="zod-credits-head">post-production.</p>
+              <dl class="zod-credits-list">
+              <div class="two"><dt>Retouching, Compositing<br>+ Color Grading</dt><dd>Molly Curtis</dd></div>
+              <div><dt>Video Editor</dt><dd>Arnold Rossa</dd></div>
+              <div><dt>Music</dt><dd>Micrah</dd></div>
+              </dl>
+            </div>
+            <div class="zod-credits-group">
+              <p class="zod-credits-head">studio.</p>
+              <dl class="zod-credits-list">
+              <div><dt>Studio</dt><dd>imagempls</dd></div>
+              </dl>
+            </div>
           </div>
         </div>
       </div>
@@ -1803,6 +1836,8 @@ input[type="date"].f-input { color-scheme: dark; min-height: 47px; }
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">Do you offer hair and makeup? <span class="faq-icon" aria-hidden="true">+</span></button>
           <div class="faq-a">I don't do hair and makeup myself, but I work with talented makeup artists and hairstylists I trust and can book them for your session. Their services are priced separately from my session fee, and I'll coordinate the timing so all you have to do is show up and get ready in good hands. Just let me know when you book.</div>
         </div>
+      </div>
+      <div class="faq-col">
         <div class="faq-item">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">How long until I receive my edits? <span class="faq-icon" aria-hidden="true">+</span></button>
           <div class="faq-a">Turnaround is typically 3–4 weeks depending on the session. I aim to deliver the best results and will keep you updated throughout the process so you're never left wondering. The wait is always worth it!</div>
