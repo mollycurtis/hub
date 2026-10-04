@@ -3,16 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Welcome Back &middot; Case Study &middot; Molly Curtis</title>
-<meta name="description" content="Welcome Back is a browser game built inside a 2000s family computer, holding five original worlds. A case study on the design, documentation, art direction and front end build by Molly Curtis.">
+<title>Welcome Back Case Study | Molly Curtis</title>
+<meta name="description" content="Welcome Back is a browser game inside a 2000s family computer with five original worlds. A case study on its design, art direction and build by Molly Curtis.">
+<link rel="canonical" href="https://molly-curtis.com/marketing/visual-concepts/welcome-back/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231A1714'/%3E%3Cpath fill='%23F4F1EA' d='M9 38.2 10.1 17.8H18.5L21.9 34.8H21.4L24.9 17.8H33.3L34.4 38.2H29.4L28.5 21.4H28.5L24.9 38.2H18.5L14.8 21.4H14.9L14 38.2ZM45.6 38.6Q42.5 38.6 40.2 37.3Q37.9 36 36.6 33.6Q35.4 31.2 35.4 28Q35.4 24.8 36.6 22.4Q37.9 20 40.1 18.7Q42.4 17.4 45.6 17.4Q49.2 17.4 51.7 19.2Q54.2 21 55 24.3L49.8 25.5Q49.5 23.7 48.4 22.7Q47.2 21.7 45.6 21.7Q44 21.7 42.9 22.5Q41.9 23.2 41.3 24.7Q40.8 26.1 40.8 28Q40.8 29.9 41.3 31.4Q41.9 32.8 43 33.5Q44 34.3 45.5 34.3Q47.1 34.3 48.2 33.4Q49.3 32.5 49.7 30.8L55 31.9Q54.2 35.1 51.7 36.8Q49.2 38.6 45.6 38.6Z'/%3E%3Crect x='9' y='43.6' width='14' height='3' fill='%23B23A2E'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Molly Curtis">
+<meta property="og:title" content="Welcome Back Case Study | Molly Curtis">
+<meta property="og:description" content="Welcome Back is a browser game inside a 2000s family computer with five original worlds. A case study on its design, art direction and build by Molly Curtis.">
+<meta property="og:url" content="https://molly-curtis.com/marketing/visual-concepts/welcome-back/">
+<meta property="og:image" content="https://res.cloudinary.com/dih43qroh/video/upload/so_0,c_fill,w_1200,h_630,q_auto/v1790825772/Welcome-back_lfhbsc.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "Welcome Back Case Study", "description": "Welcome Back is a browser game inside a 2000s family computer with five original worlds. A case study on its design, art direction and build by Molly Curtis.", "url": "https://molly-curtis.com/marketing/visual-concepts/welcome-back/", "image": "https://res.cloudinary.com/dih43qroh/video/upload/so_0,c_fill,w_1200,h_630,q_auto/v1790825772/Welcome-back_lfhbsc.jpg", "creator": {"@type": "Person", "name": "Molly Curtis", "url": "https://molly-curtis.com/"}}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P2HJ0XDTL6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-P2HJ0XDTL6');
+</script>
 <meta name="author" content="Molly Curtis">
 <meta name="copyright" content="&copy; 2027 Molly Curtis">
-<!--
-  Welcome Back &middot; Case study
-  Original interactive experience designed and developed by Molly Curtis
-  &copy; 2027 Molly Curtis
-  https://molly-curtis.com/
--->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -50,7 +62,6 @@ a{color:inherit}
 .skip{position:absolute;left:-9999px}
 .skip:focus{position:static;display:inline-block;font-family:var(--mono);font-size:12px;padding:8px 0}
 
-/* type */
 h1,h2,h3,h4{font-weight:600;letter-spacing:-.02em;line-height:1.06;margin:0}
 .kicker{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--red-deep);display:inline-flex;align-items:center;gap:.7em;margin:0}
 .kicker::before{content:"";width:22px;height:1px;background:var(--red)}
@@ -62,7 +73,6 @@ p{margin:0 0 1.05em}
 p:last-child{margin-bottom:0}
 .muted{color:var(--ink-muted)}
 
-/* rail */
 .rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;background:rgba(244,241,234,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--hairline);transform:translateY(-101%);transition:transform .35s var(--ease)}
 .rail.show{transform:translateY(0)}
 .rail-in{display:flex;align-items:center;gap:clamp(12px,2.1vw,26px);height:var(--railh);overflow-x:auto;scrollbar-width:none}
@@ -71,7 +81,6 @@ p:last-child{margin-bottom:0}
 .rail a{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-muted);text-decoration:none;white-space:nowrap;padding:4px 0;border-bottom:1px solid transparent}
 .rail a:hover{color:var(--ink);border-bottom-color:var(--red)}
 
-/* hero */
 .hero{padding:clamp(60px,11vh,124px) 0 clamp(38px,6vh,60px);position:relative}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--hairline)}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(22px,3.4vw,40px)}
@@ -87,7 +96,6 @@ p:last-child{margin-bottom:0}
 .meta dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--red-deep);margin-bottom:7px}
 .meta dd{margin:0;font-size:15px;line-height:1.5}
 
-/* ── MAP ─────────────────────────────────────────── */
 .mapsec{border-bottom:1px solid var(--hairline);position:relative;padding-bottom:clamp(54px,8vh,96px)}
 .gridbg{background:
    linear-gradient(to right,rgba(26,23,20,.038) 1px,transparent 1px) 0 0/34px 34px,
@@ -154,7 +162,6 @@ button.node:hover .n-plus,.node[aria-expanded="true"] .n-plus{color:var(--red)}
 .cstub{height:26px;position:relative}
 .cstub::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--hairline-strong)}
 
-/* sections */
 section.band{padding:clamp(54px,8.5vh,98px) 0;border-bottom:1px solid var(--hairline)}
 .sechead h2{margin-top:.35em}
 .two{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(24px,3.2vw,46px)}
@@ -164,14 +171,12 @@ section.band{padding:clamp(54px,8.5vh,98px) 0;border-bottom:1px solid var(--hair
 blockquote{margin:clamp(24px,3.4vw,40px) 0;padding:0 0 0 clamp(18px,2.4vw,30px);border-left:2px solid var(--red);font-size:clamp(19px,2.1vw,27px);line-height:1.34;font-weight:500;letter-spacing:-.02em;max-width:26ch}
 blockquote cite{display:block;font-family:var(--mono);font-size:11.5px;font-style:normal;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-muted);margin-top:14px;font-weight:400}
 
-/* the personal layer */
 .eggs{margin-top:clamp(30px,4.4vw,48px);border-top:1px solid var(--hairline-strong)}
 .egg{display:grid;grid-template-columns:minmax(0,1fr);gap:6px 0;padding:18px 0;border-bottom:1px solid var(--hairline)}
 .egg-mem{font-size:17px;line-height:1.5;letter-spacing:-.005em;margin:0;color:var(--ink)}
 .egg-where{font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--ink-muted);margin:0;letter-spacing:.01em}
 @media (min-width:900px){ .egg{grid-template-columns:.52fr .48fr;gap:0 clamp(24px,3.4vw,48px);align-items:baseline} }
 
-/* trailer */
 .trailer{background:var(--ink);color:var(--paper);padding:clamp(54px,8vh,96px) 0 clamp(50px,7vh,84px);--red-lift:#D2705B}
 .trailer .kicker{color:var(--red-lift)}
 .trailer .kicker::before{background:var(--red-lift)}
@@ -188,14 +193,12 @@ blockquote cite{display:block;font-family:var(--mono);font-size:11.5px;font-styl
 .tr-cap{font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:rgba(244,241,234,.45);margin:14px 0 0}
 @media (min-width:900px){ .tr-head{grid-template-columns:.42fr .58fr} }
 
-/* playtime */
 .counts.playtime{margin-top:clamp(28px,3.6vw,42px)}
 .counts.playtime .c-n{font-size:clamp(23px,2.9vw,33px)}
 .counts.playtime .c-l{text-transform:none;letter-spacing:.02em;font-size:11px;line-height:1.55}
 .playtime-note{font-family:var(--mono);font-size:11.5px;line-height:1.6;color:var(--ink-muted);
   letter-spacing:.02em;margin:14px 0 0;max-width:none}
 
-/* the one world that moves */
 .world-motion{background:var(--paper-raised);border-bottom:1px solid var(--hairline)}
 .motion-strip{margin:clamp(30px,4.4vw,52px) 0 0;border-top:1px solid var(--hairline-strong);border-bottom:1px solid var(--hairline-strong);
   background:#F4F1EA;overflow:hidden;display:flex;justify-content:center}
@@ -203,7 +206,6 @@ blockquote cite{display:block;font-family:var(--mono);font-size:11.5px;font-styl
 .motion-cap{font-family:var(--mono);font-size:11.5px;line-height:1.6;color:var(--ink-muted);letter-spacing:.02em;
   margin:14px 0 0;max-width:none}
 
-/* world sections */
 .worldhead{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:baseline;border-top:1px solid var(--hairline-strong);padding-top:22px}
 .worldhead .wnum{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--red-deep)}
 .spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;border-top:1px solid var(--hairline);margin-top:clamp(22px,3vw,30px)}
@@ -214,7 +216,6 @@ blockquote cite{display:block;font-family:var(--mono);font-size:11.5px;font-styl
 .spec dt{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--red-deep);margin-bottom:6px}
 .spec dd{margin:0;font-size:14.5px;line-height:1.5;color:var(--ink)}
 
-/* figures + placeholders */
 figure{margin:0}
 .fig{margin:clamp(28px,4vw,52px) 0 0}
 .fig img{border:1px solid var(--hairline-strong);background:var(--paper-raised);width:100%;height:auto}
@@ -234,7 +235,6 @@ figcaption{font-family:var(--mono);font-size:11.5px;line-height:1.6;color:var(--
 .phbox span{position:relative;font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-muted)}
 .phbox.tall{aspect-ratio:4/5}
 
-/* lists + tables */
 .calls{border-top:1px solid var(--hairline);margin-top:clamp(22px,3vw,34px)}
 .call{display:grid;grid-template-columns:minmax(0,1fr);gap:6px;padding:20px 0;border-bottom:1px solid var(--hairline)}
 .call h4{font-size:17px;letter-spacing:-.015em}
@@ -262,7 +262,6 @@ ul.ticks li{padding:11px 0 11px 30px;border-bottom:1px solid var(--hairline);pos
 ul.ticks li::before{content:"";position:absolute;left:4px;top:19px;width:9px;height:1px;background:var(--red)}
 ul.ticks li:first-child{border-top:1px solid var(--hairline)}
 
-/* ── credits / scope ──────────────────────────────── */
 .creds{background:var(--ink);color:var(--paper);border-bottom:0;--red-lift:#D2705B}
 .creds .kicker{color:var(--red-lift)}
 .creds .kicker::before{background:var(--red-lift)}
@@ -294,7 +293,6 @@ ul.ticks li:first-child{border-top:1px solid var(--hairline)}
 .cr-roles-line{font-size:clamp(20px,2.6vw,33px);font-weight:600;letter-spacing:-.025em;line-height:1.28;color:var(--paper);margin:0}
 .cr-roles-line span{white-space:nowrap}
 .cr-roles-line span+span::before{content:"\00B7\00A0";color:var(--red-lift);font-weight:400}
-
 
 @media (min-width:760px){ .cr-list{columns:2} }
 @media (min-width:900px){
@@ -336,10 +334,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   .g-label{gap:6px 12px}
   .meta div,.spec div{border-right:0;padding:16px 0;border-bottom:1px solid var(--hairline)}
   .meta div:last-child,.spec div:last-child{border-bottom:0}
-}
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *{transition-duration:.001ms !important;animation-duration:.001ms !important}
 }
 </style>
 </head>
@@ -394,7 +388,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </header>
 
-<!-- ══ TRAILER ══ -->
 <section class="trailer" id="trailer">
   <div class="wrap">
     <div class="tr-head">
@@ -415,7 +408,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ MAP ══ -->
 <section class="mapsec gridbg" id="map">
   <div class="wrap maphead">
     <p class="kicker">How it was made</p>
@@ -434,7 +426,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 01 PREMISE ══ -->
 <section class="band" id="premise">
   <div class="wrap two">
     <div class="sechead">
@@ -453,7 +444,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 02 MACHINE ══ -->
 <section class="band" id="machine">
   <div class="wrap">
     <div class="two">
@@ -485,7 +475,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 03 WORLDS INTRO ══ -->
 <section class="band" id="worlds">
   <div class="wrap two">
     <div class="sechead">
@@ -509,7 +498,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 04 MAPLE GROVE ══ -->
 <section class="band" id="w-maple">
   <div class="wrap">
     <div class="worldhead">
@@ -545,7 +533,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 05 iFIND ══ -->
 <section class="band" id="w-ifind">
   <div class="wrap">
     <div class="worldhead">
@@ -583,7 +570,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 06 FINN ══ -->
 <section class="band" id="w-finn">
   <div class="wrap">
     <div class="worldhead">
@@ -620,7 +606,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 07 THE HORSE GAME ══ -->
 <section class="band world-motion" id="w-horse">
   <div class="wrap">
     <div class="worldhead">
@@ -656,7 +641,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 08 PENGUIN COVE ══ -->
 <section class="band" id="w-penguin">
   <div class="wrap">
     <div class="worldhead">
@@ -688,7 +672,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 09 PERSONAL LAYER ══ -->
 <section class="band" id="personal">
   <div class="wrap">
     <div class="two">
@@ -719,7 +702,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 10 UX ══ -->
 <section class="band" id="ux">
   <div class="wrap">
     <div class="two">
@@ -738,7 +720,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 11 VISUAL SYSTEM ══ -->
 <section class="band" id="visual">
   <div class="wrap">
     <div class="two">
@@ -757,7 +738,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 12 SYSTEMS ══ -->
 <section class="band" id="systems">
   <div class="wrap">
     <div class="two">
@@ -775,7 +755,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 13 DEVELOPMENT ══ -->
 <section class="band" id="development">
   <div class="wrap">
     <div class="two">
@@ -794,7 +773,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 14 DECISIONS ══ -->
 <section class="band" id="calls">
   <div class="wrap">
     <div class="sechead" style="max-width:60ch">
@@ -817,7 +795,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 15 METHOD ══ -->
 <section class="band" id="docs">
   <div class="wrap">
     <div class="two">
@@ -851,7 +828,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 16 REVIEW ══ -->
 <section class="band" id="loop">
   <div class="wrap">
     <div class="two">
@@ -878,7 +854,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 17 PROOF ══ -->
 <section class="band" id="proof">
   <div class="wrap">
     <div class="two">
@@ -913,7 +888,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 18 ANALYTICS ══ -->
 <section class="band" id="analytics">
   <div class="wrap">
     <div class="two">
@@ -954,7 +928,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 19 BEHAVIOR ══ -->
 <section class="band" id="behavior">
   <div class="wrap">
     <div class="two">
@@ -990,7 +963,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 20 SCOPE ══ -->
 <section class="band creds" id="scope">
   <div class="wrap">
     <div class="two cr-head">
@@ -1080,7 +1052,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 21 COMMERCIAL ══ -->
 <section class="band" id="commercial">
   <div class="wrap">
     <div class="two">
@@ -1126,7 +1097,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
   </div>
 </section>
 
-<!-- ══ 22 WHY ══ -->
 <section class="band" id="shows">
   <div class="wrap two">
     <div class="sechead">
@@ -1159,9 +1129,7 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
 <script>
 (function(){
   "use strict";
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ── node expand ─────────────────────────────── */
   Array.prototype.forEach.call(document.querySelectorAll('button.node'), function(btn){
     var d = document.getElementById(btn.getAttribute('data-d'));
     if(!d) return;
@@ -1175,7 +1143,6 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
     });
   });
 
-  /* ── draw-in once visible ────────────────────── */
   var diag = document.getElementById('mapdiag');
   if(diag){
     if('IntersectionObserver' in window){
@@ -1186,14 +1153,12 @@ footer{padding:clamp(46px,7vh,82px) 0 clamp(42px,6vh,68px);border-top:1px solid 
     } else { diag.classList.add('drawn'); }
   }
 
-  /* ── sticky rail ─────────────────────────────── */
   var rail = document.getElementById('rail'), hero = document.querySelector('.hero');
   if(rail && hero && 'IntersectionObserver' in window){
     new IntersectionObserver(function(es){
       es.forEach(function(e){ rail.classList.toggle('show', !e.isIntersecting); });
     }, { rootMargin: '-60px 0px 0px 0px' }).observe(hero);
   }
-
 
 })();
 </script>
