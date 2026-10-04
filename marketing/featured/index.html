@@ -58,7 +58,7 @@
 :root{--nav-h:61px;--gap-top:clamp(16px,2.6vw,34px)}
 body{overflow-x:clip}
 @supports not (overflow:clip){body{overflow-x:hidden}}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .files-wrap{overflow-x:clip;padding-top:calc(var(--nav-h) + var(--gap-top))}
 .files{list-style:none;margin:0;padding:0;animation:files-in .9s ease both;--tab-h:clamp(44px,4.6vw,64px);--step:clamp(54px,11svh,118px);--show:clamp(150px,21svh,220px);--top0:calc(var(--nav-h) + var(--gap-top));--body-h:max(240px,calc(100vh - var(--top0) - 4 * var(--step) - var(--tab-h)))}
 @supports (height:100dvh){.files{--body-h:max(240px,calc(100dvh - var(--top0) - 4 * var(--step) - var(--tab-h)))}}
@@ -103,7 +103,7 @@ a.file-link:hover,a.file-link:focus-visible{--lift:-16px;outline:none}
     <a href="../" class="nav-logo">Molly Curtis</a>
     <a href="../" class="nav-back">&#8592; Portfolio</a>
   </nav>
-  <h1 class="sr-only">Featured Work</h1>
+  <h1 class="sr-only">Molly Curtis: featured marketing work</h1>
   <div class="files-wrap">
     <ol class="files">
       <li class="file file--sub" style="--i:0;--tab:4%;--tab-m:4%;--tilt:-.6deg;--dx:4vw;--swing:-5deg">
