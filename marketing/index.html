@@ -76,6 +76,9 @@ main#home{padding-top:var(--mh)}
 .cover-inner{max-width:var(--coverw);margin-inline:auto;padding-inline:var(--gut);width:100%}
 .cover-title{font-size:clamp(38px,7.4vw,104px);font-weight:800;line-height:1.0;letter-spacing:-.035em;margin-top:var(--s5);max-width:20ch}
 .cover-lower{margin-top:var(--s7);display:grid;grid-template-columns:1fr auto;gap:var(--s7);align-items:center}
+.cover-cta{display:flex;flex-direction:column;align-items:center;gap:var(--s3)}
+.feat-link{display:inline-flex;align-items:center;gap:.4em;font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--red-deep);text-decoration:none;border-bottom:1px solid transparent;transition:color .2s var(--ease),border-color .2s var(--ease)}
+.feat-link:hover{border-color:var(--red-deep)}
 .cover-positioning{font-size:clamp(16px,1.35vw,21px);line-height:1.5;color:var(--ink-muted);max-width:64ch}
 .enter-work{display:inline-flex;align-items:center;gap:.6em;font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper);background:var(--red);border:1px solid var(--red);padding:var(--s4) var(--s7);border-radius:2px;cursor:pointer;white-space:nowrap;transition:background .25s var(--ease),border-color .25s var(--ease),transform .25s var(--ease)}
 .enter-work:hover{background:var(--red-deep);border-color:var(--red-deep)}
@@ -227,6 +230,7 @@ body.hub-open header.mast{display:none}
   .cover .kicker::before{display:none}
   .cover-title{font-size:clamp(40px,12vw,68px);max-width:none;margin-top:var(--s3)}
   .cover-lower{grid-template-columns:1fr;gap:var(--s5);align-items:start;margin-top:var(--s6)}
+  .cover-cta{align-items:flex-start}
   .enter-work{justify-self:start}
   .cover-positioning{max-width:none}
   .cover-metrics{grid-template-columns:1fr 1fr;gap:var(--s5);margin-top:var(--s6);padding-top:var(--s4)}
@@ -267,7 +271,10 @@ body.hub-open header.mast{display:none}
       <h1 class="cover-title">Where strategy meets <em class="mark">visual storytelling.</em></h1>
       <div class="cover-lower">
         <p class="cover-positioning">Blending digital strategy, content, and creative direction to create conversion-focused work across landing pages, campaigns, and brand systems with equal focus on performance and visual storytelling.</p>
-        <button class="enter-work nav-view" data-view="work">View Work <span class="arw" aria-hidden="true">→</span></button>
+        <div class="cover-cta">
+          <button class="enter-work nav-view" data-view="work">View Work <span class="arw" aria-hidden="true">→</span></button>
+          <a class="feat-link cat-open" data-cat="featured" href="featured/">Featured Work <span aria-hidden="true">→</span></a>
+        </div>
       </div>
       <div class="cover-metrics">
         <div class="metric"><span class="n">$1M+</span><span class="l">Attributed Revenue</span></div>
@@ -334,6 +341,9 @@ body.hub-open header.mast{display:none}
 <section class="takeover cat-hub" id="view-display-ads" role="dialog" aria-modal="true" aria-label="Display Ad Creation" inert aria-hidden="true">
   <iframe class="hub-frame" data-hub="display-ads" title="Display Ad Creative - Molly Curtis"></iframe>
 </section>
+<section class="takeover cat-hub" id="view-featured" role="dialog" aria-modal="true" aria-label="Featured Work" inert aria-hidden="true">
+  <iframe class="hub-frame" data-hub="featured" title="Featured Work - Molly Curtis"></iframe>
+</section>
 <section class="takeover" id="view-about" role="dialog" aria-modal="true" aria-labelledby="about-h" inert aria-hidden="true">
   <div class="tk-inner">
     <div class="tk-top tk-reveal"><span class="kicker">About</span><button class="tk-close" data-close data-parent="" aria-label="Close and return home">Close <span class="x" aria-hidden="true">✕</span></button></div>
@@ -352,7 +362,7 @@ body.hub-open header.mast{display:none}
       </figure>
     </div>
         <div class="about-meta tk-reveal d3">
-      <div class="row"><span class="l">Currently</span><span class="v"><b>Digital Marketing Specialist</b><br>National Business Institute · June 2023–Present</span></div>
+      <div class="row"><span class="l">Ways I can help</span><span class="v"><b>Landing pages + CRO</b><br>A/B testing · Paid creative · Brand direction</span></div>
       <div class="row"><span class="l">Education</span><span class="v"><b>BBA, Marketing</b><br>University of Wisconsin–Eau Claire · 2023</span></div>
       <div class="row"><span class="l">Location</span><span class="v"><b>St. Paul, Minnesota</b><br>Open to remote</span></div>
     </div>
@@ -396,7 +406,7 @@ body.hub-open header.mast{display:none}
 (function(){
   "use strict";
   function track(n,p){ if(typeof gtag==='function'){ try{ gtag('event',n,p||{}); }catch(e){} } }
-  var VIEWS={work:'view-work',about:'view-about',contact:'view-contact',
+  var VIEWS={work:'view-work',about:'view-about',contact:'view-contact',featured:'view-featured',
     'landing-pages':'view-landing-pages','brand-style-guides':'view-brand-style-guides',
     'visual-concepts':'view-visual-concepts','display-ads':'view-display-ads'};
   var PARENT={'landing-pages':'work','brand-style-guides':'work','visual-concepts':'work','display-ads':'work'};
@@ -404,7 +414,7 @@ body.hub-open header.mast{display:none}
   var mnav=document.getElementById('mnav');
   var menuBtn=document.getElementById('menuBtn');
   var lastFocus=null, current=null, internalNav=false;
-  function isCat(k){ return PARENT[k]==='work'; }
+  function isCat(k){ return PARENT[k]==='work' || k==='featured'; }
   function setNavCurrent(key){
     var top = isCat(key) ? 'work' : key;
     document.querySelectorAll('.mnav .nav-view').forEach(function(b){ b.setAttribute('aria-current', String(b.dataset.view===top)); });
