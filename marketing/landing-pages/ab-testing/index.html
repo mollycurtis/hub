@@ -278,7 +278,15 @@
       .subcta-btn span { font-size: 15px; }
       .tk-t { font-size: clamp(21px, 6.4vw, 27px); }
     }
-  </style>
+  .method{margin:0 0 40px;border:1px solid var(--rule);background:var(--wash);padding:22px 26px 24px}
+.method-k{font-family:var(--mono);font-size:10px;letter-spacing:0.13em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+.method-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 30px;margin:0}
+.method-grid dt{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.method-grid dd{margin:0;font-size:14px;line-height:1.55;color:var(--ink)}
+.anim-ready .method{opacity:0;transform:translateY(20px);will-change:opacity,transform}
+@media (max-width:860px){.method-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.method{padding:18px 18px 20px}.method-grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 
@@ -323,7 +331,7 @@
       <div class="sec-n">01 · Paid Search</div>
       <h2 class="sec-t">One template, tested in every state.</h2>
     </div>
-    <p class="sec-d">Every state runs its own paid campaign against a shared landing page. The redesigned template was tested across all of them. The few that dipped had no deadline that month.</p>
+    <p class="sec-d">Every state runs its own paid campaign against a shared landing page. The redesigned template was tested across all of them, each during its own deadline month.</p>
   </div>
 
   <div class="chips">
@@ -334,6 +342,17 @@
     <span class="chip">Shorter path to convert</span>
   </div>
 
+  <div class="method">
+    <div class="method-k">How it was measured</div>
+    <dl class="method-grid">
+      <div><dt>Test length</dt><dd>About one month per state</dd></div>
+      <div><dt>Timing</dt><dd>Each state during its deadline month</dd></div>
+      <div><dt>Primary metric</dt><dd>Conversion rate</dd></div>
+      <div><dt>Secondary metric</dt><dd>Engagement with each layout</dd></div>
+      <div><dt>Original page</dt><dd>A form visitors clicked through to reach one collection page</dd></div>
+      <div><dt>Redesign</dt><dd>The state's requirements up top, with quick links to each one</dd></div>
+    </dl>
+  </div>
   <table class="rt">
     <thead>
       <tr>
@@ -402,7 +421,7 @@
   <div class="reads">
     <div class="read">
       <div class="read-k">The losses</div>
-      <div class="read-b">West Virginia and Pennsylvania went down. Both were already converting well, and both were tested in a month with no deadline coming up, so fewer visitors were ready to sign up.</div>
+      <div class="read-b">West Virginia and Pennsylvania went down, even with a deadline that month. Both were already among the strongest converters before the test, so the original layout was likely already doing its job.</div>
     </div>
     <div class="read">
       <div class="read-k">The wins</div>
@@ -410,7 +429,7 @@
     </div>
     <div class="read">
       <div class="read-k">What changed after</div>
-      <div class="read-b">The states that improved kept the new page. The ones that dropped were tested again in a month with a deadline, instead of being judged on one slow month.</div>
+      <div class="read-b">The states that improved kept the new page. The two that dropped were a reminder that a page already converting well doesn't always need a redesign.</div>
     </div>
   </div>
 
@@ -594,7 +613,7 @@
       });
     }
     ['.reads .read', '.note', '.ba-shot'].forEach(function (s) { collect(s, true); });
-    ['.sec-head', '.chips', '.rt', '.kshot', '.hp-shot', '.mstrip', '.exrow', '.tk-card'].forEach(function (s) { collect(s, false); });
+    ['.sec-head', '.chips', '.method', '.rt', '.kshot', '.hp-shot', '.mstrip', '.exrow', '.tk-card'].forEach(function (s) { collect(s, false); });
     ['.mast-kicker', '.mast-title', '.mast-lede'].forEach(function (sel, i) {
       var el = document.querySelector(sel);
       if (!el || el._reveal) return;
