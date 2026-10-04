@@ -79,6 +79,7 @@ main#home{padding-top:var(--mh)}
 .cover-cta{display:flex;flex-direction:column;align-items:center;gap:var(--s3);margin:-20px clamp(16px,2vw,32px) 0 0}
 .feat-link{display:inline-flex;align-items:center;gap:.4em;font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--red-deep);text-decoration:none;border-bottom:1px solid transparent;transition:color .2s var(--ease),border-color .2s var(--ease)}
 .feat-link:hover{border-color:var(--red-deep)}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .cover-positioning{font-size:clamp(16px,1.35vw,21px);line-height:1.5;color:var(--ink-muted);max-width:64ch}
 .enter-work{display:inline-flex;align-items:center;gap:.6em;font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper);background:var(--red);border:1px solid var(--red);padding:var(--s4) var(--s7);border-radius:2px;cursor:pointer;white-space:nowrap;transition:background .25s var(--ease),border-color .25s var(--ease),transform .25s var(--ease)}
 .enter-work:hover{background:var(--red-deep);border-color:var(--red-deep)}
@@ -206,7 +207,8 @@ body.hub-open header.mast{display:none}
 .form-foot .form-status{margin-top:0}
 .contact-alt{margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--hairline);font-family:var(--mono);font-size:12px;letter-spacing:.04em;line-height:1.7;color:var(--ink-muted)}
 .contact-alt a{color:var(--ink);border-bottom:1px solid var(--hairline-strong);transition:border-color .2s;white-space:nowrap}
-.contact-alt a:hover{border-color:var(--red)}.form-status.err{color:#9a2b22}
+.contact-alt a:hover{border-color:var(--red)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}.form-status.err{color:#9a2b22}
 :focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:1px}
 .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.in{opacity:1;transform:none}
@@ -265,10 +267,11 @@ body.hub-open header.mast{display:none}
   </div>
 </header>
 <main id="home">
+  <h1 class="sr-only">Molly Curtis: digital marketer in St. Paul, Minnesota</h1>
   <section class="cover">
     <div class="cover-inner reveal">
       <span class="kicker">Digital Strategy · Creative Direction · Conversion Design</span>
-      <h1 class="cover-title">Where strategy meets <em class="mark">visual storytelling.</em></h1>
+      <div class="cover-title">Where strategy meets <em class="mark">visual storytelling.</em></div>
       <div class="cover-lower">
         <p class="cover-positioning">Blending digital strategy, content, and creative direction to create conversion-focused work across landing pages, campaigns, and brand systems with equal focus on performance and visual storytelling.</p>
         <div class="cover-cta">
@@ -379,6 +382,7 @@ body.hub-open header.mast{display:none}
         <span class="kicker">Get in touch</span>
         <h2 class="h-view contact-h" id="contact-h" data-view-focus tabindex="-1">Let's work together.</h2>
         <form id="contact-form" action="https://formspree.io/f/mzdokgor" method="POST">
+          <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="field"><label for="c-name">Name</label><input id="c-name" name="name" type="text" autocomplete="name" required></div>
           <div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" autocomplete="email" required></div>
           <div class="field"><span class="field-label" id="c-topic-label">What can I help with?</span>
@@ -551,13 +555,13 @@ body.hub-open header.mast{display:none}
       status.className='form-status'; status.textContent='';
       if(!topics.length){ status.classList.add('err'); status.textContent='Please choose at least one option.'; pick.open=true; return; }
       var data=new FormData(form); data.delete('topics'); data.append('topics', topics.join(', '));
-      btn.disabled=true; var prev=btn.textContent; btn.textContent='Sending\u2026'; track('form_submit',{});
+      btn.disabled=true; var prev=btn.textContent; btn.textContent='Sending...'; track('form_submit',{});
       fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}})
         .then(function(res){
           if(!res.ok) throw new Error('bad');
           track('generate_lead',{form_name:'Marketing inquiry',topics:topics.join(', ')});
           form.reset(); picked();
-          status.classList.add('ok'); status.textContent='Message sent! I\u2019ll be in touch soon.';
+          status.classList.add('ok'); status.textContent="Message sent! I'll be in touch soon.";
         })
         .catch(function(){ status.classList.add('err'); status.textContent='Something went wrong. Please try again or email molcur9284@gmail.com.'; track('form_error',{}); })
         .finally(function(){ btn.disabled=false; btn.textContent=prev; });
