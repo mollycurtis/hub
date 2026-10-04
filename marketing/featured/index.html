@@ -66,7 +66,7 @@ body{overflow-x:clip}
 .file{position:sticky;top:calc(var(--top0) + var(--i) * var(--step))}
 .file + .file{margin-top:calc(var(--show) - var(--body-h))}
 .file-link{position:relative;display:block;color:inherit;text-decoration:none;transform-origin:50% 0;transform:translate3d(calc((1 - var(--e,1)) * var(--dx)),calc(var(--lift) + (1 - var(--e,1)) * 46px),0) rotate(calc(var(--tilt) + (1 - var(--e,1)) * var(--swing))) scale(calc(1 - var(--c,0) * .045));transition:--lift .35s cubic-bezier(.2,.8,.2,1);will-change:transform}
-.file-link:hover,.file-link:focus-visible{--lift:-16px;outline:none}
+a.file-link:hover,a.file-link:focus-visible{--lift:-16px;outline:none}
 .file-link:focus-visible .file-tab{outline:2px solid currentColor;outline-offset:-7px}
 .file-tab{position:relative;top:1px;display:inline-flex;align-items:center;gap:14px;height:var(--tab-h);margin-left:var(--tab);padding:0 clamp(18px,2.4vw,34px);background:var(--bg);color:var(--tab-fg);border-radius:16px 16px 0 0;box-shadow:0 -10px 22px -16px rgba(0,0,0,.45);white-space:nowrap}
 .file-no{opacity:.7}
@@ -74,6 +74,10 @@ body{overflow-x:clip}
 .file-tab::after,.file-body::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:var(--texture);opacity:var(--texture-o,1)}
 .file-body::before{content:"";position:absolute;inset:0;pointer-events:none;background:var(--grain);opacity:var(--grain-o,.32);mix-blend-mode:var(--grain-mode,multiply)}
 .file-shade{position:absolute;inset:0;z-index:3;background:#000;opacity:calc(var(--c,0) * .22);pointer-events:none}
+.file:last-child .file-body{box-shadow:0 -16px 34px -22px rgba(0,0,0,.55),0 40px 0 var(--bg)}
+.file-soon{cursor:default;filter:grayscale(1) brightness(.92)}
+.file-soon .file-title{opacity:.7}
+.file-stamp{position:absolute;z-index:2;top:clamp(16px,1.8vw,28px);right:calc(4vw + clamp(18px,3.2vw,52px));padding:.55em 1em;border:2px solid rgba(255,255,255,.55);border-radius:4px;color:rgba(255,255,255,.78);font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:clamp(11px,1vw,14px);letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;transform:rotate(-4deg)}
 .file-title{position:absolute;top:clamp(4px,.9vw,14px);left:calc(4vw + clamp(18px,3.2vw,52px));white-space:nowrap;line-height:1.14;color:var(--fg)}
 .file--right .file-title{left:auto;right:calc(4vw + clamp(18px,3.2vw,52px))}
 .file--sub{--bg:#D3F0F8;--fg:#092254;--tab-fg:#0069a5;--grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");--grain-o:.22;--texture:none}
@@ -91,7 +95,7 @@ body{overflow-x:clip}
 .file--wb{--bg:#24160b;--fg:#f2cf8c;--tab-fg:#e0b060;--grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");--grain-o:.06;--grain-mode:normal;--texture:radial-gradient(ellipse 60% 90% at 85% 10%,rgba(232,176,96,.16) 0%,transparent 60%),repeating-linear-gradient(0deg,rgba(255,255,255,.028) 0 1px,transparent 1px 3px)}
 .file--wb .file-tab{font-family:'Libre Franklin',sans-serif;font-style:italic;font-weight:700;font-size:clamp(12px,1.3vw,18px);letter-spacing:.02em}
 .file--wb .file-title{font-family:'Libre Franklin',sans-serif;font-style:italic;font-weight:700;font-size:clamp(36px,8.6vw,148px);letter-spacing:-.03em;background:linear-gradient(180deg,#f7dca4 0%,#e0b060 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.08em}
-@media (max-width:640px){.files{--tab-h:42px}.file-tab{margin-left:var(--tab-m);gap:10px;padding:0 16px;font-size:11px!important}.file--nocta .file-tab,.file--wb .file-tab{font-size:12px!important}}
+@media (max-width:640px){.file-stamp{top:calc(clamp(36px,8.6vw,148px) * 1.14 + 14px);right:auto;left:calc(4vw + 20px)}.files{--tab-h:42px}.file-tab{margin-left:var(--tab-m);gap:10px;padding:0 16px;font-size:11px!important}.file--nocta .file-tab,.file--wb .file-tab{font-size:12px!important}}
 </style>
 </head>
 <body>
@@ -127,10 +131,10 @@ body{overflow-x:clip}
         </a>
       </li>
       <li class="file file--wb" style="--i:4;--tab:20%;--tab-m:8%;--tilt:-.5deg;--dx:4vw;--swing:-4deg">
-        <a class="file-link" href="../visual-concepts/welcome-back/" aria-label="Welcome Back video game case study">
+        <div class="file-link file-soon">
           <span class="file-tab"><span class="file-no">05</span><span class="file-name">Video Game</span></span>
-          <span class="file-body"><span class="file-title" aria-hidden="true">Welcome Back</span><span class="file-shade"></span></span>
-        </a>
+          <span class="file-body"><span class="file-title">Welcome Back</span><span class="file-stamp">In Development</span><span class="file-shade"></span></span>
+        </div>
       </li>
     </ol>
   </div>
