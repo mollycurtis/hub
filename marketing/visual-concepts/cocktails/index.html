@@ -421,6 +421,14 @@ body {
 @media (min-width: 1200px) and (max-width: 1599px) { :root { --card-w: 398px; } }
 @media (min-width: 1600px) and (max-width: 1999px) { :root { --card-w: 428px; } }
 @media (min-width: 2000px) { :root { --card-w: 458px; } }
+.menu-notes{background:var(--parchment);border-top:0.5px solid var(--rule-strong);padding:clamp(3.5rem,8vw,6rem) clamp(1.5rem,4vw,3rem) clamp(5.5rem,10vw,7.5rem)}
+.menu-notes-inner{max-width:1100px;margin:0 auto}
+.menu-notes-title{font-family:'Libre Baskerville',serif;font-weight:400;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.25;color:var(--text);margin:1.1rem 0 clamp(2rem,4vw,3rem);max-width:24ch}
+.menu-notes-title em{font-family:'Cormorant Garamond',serif;font-style:italic}
+.menu-notes-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.5rem,3vw,3rem);border-top:0.5px solid var(--rule-strong);padding-top:clamp(1.5rem,3vw,2rem)}
+.menu-notes-grid h3{font-family:'Barlow',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.32em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.8rem}
+.menu-notes-grid p{font-family:'Barlow',sans-serif;font-size:clamp(0.9rem,1.1vw,1rem);font-weight:300;line-height:1.8;color:var(--text-mid)}
+@media (max-width:760px){.menu-notes-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -438,7 +446,7 @@ body {
         <h1 class="hero-title" style="text-align:left;width:100%;">Cocktail Menu</h1>
       </div>
       <div class="hero-right">
-        <p class="hero-desc">Inspired by previous experience in hospitality and bartending, this concept explores cocktail storytelling through cinematic presentation, editorial-inspired layouts, and immersive visual direction.</p>
+        <p class="hero-desc">Inspired by previous experience in hospitality and bartending, this concept explores cocktail storytelling through cinematic presentation, editorial-inspired layouts, and immersive visual direction. Each drink pairs a custom illustration with its ingredients and flavor profile, so the menu sells the experience before the first sip.</p>
       </div>
     </div>
   </div>
@@ -465,6 +473,18 @@ body {
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </button>
 
+</section>
+
+<section class="menu-notes" aria-labelledby="menu-notes-h">
+  <div class="menu-notes-inner">
+    <span class="menu-label">Behind the Menu</span>
+    <h2 class="menu-notes-title" id="menu-notes-h">A menu that sells the mood <em>before the first sip</em></h2>
+    <div class="menu-notes-grid">
+      <div><h3>The idea</h3><p>Most bar menus read like an ingredient list. This concept gives every drink a name, a portrait and a personality, so guests choose with their imagination first and the specs second.</p></div>
+      <div><h3>The system</h3><p>Every card follows the same structure: name, pour size and price, ingredients, a three-part flavor profile, a garnish note and a custom illustration. The consistency keeps the menu easy to scan while the artwork carries the story.</p></div>
+      <div><h3>Why it works</h3><p>The flavor profile answers what guests usually ask the bartender, so ordering moves faster on a busy night and trying something new feels easy. The same artwork carries over to printed menus, QR menus and social posts announcing new drinks.</p></div>
+    </div>
+  </div>
 </section>
 
 <div class="dots-bar" id="dots">
