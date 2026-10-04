@@ -163,25 +163,16 @@ body.hub-open header.mast{display:none}
 .about-meta .l{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red-deep)}
 .about-meta .v{font-size:15px;line-height:1.55;color:var(--ink-soft)}
 .about-meta .v b{color:var(--ink);font-weight:600}
-#view-contact{position:fixed;inset:0;z-index:50;display:grid;align-items:end;visibility:hidden;pointer-events:none}
+#view-contact{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:14px;visibility:hidden;pointer-events:none}
 .modal-overlay{position:absolute;inset:0;background:rgba(26,23,20,.5);opacity:0;transition:opacity .45s var(--ease);cursor:pointer}
-.contact-panel{position:relative;z-index:2;width:100%;max-height:calc(100dvh - var(--mh) - var(--s3));overflow-y:auto;
-  background:var(--paper);border-radius:20px 20px 0 0;box-shadow:0 -24px 70px rgba(26,23,20,.22);
-  transform:translateY(101%);transition:transform .55s var(--swoop);padding:var(--s6) 0 var(--s6)}
+.contact-panel{position:relative;z-index:2;width:min(560px,100%);max-height:calc(100dvh - 28px);overflow-y:auto;background:var(--paper);border-radius:16px;box-shadow:0 30px 80px rgba(26,23,20,.28);opacity:0;transform:translateY(18px) scale(.98);transition:opacity .35s var(--ease),transform .45s var(--swoop);padding:clamp(22px,4vw,34px)}
 #view-contact.open{visibility:visible;pointer-events:auto}
 #view-contact.open .modal-overlay{opacity:1}
-#view-contact.open .contact-panel{transform:none}
-.contact-inner{max-width:var(--coverw);margin:0 auto;padding:0 var(--gut);position:relative}
-.contact-top{display:flex;justify-content:flex-end;margin-bottom:var(--s2)}
+#view-contact.open .contact-panel{transform:none;opacity:1}
+.contact-inner{position:relative}
+.contact-top{position:absolute;top:0;right:0;z-index:2}
 .contact-close{position:static}
-.contact-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(var(--s7),6vw,var(--s9));margin-top:var(--s4)}
-.contact-h{font-size:clamp(30px,3.8vw,52px);margin-top:var(--s3);line-height:1.04;color:var(--red)}
-.contact-lede{margin-top:var(--s4);font-size:17px;line-height:1.55;color:var(--ink-muted);max-width:42ch}
-.hiw{margin-top:var(--s5)}
-.hiw-label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red-deep);display:block;margin-bottom:var(--s4)}
-.hiw-list{list-style:none;display:flex;flex-direction:column;gap:var(--s4)}
-.hiw-list li{display:flex;gap:var(--s3);font-size:15px;line-height:1.5;color:var(--ink-soft)}
-.hiw-num{flex-shrink:0;width:24px;height:24px;border:1px solid var(--hairline-strong);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--red-deep)}
+.contact-h{font-size:clamp(26px,3vw,36px);margin:var(--s2) 0 var(--s5);line-height:1.08;color:var(--red)}
 .field{margin-bottom:var(--s4)}
 .field label{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-muted);display:block;margin-bottom:var(--s2)}
 .field input,.field textarea{width:100%;background:var(--paper-raised);border:1px solid var(--hairline-strong);color:var(--ink);font-family:var(--serif);font-size:16px;padding:var(--s3) var(--s4);border-radius:2px;outline:none;transition:border-color .2s var(--ease),background .2s var(--ease)}
@@ -191,25 +182,34 @@ body.hub-open header.mast{display:none}
 .submit:hover{background:var(--red-deep);border-color:var(--red-deep)}
 .submit:disabled{opacity:.55;cursor:default}
 .form-status{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;margin-top:var(--s3);min-height:1.2em}
-#contact-form.sent .field,#contact-form.sent #c-submit{display:none}
-#contact-form.sent .form-status{margin-top:0}
-#contact-form.sent .form-status.ok{font-family:var(--serif);font-size:clamp(20px,2.2vw,28px);line-height:1.3;letter-spacing:-.01em;color:var(--ink)}
-#contact-form.sent .form-status.ok .sent-sub{display:block;margin-top:var(--s3);font-family:var(--mono);font-size:13px;letter-spacing:.02em;color:var(--ink-muted)}
-.form-status.ok{color:var(--red-deep)}.form-status.err{color:#9a2b22}
-.contact-email{margin-top:var(--s5);display:inline-flex;align-items:center;gap:.6em;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--ink)}
-.contact-icon{width:14px;height:14px;flex-shrink:0;color:var(--red)}
-.contact-phone{display:flex;margin-top:var(--s3)}
-.contact-email a{border-bottom:1px solid var(--hairline-strong);transition:border-color .2s}
-.contact-email a:hover{border-color:var(--red)}
-.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:var(--s3) var(--s4);font-family:var(--mono);font-size:12px;z-index:200}
-.skip:focus{left:var(--s3);top:var(--s3)}
+.form-status.ok{color:#2E7D4F}
+.field-label{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-muted);display:block;margin-bottom:var(--s2)}
+.opt{text-transform:none;letter-spacing:.04em}
+.c-pick{position:relative}
+.c-pick summary{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);list-style:none;cursor:pointer;background:var(--paper-raised);border:1px solid var(--hairline-strong);border-radius:2px;padding:var(--s3) var(--s4);font-family:var(--serif);font-size:16px;color:var(--ink-muted);-webkit-user-select:none;user-select:none}
+.c-pick summary::-webkit-details-marker{display:none}
+.c-pick summary span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.c-pick summary svg{flex-shrink:0;width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s var(--ease)}
+.c-pick.has-val summary{color:var(--ink)}
+.c-pick[open] summary{border-color:var(--red)}
+.c-pick[open] summary svg{transform:rotate(180deg)}
+.c-pick-menu{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:5;padding:6px;background:var(--paper-raised);border:1px solid var(--hairline-strong);border-radius:2px;box-shadow:0 18px 40px -18px rgba(26,23,20,.35)}
+.c-pick-menu label{display:flex;align-items:center;gap:12px;padding:10px 12px;font-family:var(--serif);font-size:15px;color:var(--ink);cursor:pointer;transition:background .2s}
+.c-pick-menu label:hover{background:rgba(178,58,46,.06)}
+.c-pick-menu input{-webkit-appearance:none;appearance:none;flex-shrink:0;display:grid;place-items:center;width:16px;height:16px;margin:0;border:1px solid var(--hairline-strong);background:var(--paper);transition:background .2s,border-color .2s}
+.c-pick-menu input:checked{background:var(--red);border-color:var(--red)}
+.c-pick-menu input:checked::after{content:"";width:4px;height:8px;border:solid var(--paper);border-width:0 1.5px 1.5px 0;transform:translateY(-1px) rotate(45deg)}
+.form-foot{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3) var(--s5);margin-top:var(--s5)}
+.form-foot .form-status{margin-top:0}
+.contact-alt{margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--hairline);font-family:var(--mono);font-size:12px;letter-spacing:.04em;line-height:1.7;color:var(--ink-muted)}
+.contact-alt a{color:var(--ink);border-bottom:1px solid var(--hairline-strong);transition:border-color .2s;white-space:nowrap}
+.contact-alt a:hover{border-color:var(--red)}.form-status.err{color:#9a2b22}
 :focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:1px}
 .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.in{opacity:1;transform:none}
-.mnav .mlink,.menu-btn,.metric .l,.wh-intro .hint,.wp-index,.wp-view,.hiw-label,.hiw-num,.field label,.submit,.form-status,.contact-email,.about-meta .l,.skip{font-weight:500}
+.mnav .mlink,.menu-btn,.metric .l,.wh-intro .hint,.wp-index,.wp-view,.field label,.submit,.form-status,.about-meta .l,.field-label{font-weight:500}
 @media(max-width:1024px){
   .cover-title{font-size:clamp(38px,7.6vw,82px)}
-  .contact-grid{gap:var(--s7)}
 }
 @media(max-width:760px){
   :root{--mh:58px}
@@ -219,14 +219,6 @@ body.hub-open header.mast{display:none}
   .mnav.open{position:fixed;top:var(--mh);left:0;right:0;background:var(--paper);border-bottom:1px solid var(--red);flex-direction:column;align-items:flex-start;gap:0;padding:var(--s1) var(--gut) var(--s4);z-index:71}
   .mnav.open .mlink{display:block;padding:var(--s3) 0;font-size:15px;color:var(--red)}
   .about-meta{grid-template-columns:1fr;gap:var(--s5)}
-  .contact-grid{display:flex;flex-direction:column;gap:var(--s6)}
-  .contact-left{display:contents}
-  .contact-left .kicker{order:1}
-  .contact-left .contact-h{order:2}
-  .contact-left .contact-lede{order:3}
-  .contact-right{order:4}
-  .contact-left .hiw{order:5;margin-top:0}
-  .contact-left .contact-email{order:6;margin-top:0}
 }
 @media(max-width:640px){
   :root{--gut:24px}
@@ -245,7 +237,6 @@ body.hub-open header.mast{display:none}
   .wp-view{font-size:11px}
   .wp-body{max-width:100%}
   .tk-inner{padding-top:calc(var(--mh) + var(--s6))}
-  .contact-panel{padding-top:var(--s6);border-radius:14px 14px 0 0}
   #about-h{font-size:clamp(34px,9.5vw,46px)}
   #view-about .about-body p{font-size:16px;line-height:1.6}
   .about-figure{max-width:68%;margin-inline:auto}
@@ -254,7 +245,7 @@ body.hub-open header.mast{display:none}
 </style>
 </head>
 <body class="home-locked">
-<a class="skip" href="#contact">Skip to contact</a>
+
 <header class="mast">
   <div class="mast-inner">
     <button class="brand" id="brandHome" aria-label="Molly Curtis - home">Molly Curtis<span class="dot">.</span></button>
@@ -349,9 +340,9 @@ body.hub-open header.mast{display:none}
     <h2 class="h-view tk-reveal d1" id="about-h" data-view-focus tabindex="-1">The person behind the work.</h2>
     <div class="about-grid" style="margin-top:var(--s5)">
       <div class="about-body tk-reveal d2">
-        <p>I'm a digital marketer with a creative and analytical approach to building brands, campaigns, and digital experiences. My work sits at the intersection of strategy, design, content, and performance, from conversion-focused landing pages and web experiences to paid media, brand development, and visual content.</p>
-        <p>In less than three years, I've grown from marketing intern to digital marketing specialist while working across web, CRO, analytics, paid media, content, and creative work. I enjoy taking an idea from strategy through execution, figuring out what makes it effective, and building systems that make the work better and more scalable.</p>
-        <p>Marketing is always evolving, and I enjoy staying current, adapting quickly, and creating work that reflects how people discover, engage, and convert. I'm especially drawn to work where marketing and creativity come together, turning strong ideas into experiences that people notice, engage with, and remember.</p>
+        <p>I'm Molly, a digital marketer based in St. Paul, Minnesota. I build conversion-focused landing pages, run A/B tests, and create the campaign creative that brings them to life, with equal focus on how the work looks and how it performs.</p>
+        <p>In just over three years, I've grown from marketing intern to digital marketing specialist, working across web, CRO, SEO, GA4 analytics, paid media, and content. I like owning an idea from strategy through launch, then reading the data to make it better.</p>
+        <p>Outside of marketing, I'm a nationally published photographer and interior stylist, so visual storytelling comes naturally. Across all of it, the goal stays the same: work that looks intentional and earns results.</p>
         <a class="resume-link" href="Molly_Curtis_Resume.pdf" target="_blank" rel="noopener" aria-label="View Resume">View Resume <span aria-hidden="true">→</span></a>
       </div>
       <figure class="about-figure tk-reveal d3">
@@ -363,7 +354,7 @@ body.hub-open header.mast{display:none}
         <div class="about-meta tk-reveal d3">
       <div class="row"><span class="l">Currently</span><span class="v"><b>Digital Marketing Specialist</b><br>National Business Institute · June 2023–Present</span></div>
       <div class="row"><span class="l">Education</span><span class="v"><b>BBA, Marketing</b><br>University of Wisconsin–Eau Claire · 2023</span></div>
-      <div class="row"><span class="l">Location</span><span class="v"><b>Eau Claire, WI → St. Paul, MN</b><br>Open to remote</span></div>
+      <div class="row"><span class="l">Location</span><span class="v"><b>St. Paul, Minnesota</b><br>Open to remote</span></div>
     </div>
   </div>
 </section>
@@ -374,34 +365,29 @@ body.hub-open header.mast{display:none}
       <div class="contact-top">
         <button class="tk-close contact-close" data-close data-parent="" aria-label="Close contact">Close <span class="x" aria-hidden="true">✕</span></button>
       </div>
-      <div class="contact-grid">
-        <div class="contact-left">
-          <span class="kicker">Creative Marketing</span>
-          <h2 class="h-view contact-h" id="contact-h" data-view-focus tabindex="-1">Let's connect.</h2>
-          <p class="contact-lede">I'm always interested in hearing about thoughtful marketing, creative, and digital opportunities.</p>
-          <div class="hiw">
-            <span class="hiw-label">How I Work</span>
-            <ol class="hiw-list">
-              <li><span class="hiw-num">1</span><span>Strategy first. I start by understanding the audience, goal, and what success actually looks like</span></li>
-              <li><span class="hiw-num">2</span><span>Visual direction that's intentional. Every design choice serves the story</span></li>
-              <li><span class="hiw-num">3</span><span>Execution across brand, content, and campaign creative with consistency</span></li>
-              <li><span class="hiw-num">4</span><span>Work that earns attention and drives real results</span></li>
-            </ol>
+      <div class="contact-box">
+        <span class="kicker">Get in touch</span>
+        <h2 class="h-view contact-h" id="contact-h" data-view-focus tabindex="-1">Let's work together.</h2>
+        <form id="contact-form" action="https://formspree.io/f/mzdokgor" method="POST">
+          <div class="field"><label for="c-name">Name</label><input id="c-name" name="name" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" autocomplete="email" required></div>
+          <div class="field"><span class="field-label" id="c-topic-label">What can I help with?</span>
+            <details class="c-pick" id="c-pick">
+              <summary aria-labelledby="c-topic-label c-pick-text"><span id="c-pick-text">Select one or more</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+              <div class="c-pick-menu" role="group" aria-labelledby="c-topic-label">
+                <label><input type="checkbox" name="topics" value="Full-time role"> Full-time role</label>
+                <label><input type="checkbox" name="topics" value="Freelance project"> Freelance project</label>
+                <label><input type="checkbox" name="topics" value="Landing pages + CRO"> Landing pages + CRO</label>
+                <label><input type="checkbox" name="topics" value="Display ads + paid media"> Display ads + paid media</label>
+                <label><input type="checkbox" name="topics" value="Brand + creative direction"> Brand + creative direction</label>
+                <label><input type="checkbox" name="topics" value="Something else"> Something else</label>
+              </div>
+            </details>
           </div>
-          <div class="contact-email"><svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><a class="track-out" data-label="email" href="mailto:molcur9284@gmail.com">molcur9284@gmail.com</a></div>
-          <div class="contact-email contact-phone"><svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3.9c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1L6.6 10.8z"/></svg><a class="track-out" data-label="phone" href="tel:+16128457958">612-845-7958</a></div>
-        </div>
-        <div class="contact-right">
-          <form id="contact-form" novalidate action="https://formspree.io/f/mzdokgor" method="POST">
-            <div class="field"><label for="c-name">Your name</label><input id="c-name" name="name" type="text" placeholder="Full name" required></div>
-            <div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" placeholder="your@email.com" required></div>
-            <div class="field"><label for="c-role">Company or organization</label><input id="c-role" name="company_or_role" type="text" placeholder="Where are you reaching out from?"></div>
-            <div class="field"><label for="c-opp">What are you reaching out about?</label><input id="c-opp" name="opportunity" type="text" placeholder="Role, project, collaboration, or something else…"></div>
-            <div class="field"><label for="c-msg">Additional context</label><textarea id="c-msg" name="message" placeholder="Anything you'd like me to know?" required></textarea></div>
-            <button class="submit" type="submit" id="c-submit">Send message</button>
-            <p class="form-status" id="c-status" role="status" aria-live="polite"></p>
-          </form>
-        </div>
+          <div class="field"><label for="c-msg">Message <span class="opt">(optional)</span></label><textarea id="c-msg" name="message" placeholder="Tell me a little about the role or project."></textarea></div>
+          <div class="form-foot"><button class="submit" type="submit" id="c-submit">Send message</button><p class="form-status" id="c-status" role="status" aria-live="polite"></p></div>
+        </form>
+        <p class="contact-alt">Prefer email? <a class="track-out" data-label="email" href="mailto:molcur9284@gmail.com">molcur9284@gmail.com</a> · <a class="track-out" data-label="phone" href="tel:+16128457958">612-845-7958</a></p>
       </div>
     </div>
   </div>
@@ -535,15 +521,35 @@ body.hub-open header.mast{display:none}
   document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
     var form=document.getElementById('contact-form');
   if(form){
-    form.addEventListener('submit',function(e){
+    var pick=document.getElementById('c-pick'), pickText=document.getElementById('c-pick-text');
+    var status=document.getElementById('c-status'), btn=document.getElementById('c-submit');
+    var boxes=[].slice.call(pick.querySelectorAll('input'));
+    var picked=function(){
+      var v=boxes.filter(function(b){ return b.checked; }).map(function(b){ return b.value; });
+      pickText.textContent=v.length ? v.join(', ') : 'Select one or more';
+      pick.classList.toggle('has-val', v.length>0);
+      return v;
+    };
+    boxes.forEach(function(b){ b.addEventListener('change', function(){
+      picked();
+      if(status.classList.contains('err')){ status.className='form-status'; status.textContent=''; }
+    }); });
+    document.addEventListener('click', function(e){ if(pick.open && !pick.contains(e.target)) pick.open=false; });
+    form.addEventListener('submit', function(e){
       e.preventDefault();
-      var btn=document.getElementById('c-submit'), status=document.getElementById('c-status');
+      var topics=picked();
       status.className='form-status'; status.textContent='';
-      if(!form.checkValidity()){ status.classList.add('err'); status.textContent='Please complete the required fields.'; return; }
-      btn.disabled=true; var prev=btn.textContent; btn.textContent='Sending…'; track('form_submit',{});
-      fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
-        .then(function(res){ if(res.ok){ track('generate_lead',{form_name:'Marketing inquiry'}); form.reset(); form.classList.add('sent'); status.classList.add('ok'); status.innerHTML='Thanks for reaching out. I\u2019ll be in touch soon.<span class="sent-sub">Talk to you shortly.</span>'; track('form_success',{}); } else { throw new Error('bad'); } })
-        .catch(function(){ status.classList.add('err'); status.textContent='Something went wrong. Email molcur9284@gmail.com directly.'; track('form_error',{}); })
+      if(!topics.length){ status.classList.add('err'); status.textContent='Please choose at least one option.'; pick.open=true; return; }
+      var data=new FormData(form); data.delete('topics'); data.append('topics', topics.join(', '));
+      btn.disabled=true; var prev=btn.textContent; btn.textContent='Sending\u2026'; track('form_submit',{});
+      fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}})
+        .then(function(res){
+          if(!res.ok) throw new Error('bad');
+          track('generate_lead',{form_name:'Marketing inquiry',topics:topics.join(', ')});
+          form.reset(); picked();
+          status.classList.add('ok'); status.textContent='Message sent! I\u2019ll be in touch soon.';
+        })
+        .catch(function(){ status.classList.add('err'); status.textContent='Something went wrong. Please try again or email molcur9284@gmail.com.'; track('form_error',{}); })
         .finally(function(){ btn.disabled=false; btn.textContent=prev; });
     });
   }
