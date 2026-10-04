@@ -296,29 +296,6 @@ img, svg { display: block; }
   text-align: right;
 }
 
-.ar-divider {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: clamp(0.8rem,1.5vw,1.2rem) clamp(1.5rem,5vw,3.5rem);
-  max-width: var(--max-content);
-  margin: 0 auto;
-}
-
-.ar-divider-line {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(154,122,82,0.15), transparent);
-}
-
-.ar-divider-text {
-  font-size: clamp(0.7rem,1.2vw,0.85rem);
-  color: var(--amber-dim);
-  letter-spacing: 0.08em;
-  opacity: 0.45;
-  white-space: nowrap;
-}
-
 .notes-section {
   padding: var(--sp-2xl) 0 var(--sp-xl);
   position: relative;
@@ -755,7 +732,6 @@ img, svg { display: block; }
   .hero-sub { font-size: 0.5rem; letter-spacing: 0.2em; line-height: 1.8; margin-top: 0.6rem; max-width: 300px; }
   .hero-ar-phrase { font-size: 0.6rem; margin-top: 0.4rem; }
 
-  .ar-divider { padding: 1rem clamp(1.5rem,5vw,3.5rem); }
   .notes-section { padding: 2.5rem 0 1.5rem; }
   .note-block { padding: 1.75rem 1.25rem; }
   .note-tier { font-size: 0.48rem; letter-spacing: 0.32em; margin-bottom: 0.7rem; }
@@ -788,6 +764,20 @@ img, svg { display: block; }
   }
 }
 
+.notes-section,.campaign-section,.sensory-section{padding:clamp(3.5rem,7vw,5.5rem) 0;background:none}
+.notes-section::after{display:none}
+.campaign-section .campaign-header,.notes-section .campaign-header,.sensory-section .campaign-header{padding-bottom:clamp(1.5rem,3vw,2.25rem)}
+.fx-section{position:relative;padding:clamp(3.5rem,7vw,5.5rem) 0}
+.fx-intro{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(1.15rem,2vw,1.45rem);line-height:1.6;letter-spacing:0.01em;color:var(--ivory);max-width:46rem;margin-top:1.1rem}
+.fx-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:rgba(154,122,82,0.14);border:1px solid rgba(154,122,82,0.14)}
+.fx-grid.fx-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.fx-grid.fx-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.fx-cell{background:var(--black);padding:clamp(1.5rem,3vw,2.25rem)}
+.fx-cell h3,.fx-measure h3{font-family:'Josefin Sans',sans-serif;font-weight:700;font-size:0.62rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--amber);margin-bottom:0.9rem}
+.fx-cell p,.fx-measure p{font-family:'Josefin Sans',sans-serif;font-weight:300;font-size:clamp(0.85rem,1.2vw,0.95rem);line-height:1.9;letter-spacing:0.04em;color:var(--ivory-dim)}
+.fx-measure{margin-top:clamp(1.5rem,3vw,2.25rem);padding-top:clamp(1.25rem,2.5vw,1.75rem);border-top:1px solid rgba(154,122,82,0.18);max-width:52rem}
+@media (max-width:1000px){.fx-grid.fx-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.fx-grid,.fx-grid.fx-3,.fx-grid.fx-4{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -814,17 +804,31 @@ img, svg { display: block; }
   </div>
 </section>
 
-<div class="ar-divider" aria-hidden="true">
-  <div class="ar-divider-line"></div>
-  <span class="ar-divider-text ar">سَحَر · عِطْر</span>
-  <div class="ar-divider-line"></div>
-</div>
+<section class="fx-section" id="brief">
+  <div class="content-wrap">
+    <div class="campaign-header">
+      <span class="section-label">Spec Campaign · The Brief</span>
+      <h2 class="section-title">Selling a scent <em>through a screen</em></h2>
+      <p class="fx-intro">SAHAR is a self-initiated campaign concept for a niche gourmand fragrance. The challenge was making a new scent feel desirable before anyone could smell it.</p>
+    </div>
+    <div class="fx-grid">
+      <div class="fx-cell"><h3>The challenge</h3><p>Launch an unknown fragrance into a crowded luxury category with no celebrity face and a modest budget, where most shoppers discover new scents online and can't try them first.</p></div>
+      <div class="fx-cell"><h3>The audience</h3><p>Fragrance lovers in their mid-20s to early 40s who choose niche over designer, research scents through reviews and creators, and buy into story and ritual more than logos.</p></div>
+      <div class="fx-cell"><h3>The insight</h3><p>People don't buy notes, they buy a moment. The quiet hour before dawn is a feeling almost everyone knows, and no fragrance owns it yet.</p></div>
+      <div class="fx-cell"><h3>The positioning</h3><p>SAHAR, Arabic for the hour before dawn, is the scent of quiet ritual: warm, intimate and unhurried. Every touchpoint translates smell into light, texture and memory.</p></div>
+    </div>
+  </div>
+</section>
 
 <section class="notes-section" id="notes">
   <div class="notes-ar-bg ar" aria-hidden="true">س</div>
   <div class="content-wrap">
-
-  </div>
+      <div class="campaign-header">
+        <span class="section-label">The Scent</span>
+        <h2 class="section-title">Three acts, <em>one ritual</em></h2>
+        <p class="fx-intro">The notes are written as a story that moves from first spark to lingering warmth, so the copy can describe a scent people can't sample online.</p>
+      </div>
+    </div>
   <div class="site-wrap">
     <div class="notes-grid">
 
@@ -855,12 +859,6 @@ img, svg { display: block; }
     </div>
   </div>
 </section>
-
-<div class="ar-divider" aria-hidden="true">
-  <div class="ar-divider-line"></div>
-  <span class="ar-divider-text ar">حَمْلَة</span>
-  <div class="ar-divider-line"></div>
-</div>
 
 <section class="campaign-section" id="campaign">
   <div class="content-wrap">
@@ -906,15 +904,28 @@ img, svg { display: block; }
   </div>
 </section>
 
-<div class="ar-divider" aria-hidden="true">
-  <div class="ar-divider-line"></div>
-  <span class="ar-divider-text ar">قِصَّة العِطْر</span>
-  <div class="ar-divider-line"></div>
-</div>
+<section class="fx-section" id="direction">
+  <div class="content-wrap">
+    <div class="campaign-header">
+      <span class="section-label">Creative Direction</span>
+      <h2 class="section-title">Why it <em>looks this way</em></h2>
+    </div>
+    <div class="fx-grid fx-4">
+      <div class="fx-cell"><h3>Light</h3><p>Low, warm side light and long shadows recreate the hour before dawn, so every image reads as the same quiet moment.</p></div>
+      <div class="fx-cell"><h3>Texture</h3><p>Smoke, skin, silk and resin stand in for the notes. When a fragrance can't be smelled online, texture has to do the selling.</p></div>
+      <div class="fx-cell"><h3>Palette</h3><p>Amber, espresso and deep plum come from the ingredients and the pre-dawn sky, and stay consistent across product, social and print.</p></div>
+      <div class="fx-cell"><h3>Type</h3><p>A soft italic serif carries the intimacy of the scent, and Arabic calligraphy honors the meaning behind the name.</p></div>
+    </div>
+  </div>
+</section>
 
 <section class="sensory-section">
   <div class="sensory-ar-bg ar" aria-hidden="true">حَر</div>
   <div class="content-wrap">
+    <div class="campaign-header">
+      <span class="section-label">The Copy</span>
+      <h2 class="section-title">Lines written <em>to be felt</em></h2>
+    </div>
     <div class="sensory-quotes">
 
       <div class="sensory-quote">
@@ -958,6 +969,21 @@ img, svg { display: block; }
       </div>
 
     </div>
+  </div>
+</section>
+
+<section class="fx-section" id="launch">
+  <div class="content-wrap">
+    <div class="campaign-header">
+      <span class="section-label">Go-To-Market</span>
+      <h2 class="section-title">How it would <em>launch</em></h2>
+    </div>
+    <div class="fx-grid fx-3">
+      <div class="fx-cell"><h3>01 · Tease</h3><p>Two weeks of smoke, dawn light and skin close-ups on Instagram and TikTok, with no product shown, to build curiosity around the hour before dawn.</p></div>
+      <div class="fx-cell"><h3>02 · Launch</h3><p>Reveal the bottle with the hero image, send discovery samples to niche fragrance creators, and lead with a sample-first offer so new customers can try before they commit.</p></div>
+      <div class="fx-cell"><h3>03 · Sustain</h3><p>Invite customers to share their own hour before dawn, then retarget engaged viewers with display and paid social built from the sensory lines.</p></div>
+    </div>
+    <div class="fx-measure"><h3>How success would be measured</h3><p>Sample requests and sample-to-full-size conversion, engagement on teaser content, creator reviews and customer posts, and growth in branded search.</p></div>
   </div>
 </section>
 
