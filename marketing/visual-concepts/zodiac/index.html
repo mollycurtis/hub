@@ -3,11 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Under This Sky</title>
-  <meta name="description" content="Enter your name, birthday, birth time and birthplace to draw your natal chart: Sun, Moon, rising sign, every planet, houses, aspects, moon phase and more.">
+  <title>Under This Sky: Natal Chart | Molly Curtis</title>
+  <meta name="description" content="Enter your birthday, time and place to draw your full natal chart: Sun, Moon, rising sign, every planet, houses, aspects and moon phase.">
   <meta name="theme-color" content="#0c1f3d">
-  <meta property="og:title" content="Under This Sky">
-  <meta property="og:description" content="Draw the sky you were born under. A natal chart experience.">
+  <link rel="canonical" href="https://molly-curtis.com/marketing/visual-concepts/zodiac/">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Molly Curtis">
+  <meta property="og:title" content="Under This Sky: Natal Chart | Molly Curtis">
+  <meta property="og:description" content="Draw the sky you were born under. Enter your birthday, time and place for your full natal chart.">
+  <meta property="og:url" content="https://molly-curtis.com/marketing/visual-concepts/zodiac/">
+  <meta property="og:image" content="https://res.cloudinary.com/dih43qroh/image/upload/c_fill,g_face,w_1200,h_630,q_auto/v1790814743/molly2_ty637m.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://res.cloudinary.com/dih43qroh/image/upload/c_fill,g_face,w_1200,h_630,q_auto/v1790814743/molly2_ty637m.jpg">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "Under This Sky", "description": "An interactive natal chart experience. Enter your birthday, time and place to see your Sun, Moon, rising sign, planets, houses, aspects and moon phase.", "url": "https://molly-curtis.com/marketing/visual-concepts/zodiac/", "image": "https://res.cloudinary.com/dih43qroh/image/upload/c_fill,g_face,w_1200,h_630,q_auto/v1790814743/molly2_ty637m.jpg", "creator": {"@type": "Person", "name": "Molly Curtis", "url": "https://molly-curtis.com/"}}</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P2HJ0XDTL6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P2HJ0XDTL6');
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Josefin+Sans:wght@300;400&display=swap" rel="stylesheet">
@@ -120,15 +138,16 @@ a { color: inherit; }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 68rem;
+  width: 100%;
+  max-width: 96rem;
   margin: 0 auto;
-  padding: 5rem clamp(1.25rem, 4vw, 3rem) 2.5rem;
+  padding: 5rem clamp(1.25rem, 5vw, 5rem) 2.5rem;
 }
 
 .intro-title {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(2.2rem, min(5.2vw, 8.5vh), 4.4rem);
+  font-size: clamp(2.2rem, min(6vw, 10.5vh), 7.5rem);
   line-height: 1.05;
   letter-spacing: -0.01em;
   margin: 0 0 1rem;
@@ -136,14 +155,15 @@ a { color: inherit; }
 }
 
 .intro-lead {
-  max-width: 46rem;
+  max-width: 58rem;
+  font-size: clamp(1rem, 1.15vw, 1.35rem);
   margin: 0 0 clamp(1.25rem, 4vh, 2.5rem);
   color: var(--mist);
 }
 
 .sentence {
   font-family: var(--serif);
-  font-size: clamp(1.4rem, min(3vw, 4.2vh), 1.95rem);
+  font-size: clamp(1.4rem, min(2.9vw, 4.8vh), 3.1rem);
   font-weight: 500;
   line-height: 1.75;
 }
@@ -178,7 +198,7 @@ a { color: inherit; }
 
 #name { width: 14ch; }
 
-#date { width: 7.6em; }
+#date { width: 6.6em; }
 
 #time { width: 5.4em; }
 
@@ -188,7 +208,7 @@ a { color: inherit; }
 
 .line-place { position: relative; z-index: 10; }
 
-.place-wrap { position: relative; display: inline-block; flex: 0 1 30ch; min-width: 14ch; }
+.place-wrap { position: relative; display: inline-block; flex: 0 1 34ch; min-width: 14ch; }
 
 #place { width: 100%; }
 
@@ -455,18 +475,21 @@ a { color: inherit; }
 
 .jump { display: flex; align-items: center; gap: 0.2rem; }
 
-.jump a {
+.jump button {
   padding: 0.4rem 0.7rem;
+  border: 0;
   border-radius: 999px;
+  background: none;
   color: var(--mist);
+  font: inherit;
   font-size: 0.85rem;
-  text-decoration: none;
+  cursor: pointer;
   transition: color 0.25s, background 0.25s;
 }
 
-.jump a:hover { color: var(--moon); background: rgba(255, 255, 255, 0.07); }
+.jump button:hover { color: var(--moon); background: rgba(255, 255, 255, 0.07); }
 
-.jump a.on { color: var(--ink); background: var(--accent); }
+.jump button.on { color: var(--ink); background: var(--accent); }
 
 .top-right { display: flex; align-items: center; gap: 1rem; }
 
@@ -477,33 +500,85 @@ a { color: inherit; }
   font-variant-numeric: tabular-nums;
 }
 
-html.deck-on { scroll-snap-type: y mandatory; }
+html.deck-on, html.deck-on body { height: 100%; overflow: hidden; }
+
+.deck {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  perspective: 1800px;
+}
 
 .slide {
-  position: relative;
-  min-height: 100vh;
-  min-height: 100svh;
+  position: absolute;
+  inset: 0;
   display: flex;
-  align-items: center;
-  padding: 5.5rem clamp(1.25rem, 5vw, 4.5rem) 3.5rem;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+  flex-direction: column;
+  padding: 5.5rem clamp(1.25rem, 5vw, 5rem) 4.5rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(14%) rotateX(14deg) scale(0.96);
+  transform-origin: 50% 0%;
+  transition: opacity 0.6s var(--ease), transform 0.95s var(--ease), visibility 0s linear 0.95s;
+}
+
+.slide::-webkit-scrollbar { display: none; }
+
+.slide.above { transform: translateY(-14%) rotateX(-14deg) scale(0.96); transform-origin: 50% 100%; }
+
+.slide.current {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.7s var(--ease) 0.15s, transform 0.95s var(--ease), visibility 0s;
 }
 
 .slide-in {
   width: 100%;
-  max-width: 78rem;
-  margin: 0 auto;
+  max-width: 100rem;
+  margin: auto;
 }
 
-.flip .slide-in {
-  opacity: 0;
-  transform: perspective(1600px) rotateX(16deg) translateY(70px) scale(0.97);
-  transform-origin: 50% 0%;
-  transition: opacity 0.7s var(--ease), transform 1.1s var(--ease);
+.next {
+  position: fixed;
+  left: 50%;
+  bottom: clamp(0.9rem, 2.5vh, 1.6rem);
+  z-index: 15;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--accent-soft);
+  background: rgba(12, 31, 61, 0.7);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--moon);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transform: translateX(-50%);
+  transition: border-color 0.25s, background 0.25s;
 }
 
-.flip .slide.in .slide-in { opacity: 1; transform: none; }
+.next:hover { border-color: var(--accent); background: rgba(22, 50, 94, 0.85); }
+
+.next span { color: var(--accent); animation: nudge 1.8s ease-in-out infinite; }
+
+.next b { font-weight: 400; }
+
+.back-link {
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: var(--mist);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+
+.back-link:hover { color: var(--accent); }
 
 .kicker {
   margin: 0 0 1rem;
@@ -872,7 +947,7 @@ html.deck-on { scroll-snap-type: y mandatory; }
   transition: width 1.2s var(--ease) 0.3s;
 }
 
-.slide.in .mt .fill { width: var(--w); }
+.slide.current .mt .fill { width: var(--w); }
 
 .mix-text { margin: 0; font-size: 1.02rem; }
 
@@ -991,8 +1066,7 @@ html.deck-on { scroll-snap-type: y mandatory; }
 @keyframes leave { to { opacity: 0; transform: translateY(-20px); } }
 
 @media (max-width: 860px) {
-  html.deck-on { scroll-snap-type: y proximity; }
-  .slide { padding: 5rem 1.5rem 3rem 1.25rem; }
+  .slide { padding: 5rem 1.6rem 5rem 1.25rem; }
   .two, .two.even, .guide, .big-three, .tiles { grid-template-columns: minmax(0, 1fr); }
   .two { gap: 2rem; }
   .sign-badge { max-width: 14rem; }
@@ -1006,12 +1080,20 @@ html.deck-on { scroll-snap-type: y mandatory; }
   .dots button::after { display: none; }
 }
 
+@media (min-width: 1600px) and (min-height: 860px) {
+  html { font-size: 112.5%; }
+}
+
+@media (min-width: 2200px) and (min-height: 1200px) {
+  html { font-size: 125%; }
+}
+
 @media (max-width: 1180px) {
   .jump { display: none; }
 }
 
 @media (min-width: 861px) and (max-height: 820px) {
-  .slide { padding-top: 4.75rem; padding-bottom: 2rem; }
+  .slide { padding-top: 4.75rem; padding-bottom: 3.75rem; }
   .slide-lead { margin-bottom: 1.25rem; }
   .body { font-size: 1rem; margin-bottom: 1rem; }
   .fact { margin-top: 1rem; padding: 0.8rem 1rem; }
@@ -1047,7 +1129,8 @@ html.deck-on { scroll-snap-type: y mandatory; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal *, .intro.leaving { animation: none !important; opacity: 1 !important; stroke-dashoffset: 0 !important; transform: none !important; }
-  .sign-badge::before, .scroll-hint span { animation: none; }
+  .sign-badge::before, .scroll-hint span, .next span { animation: none; }
+  .slide, .slide.current, .slide.above { transform: none; transition: opacity 0.2s, visibility 0s; }
   .pcard-in, .mt .fill { transition: none; }
 }
 </style>
@@ -1058,6 +1141,7 @@ html.deck-on { scroll-snap-type: y mandatory; }
   <header class="top">
     <a class="wordmark" href="#intro">Under this sky</a>
     <div class="top-right">
+      <a class="back-link" id="back-link" href="https://molly-curtis.com/marketing/#visual-concepts">&larr; Visual Concepts</a>
       <nav class="jump" id="jump" hidden aria-label="Chart sections"></nav>
       <span class="counter" id="counter" hidden></span>
     </div>
@@ -1112,7 +1196,7 @@ html.deck-on { scroll-snap-type: y mandatory; }
           <p class="kicker" id="born"></p>
           <h2 class="slide-title" id="headline"></h2>
           <div class="big-three" id="big-three"></div>
-          <p class="scroll-hint"><span aria-hidden="true">&darr;</span> Scroll to flip through your chart</p>
+          <p class="scroll-hint"><span aria-hidden="true">&darr;</span> Scroll, swipe or use your arrow keys to flip through your chart</p>
         </div>
       </section>
 
@@ -1212,6 +1296,7 @@ html.deck-on { scroll-snap-type: y mandatory; }
   </main>
 
   <nav class="dots" id="dots" hidden aria-label="Chart slides"></nav>
+  <button type="button" class="next" id="next" hidden><span aria-hidden="true">&darr;</span><b id="next-label"></b></button>
 
 <script>
 const SIGNS = [
@@ -2903,37 +2988,102 @@ const ASTRO = (() => {
     }
   }
 
+  let slides = [];
+  let current = 0;
+  let locked = false;
+  let ready = true;
+  let quiet = null;
+  const deckOn = () => document.documentElement.classList.contains("deck-on");
+
+  function goTo(i) {
+    i = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, n) => {
+      const on = n === i;
+      s.classList.toggle("current", on);
+      s.classList.toggle("above", n < i);
+      s.setAttribute("aria-hidden", on ? "false" : "true");
+      s.inert = !on;
+    });
+    current = i;
+    slides[i].scrollTop = 0;
+    [...$("dots").children].forEach((b, n) => b.classList.toggle("on", n === i));
+    $("counter").textContent = `${i + 1} / ${slides.length}`;
+    const links = [...$("jump").children];
+    const active = links.filter(l => +l.dataset.at <= i).pop();
+    links.forEach(l => l.classList.toggle("on", l === active));
+    const next = slides[i + 1];
+    $("next").hidden = !next;
+    if (next) $("next-label").textContent = `Next: ${next.dataset.label}`;
+    onSlideIn(slides[i]);
+    locked = true;
+    setTimeout(() => { locked = false; }, reducedMotion ? 200 : 850);
+  }
+
+  function step(dir) {
+    if (locked) return;
+    goTo(current + dir);
+  }
+
+  function atEdge(dir) {
+    const s = slides[current];
+    return dir > 0 ? s.scrollTop + s.clientHeight >= s.scrollHeight - 2 : s.scrollTop <= 2;
+  }
+
   function wireDeck() {
-    const slides = [...document.querySelectorAll(".slide")];
+    slides = [...document.querySelectorAll(".slide")];
     const dots = $("dots");
     dots.innerHTML = slides.map((s, i) => `<button type="button" data-i="${i}" aria-label="${s.dataset.label}"></button>`).join("");
     dots.addEventListener("click", e => {
       const b = e.target.closest("button");
-      if (b) slides[+b.dataset.i].scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
+      if (b) goTo(+b.dataset.i);
     });
-    const flipObs = new IntersectionObserver(entries => entries.forEach(en => {
-      en.target.classList.toggle("in", en.isIntersecting);
-      if (en.isIntersecting) onSlideIn(en.target);
-    }), { threshold: 0.2 });
     const sections = [["s-basics", "Basics"], ["s-sun", "Big three"], ["s-wheel", "Wheel"], ["s-planets", "Planets"], ["s-houses", "Life areas"], ["s-mix", "Your mix"], ["s-links", "Connections"], ["s-facts", "Fun facts"]];
     const jump = $("jump");
-    jump.innerHTML = sections.map(([id, label]) => `<a href="#${id}" data-at="${slides.findIndex(s => s.id === id)}">${label}</a>`).join("");
+    jump.innerHTML = sections.map(([id, label]) => `<button type="button" data-at="${slides.findIndex(s => s.id === id)}">${label}</button>`).join("");
     jump.addEventListener("click", e => {
-      const a = e.target.closest("a");
-      if (!a) return;
-      e.preventDefault();
-      slides[+a.dataset.at].scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
+      const b = e.target.closest("button");
+      if (b) goTo(+b.dataset.at);
     });
-    const links = [...jump.children];
-    const activeObs = new IntersectionObserver(entries => entries.forEach(en => {
-      if (!en.isIntersecting) return;
-      const i = slides.indexOf(en.target);
-      [...dots.children].forEach((b, n) => b.classList.toggle("on", n === i));
-      $("counter").textContent = `${i + 1} / ${slides.length}`;
-      const current = links.filter(a => +a.dataset.at <= i).pop();
-      links.forEach(a => a.classList.toggle("on", a === current));
-    }), { rootMargin: "-50% 0px -50% 0px" });
-    slides.forEach(s => { flipObs.observe(s); activeObs.observe(s); });
+    $("next").addEventListener("click", () => goTo(current + 1));
+
+    window.addEventListener("wheel", e => {
+      if (!deckOn() || Math.abs(e.deltaY) < 4) return;
+      const dir = Math.sign(e.deltaY);
+      if (!atEdge(dir)) return;
+      e.preventDefault();
+      clearTimeout(quiet);
+      quiet = setTimeout(() => { ready = true; }, 200);
+      if (ready && !locked) {
+        ready = false;
+        step(dir);
+      }
+    }, { passive: false });
+
+    window.addEventListener("keydown", e => {
+      if (!deckOn() || e.target.closest("input, textarea")) return;
+      const keys = { ArrowDown: 1, PageDown: 1, ArrowUp: -1, PageUp: -1 };
+      let dir = keys[e.key];
+      if (e.key === " " && !e.target.closest("button, a")) dir = e.shiftKey ? -1 : 1;
+      if (e.key === "Home") { e.preventDefault(); goTo(0); return; }
+      if (e.key === "End") { e.preventDefault(); goTo(slides.length - 1); return; }
+      if (!dir || !atEdge(dir)) return;
+      e.preventDefault();
+      step(dir);
+    });
+
+    let touch = null;
+    window.addEventListener("touchstart", e => {
+      if (!deckOn() || e.touches.length !== 1) return;
+      touch = { y: e.touches[0].clientY, down: atEdge(1), up: atEdge(-1) };
+    }, { passive: true });
+    window.addEventListener("touchend", e => {
+      if (!touch || !deckOn()) return;
+      const dy = touch.y - e.changedTouches[0].clientY;
+      if (dy > 60 && touch.down) step(1);
+      else if (dy < -60 && touch.up) step(-1);
+      touch = null;
+    }, { passive: true });
+
     document.addEventListener("click", e => {
       const card = e.target.closest(".pcard");
       if (card) {
@@ -2970,13 +3120,14 @@ const ASTRO = (() => {
     const go = () => {
       intro.hidden = true;
       intro.classList.remove("leaving");
+      window.scrollTo({ top: 0, behavior: "instant" });
       document.documentElement.classList.add("deck-on");
-      if (!reducedMotion) document.documentElement.classList.add("flip");
       results.hidden = false;
       $("dots").hidden = false;
       $("counter").hidden = false;
       $("jump").hidden = false;
-      window.scrollTo({ top: 0, behavior: "instant" });
+      $("back-link").hidden = true;
+      goTo(0);
     };
     if (reducedMotion || fromLink) go();
     else {
@@ -2990,7 +3141,9 @@ const ASTRO = (() => {
     $("dots").hidden = true;
     $("counter").hidden = true;
     $("jump").hidden = true;
-    document.documentElement.classList.remove("deck-on", "flip");
+    $("next").hidden = true;
+    $("back-link").hidden = false;
+    document.documentElement.classList.remove("deck-on");
     $("intro").hidden = false;
     history.replaceState(null, "", location.pathname);
     window.scrollTo({ top: 0, behavior: "instant" });
