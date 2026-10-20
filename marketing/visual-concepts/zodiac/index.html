@@ -908,6 +908,81 @@ html.deck-on, html.deck-on body { height: 100%; overflow: hidden; }
 
 .hdetail p { margin: 0; color: var(--mist); }
 
+.match-best { padding: 1.5rem 1.6rem; }
+
+.match-head { display: flex; align-items: center; gap: 1.1rem; margin: 0 0 1rem; }
+
+.match-glyph {
+  flex: none;
+  width: 4.6rem;
+  height: 4.6rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--el);
+  background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--el) 28%, transparent), transparent 70%);
+  font-family: var(--glyph);
+  font-size: 2.3rem;
+  color: var(--el);
+}
+
+.match-name { margin: 0; font-family: var(--serif); font-weight: 500; font-size: 2rem; line-height: 1.1; }
+
+.match-pct { margin: 0.2rem 0 0; color: var(--accent); font-size: 0.9rem; letter-spacing: 0.04em; }
+
+.match-why { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.6rem; }
+
+.match-why li { position: relative; padding-left: 1.3rem; font-size: 0.98rem; }
+
+.match-why li::before { content: "\2726"; position: absolute; left: 0; top: 0.1em; font-size: 0.75em; color: var(--accent); }
+
+.match-side { display: grid; gap: 0.9rem; }
+
+.match-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+
+.match-card { padding: 1.1rem 1.2rem; }
+
+.match-card .match-head { gap: 0.8rem; margin-bottom: 0.6rem; }
+
+.match-card .match-glyph { width: 3rem; height: 3rem; font-size: 1.5rem; }
+
+.match-card .match-name { font-size: 1.4rem; }
+
+.match-card p.why { margin: 0; color: var(--mist); font-size: 0.9rem; line-height: 1.5; }
+
+.match-card.hard { border-color: rgba(242, 137, 107, 0.45); }
+
+.match-card.hard .match-pct { color: var(--fire); }
+
+.try { padding: 1.1rem 1.2rem; }
+
+.try-row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0.35rem; margin: 0.7rem 0 0.8rem; }
+
+.try-row button {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid var(--faint);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--moon);
+  font-family: var(--glyph);
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.try-row button:hover { border-color: var(--accent-soft); }
+
+.try-row button.on { border-color: var(--accent); background: rgba(124, 196, 255, 0.14); color: var(--accent); }
+
+.try-out { margin: 0; min-height: 3em; font-size: 0.92rem; color: var(--mist); }
+
+.try-out strong { font-weight: 500; color: var(--moon); }
+
+.match-note { margin: 1rem 0 0; font-size: 0.82rem; color: var(--mist); }
+
 .mixcol h3, .col-title { margin: 0 0 0.3rem; font-family: var(--serif); font-weight: 500; font-size: 1.7rem; }
 
 .col-sub { margin: 0 0 1rem; color: var(--mist); font-size: 0.92rem; }
@@ -1075,6 +1150,8 @@ html.deck-on, html.deck-on body { height: 100%; overflow: hidden; }
   .htiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .mix-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pair, .legend { grid-template-columns: minmax(0, 1fr); gap: 0.8rem; }
+  .match-pair { grid-template-columns: minmax(0, 1fr); }
+  .try-row { grid-template-columns: repeat(6, minmax(0, 1fr)); }
   .dots { gap: 0.5rem; right: 0.45rem; }
   .dots button { width: 7px; height: 7px; }
   .dots button::after { display: none; }
@@ -1247,6 +1324,8 @@ html.deck-on, html.deck-on body { height: 100%; overflow: hidden; }
       </section>
 
       <section class="slide" id="s-houses" data-label="Life areas" aria-labelledby="houses-title"><div class="slide-in" id="houses-slide"></div></section>
+
+      <section class="slide" id="s-match" data-label="Compatibility" aria-labelledby="match-title"><div class="slide-in" id="match-slide"></div></section>
 
       <section class="slide" id="s-mix" data-label="Your mix" aria-labelledby="mix-title">
         <div class="slide-in">
@@ -2852,6 +2931,122 @@ const ASTRO = (() => {
       </div>`;
   }
 
+  const REL_SCORE = [0.8, 0.1, 0.8, 0.2, 1, 0.1, 0.7];
+  const DESC_SCORE = [1, 0.1, 0.5, 0.2, 0.6, 0.1, 0.3];
+  const LOVE_WHAT = { Venus: "how you love", Moon: "what you need emotionally", Sun: "who you are", Mars: "your chemistry" };
+  const signGap = (a, b) => { const d = Math.abs(a - b) % 12; return Math.min(d, 12 - d); };
+
+  function loveFactors() {
+    const p = chart.placements;
+    const f = [
+      { key: "Venus", w: 1.3, idx: p.Venus.signIndex },
+      { key: "Moon", w: 1, idx: p.Moon.signIndex },
+      { key: "Sun", w: 1, idx: p.Sun.signIndex },
+      { key: "Mars", w: 0.8, idx: p.Mars.signIndex }
+    ];
+    if (chart.timeKnown) f.push({ key: "Desc", w: 1.2, idx: (chart.ascSign + 6) % 12 });
+    return f;
+  }
+
+  function factorLabel(f) {
+    const t = SIGNS[f.idx].name;
+    return f.key === "Sun" || f.key === "Moon" ? `your ${t} ${f.key}` : `your ${f.key} in ${t}`;
+  }
+
+  function reason(f, s) {
+    const sign = SIGNS[s], their = SIGNS[f.idx], d = signGap(s, f.idx);
+    if (f.key === "Desc") {
+      if (d === 0) return `${sign.name} sits on your 7th house of partners, the exact type you're wired to pair with.`;
+      if (d === 4) return `${sign.name} shares an element with ${their.name}, the sign on your house of partners, so it fits what you look for.`;
+      if (d === 2) return `${sign.name} gets along with ${their.name}, the sign on your house of partners.`;
+      return `${sign.name} isn't the type your house of partners points to, so it may not feel like "your type" at first.`;
+    }
+    const label = factorLabel(f), what = LOVE_WHAT[f.key];
+    if (d === 0) return `${sign.name} is the same sign as ${label}, so they get ${what} without you having to explain it.`;
+    if (d === 4) return `${sign.name} and ${label} are both ${sign.element.toLowerCase()} signs, a natural match for ${what}.`;
+    if (d === 2) return `${sign.element} and ${their.element.toLowerCase()} bring out the best in each other, which suits ${label}.`;
+    if (d === 6) return `${sign.name} is the opposite of ${label}. Opposites attract, and they balance ${what}.`;
+    if (d === 3) return `${sign.name} and ${label} want different things, which can cause friction around ${what}.`;
+    return `${sign.name} and ${label} have little in common, so ${what} takes extra effort.`;
+  }
+
+  function scoreSign(s) {
+    const factors = loveFactors();
+    const max = factors.reduce((a, f) => a + f.w, 0);
+    const parts = factors.map(f => {
+      const d = signGap(s, f.idx);
+      const q = f.key === "Desc" ? DESC_SCORE[d] : REL_SCORE[d];
+      return { f, q, value: f.w * q };
+    });
+    return { s, raw: parts.reduce((a, p) => a + p.value, 0) / max, parts };
+  }
+
+  function allMatches() {
+    const list = SIGNS.map((_, i) => scoreSign(i));
+    const hi = Math.max(...list.map(r => r.raw)), lo = Math.min(...list.map(r => r.raw));
+    list.forEach(r => { r.pct = Math.round(54 + 42 * (r.raw - lo) / ((hi - lo) || 1)); });
+    return list;
+  }
+
+  function matchHead(r) {
+    const sign = SIGNS[r.s];
+    return `<div class="match-head">
+      <span class="match-glyph" style="--el:${ELEMENTS[sign.element].color}" aria-hidden="true">${sign.glyph}</span>
+      <div><p class="match-name">${sign.name}</p><p class="match-pct">${r.pct}% match</p></div>
+    </div>`;
+  }
+
+  const bestReasons = (r, n) => [...r.parts].sort((a, b) => b.q - a.q || b.f.w - a.f.w).slice(0, n).map(p => reason(p.f, r.s));
+  const worstReasons = (r, n) => [...r.parts].sort((a, b) => a.q - b.q || b.f.w - a.f.w).slice(0, n).map(p => reason(p.f, r.s));
+
+  function sparkLine(r) {
+    const top = [...r.parts].sort((a, b) => b.q - a.q || b.f.w - a.f.w)[0];
+    if (top.q < 0.8) return "Not a no, just more work.";
+    return top.f.key === "Desc"
+      ? `Still, ${SIGNS[r.s].name} sits on your house of partners, so the pull is real.`
+      : `Still, it ${signGap(r.s, top.f.idx) === 0 ? "is the same sign as" : "lines up with"} ${factorLabel(top.f)}, so the spark is real.`;
+  }
+
+  function tryText(s) {
+    const r = allMatches()[s];
+    const why = r.pct >= 70 ? bestReasons(r, 1)[0] : `${worstReasons(r, 1)[0]} ${sparkLine(r)}`;
+    return `<strong>${SIGNS[s].name}: ${r.pct}% match.</strong> ${why}`;
+  }
+
+  function renderMatch() {
+    const ranked = allMatches().sort((a, b) => b.raw - a.raw);
+    const [best, second, third] = ranked;
+    const hard = ranked[ranked.length - 1];
+    const basis = chart.timeKnown ? "Venus, Moon, Mars, Sun and 7th house of partners" : "Venus, Moon, Mars and Sun";
+    $("match-slide").innerHTML = `<div class="two">
+      <div>
+        <p class="kicker">Compatibility</p>
+        <h2 class="slide-title" id="match-title">You click with ${SIGNS[best.s].name}.</h2>
+        <p class="slide-lead">Most compatibility charts only look at Sun signs. This one reads your ${basis}, the parts of a chart that actually describe love.</p>
+        <div class="match-best panel">
+          ${matchHead(best)}
+          <ul class="match-why">${bestReasons(best, 3).map(t => `<li>${t}</li>`).join("")}</ul>
+        </div>
+      </div>
+      <div class="match-side">
+        <div class="match-pair">
+          ${[second, third].map(r => `<div class="match-card panel">${matchHead(r)}<p class="why">${bestReasons(r, 1)[0]}</p></div>`).join("")}
+        </div>
+        <div class="match-card panel hard">
+          <p class="mini">Hardest match</p>
+          ${matchHead(hard)}
+          <p class="why">${worstReasons(hard, 1)[0]} ${sparkLine(hard)}</p>
+        </div>
+        <div class="try panel">
+          <p class="mini">Check any sign</p>
+          <div class="try-row" role="group" aria-label="Pick a sign to check your match">${SIGNS.map((s, i) => `<button type="button" data-try="${i}" aria-label="${s.name}" title="${s.name}">${s.glyph}</button>`).join("")}</div>
+          <p class="try-out" id="try-out" aria-live="polite">Tap a sign to see how you match.</p>
+        </div>
+      </div>
+    </div>
+    <p class="match-note">For a real read on a couple, both charts matter. This shows who your chart is built to click with.</p>`;
+  }
+
   function tile(label, value, text, num) {
     return `<div class="tile panel${num ? " num" : ""}"><p class="label">${label}</p><p class="value">${value}</p><p>${text}</p></div>`;
   }
@@ -2952,7 +3147,9 @@ const ASTRO = (() => {
       const pl = chart.placements[p.key];
       lines.push(`${p.label || p.key}: ${pl.sign.name}${pl.house ? `, ${ordinal(pl.house)} house` : ""}${pl.retrograde ? " (retrograde)" : ""}`);
     }
-    lines.push("", `Moon phase: ${MOON_PHASES[chart.phase].name}`, `Chinese zodiac: ${["Wood", "Fire", "Earth", "Metal", "Water"][chart.chinese.element]} ${CHINESE_ANIMALS[chart.chinese.animal].name}`);
+    const best = allMatches().sort((x, y) => y.raw - x.raw)[0];
+    lines.push("", `Most compatible with: ${SIGNS[best.s].name} (${best.pct}% match)`);
+    lines.push(`Moon phase: ${MOON_PHASES[chart.phase].name}`, `Chinese zodiac: ${["Wood", "Fire", "Earth", "Metal", "Water"][chart.chinese.element]} ${CHINESE_ANIMALS[chart.chinese.animal].name}`);
     return lines.join("\n");
   }
 
@@ -3037,7 +3234,7 @@ const ASTRO = (() => {
       const b = e.target.closest("button");
       if (b) goTo(+b.dataset.i);
     });
-    const sections = [["s-basics", "Basics"], ["s-sun", "Big three"], ["s-wheel", "Wheel"], ["s-planets", "Planets"], ["s-houses", "Life areas"], ["s-mix", "Your mix"], ["s-links", "Connections"], ["s-facts", "Fun facts"]];
+    const sections = [["s-basics", "Basics"], ["s-sun", "Big three"], ["s-wheel", "Wheel"], ["s-planets", "Planets"], ["s-houses", "Life areas"], ["s-match", "Compatibility"], ["s-mix", "Your mix"], ["s-links", "Connections"], ["s-facts", "Fun facts"]];
     const jump = $("jump");
     jump.innerHTML = sections.map(([id, label]) => `<button type="button" data-at="${slides.findIndex(s => s.id === id)}">${label}</button>`).join("");
     jump.addEventListener("click", e => {
@@ -3096,6 +3293,12 @@ const ASTRO = (() => {
         ht.classList.add("on");
         $("hdetail").innerHTML = houseDetail(+ht.dataset.house);
       }
+      const tr = e.target.closest("[data-try]");
+      if (tr) {
+        document.querySelectorAll("[data-try].on").forEach(b => b.classList.remove("on"));
+        tr.classList.add("on");
+        $("try-out").innerHTML = tryText(+tr.dataset.try);
+      }
       if (e.target.closest("[data-restart]")) restart();
     });
   }
@@ -3112,6 +3315,7 @@ const ASTRO = (() => {
     setFocus(chart.timeKnown ? "asc" : "planet", chart.timeKnown ? null : "Sun");
     renderCards();
     renderHouses();
+    renderMatch();
     renderMix();
     renderLinks();
     renderFacts(x);
